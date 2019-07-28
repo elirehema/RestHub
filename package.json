@@ -1,0 +1,28 @@
+{
+  "name": "resthub",
+  "version": "1.0.0",
+  "description": "DEMO RESTAPI's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elirehema/RestHub.git"
+  },
+  "author": "elirehema paul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elirehema/RestHub/issues"
+  },
+  "homepage": "https://github.com/elirehema/RestHub#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.5.14",
+    "mongoose-encryption": "^2.0.2"
+  }
+}
