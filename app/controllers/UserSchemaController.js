@@ -1,7 +1,7 @@
 // Import User Model
 UserAuth = require('../models/UserAuthSchema');
 // Handle index Actions
-
+var sess;
 exports.index = function (req, res) {
     UserAuth.get(function (err, user_auths) {
         if (err) {
@@ -33,19 +33,38 @@ exports.new = function (req, res) {
             message: 'Saved succesfully',
             data: user_auths
         });
-   
+
     });
 };
 // Handle view user info
 exports.view = function (req, res) {
-    UserAuth.findOne({ username: req.body.username }, function(err, user) {
-        if (err) throw err;
-
-        // test a matching password
-        user.comparePassword(req.body.password, function(err, isMatch) {
-            if (err) throw err;
-            console.log(req.body.password, isMatch); // -> Password123: true
-        });
+    UserAuth.findOne({ username: req.body.username }, function (err, user) {
+        if (err) { console.error('There was an error reading the file!', err); }
+        if (user != null) {
+            // test a matching password
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if (err) throw err;
+                if (req.body.password, isMatch) {
+                    var hour = 3600000
+                    req.session.cookie.expires = new Date(Date.now() + hour)
+                    req.session.cookie.maxAge = hour
+                    sess = req.session;
+                    sess.username = req.body.username;
+                    res.json({
+                        status: 200,
+                        session: sess,
+                        message: 'Welcome : ' + req.body.username
+                    }); // -> Password123: true
+                } else {
+                    res.send('Wrong Username or Password');
+                }
+            });
+        } else {
+            res.json({
+                status: '404',
+                message: 'Usename ' + req.body.username + '  Not Found'
+            })
+        }
     });
 
     /*UserAuth.findById(req.params.id, function (err, user_auths) {
@@ -69,19 +88,19 @@ exports.update = function (req, res) {
         if (err) {
             return res.json({ status: 201, error: err.message });
         }
-            
-            user_auths.username = req.body.username;
-            user_auths.password = req.body.password;
-            // save the user and check for errors
-            user_auths.save(function (err) {
-                if (err)
-                    res.json(err);
-                res.json({
-                    message: 'User Info updated',
-                    data: user_auths
-                });
+
+        user_auths.username = req.body.username;
+        user_auths.password = req.body.password;
+        // save the user and check for errors
+        user_auths.save(function (err) {
+            if (err)
+                res.json(err);
+            res.json({
+                message: 'User Info updated',
+                data: user_auths
             });
-        
+        });
+
     });
 };
 // Handle delete user
