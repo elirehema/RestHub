@@ -15,10 +15,14 @@ let auths = require("./app/routes/user-auth-routes");
 
 app.use(session(
     {
+        key: 'user_sis',
         resave: true,
         saveUninitialized: true,
-        secret: 'ssshhhh',
-        cookie: {secure: true}
+        secret: 'fdsakhfdsjabgidshngaerniaerpbeijdskagkgsakjnk',
+        cookie: {
+            expires: 600000,
+            secure: true
+        }
     }
     ));
 // Configure bodyparser to handle post requests

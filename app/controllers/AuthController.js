@@ -10,6 +10,8 @@ exports.index = function (req, res) {
                 message: err.message,
             });
         }
+
+
         res.json({
             status: "success",
             message: "User retrieved successfully",
@@ -28,6 +30,7 @@ exports.new = function (req, res) {
         if (err) {
             return res.json({ status: 201, error: err.message });
         }
+
         res.json({
             status: 200,
             message: 'Saved succesfully',
@@ -49,11 +52,18 @@ exports.view = function (req, res) {
                     req.session.cookie.expires = new Date(Date.now() + hour)
                     req.session.cookie.maxAge = hour
                     sess = req.session;
+                    sess._id = user._id;
                     sess.username = req.body.username;
+                    var tokenId = jwt.sign({ id: user._id }, config.secret, {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+
                     res.json({
                         status: 200,
                         session: sess,
-                        message: 'Welcome : ' + req.body.username
+                        message: 'Login Success',
+                        data: req.body.username,
+                        accessToken: tokenId
                     }); // -> Password123: true
                 } else {
                     res.send('Wrong Username or Password');
@@ -116,4 +126,14 @@ exports.delete = function (req, res) {
         });
     });
 };
+
+exports.logout = (req, res) =>
+{
+    if(req.session.user && req.cookies.user_id){
+        res.clearCookie('user_sis');
+        res.redirect('/')
+      }else{
+          res.redirect('/');
+      }
+    };
 

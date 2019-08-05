@@ -2,6 +2,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10;
+    jwt = require('jsonwebtoken');
+    config = require('../config/config');
 
 var UserAuthSchema = new Schema({
     username: { type: String, required: true, index: { unique: true } },
