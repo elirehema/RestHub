@@ -11,16 +11,18 @@ router.get('/', function (req, res) {
 });
 
 // Import contact controller
-var UsersAuthController = require('../controllers/UserSchemaController');
+var AuthController = require('../controllers/AuthController');
 // Contact routes
 router.route('/auth')
-    .get(UsersAuthController.index)
-    .post(UsersAuthController.new);
+    .get(AuthController.index)
+    .post(AuthController.new);
 router.route('/auth/:id')
-    .patch(UsersAuthController.update)
-    .put(UsersAuthController.update)
-    .delete(UsersAuthController.delete);
+    .patch(AuthController.update)
+    .put(AuthController.update)
+    .delete(AuthController.delete);
 router.route('/auth/login')
-    .get(UsersAuthController.view)
+    .get(AuthController.view);
+router.route('/auth/logout')
+    .get(AuthController.logout);
 // Export API routes
 module.exports = router;
