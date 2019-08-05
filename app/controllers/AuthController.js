@@ -132,8 +132,9 @@ exports.logout = (req, res) =>
     if(req.session.user && req.cookies.user_id){
         res.clearCookie('user_sis');
         res.redirect('/')
+        res.status(200).send({ auth: false, token: null });
       }else{
           res.redirect('/');
       }
-    };
+};
 
