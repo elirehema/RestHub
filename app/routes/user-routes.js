@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
     });
 });
 // Import contact controller
-var userController = require('../controllers/userController');
+var userController = require('../controllers/UsersController');
 // Contact routes
 router.route('/users')
     .get(userController.index)

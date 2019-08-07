@@ -1,5 +1,5 @@
 // Import User Model
-User = require('../models/userModel');
+User = require('../models/User');
 // Handle index Actions
 
 exports.index = function (req, res) {
@@ -19,14 +19,11 @@ exports.index = function (req, res) {
 };
 // Handle create user actions
 exports.new = function (req, res) {
-    var user = new User();
-    user.username = req.body.username;
-    user.fname = req.body.fname ? req.body.fname : user.fname;
-    user.lname = req.body.lname;
-    user.phone = req.body.phone;
-    user.image = req.body.image;
-    user.email = req.body.email;
-    user.fullname = user.getFullName();
+    var user = new User({
+    UserID:req.body.userid,
+    UserInfo:{Username :req.body.username}
+
+});
 
     // save the user and check for errors
     user.save(function (err) {
