@@ -6,14 +6,14 @@ exports.index = function (req, res) {
     UserAuth.get(function (err, user_auths) {
         if (err) {
             res.json({
-                status: "error",
+                status: 500,
                 message: err.message,
             });
         }
 
 
         res.json({
-            status: "success",
+            status: 200,
             message: "User retrieved successfully",
             data: user_auths
         });
@@ -48,7 +48,7 @@ exports.view = function (req, res) {
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (err) throw err;
                 if (req.body.password, isMatch) {
-                    var hour = 3600000
+                    var hour = 3600000;
                     req.session.cookie.expires = new Date(Date.now() + hour)
                     req.session.cookie.maxAge = hour
                     sess = req.session;
@@ -59,6 +59,7 @@ exports.view = function (req, res) {
                     });
 
                     res.json({
+                        auth: true,
                         status: 200,
                         session: sess,
                         message: 'Login Success',
@@ -71,26 +72,15 @@ exports.view = function (req, res) {
             });
         } else {
             res.json({
+                auth:false,
                 status: '404',
-                message: 'Usename ' + req.body.username + '  Not Found'
+                message: 'Usename ' + req.body.username + '  Not Found',
+                accessToken: null
             })
         }
     });
 
-    /*UserAuth.findById(req.params.id, function (err, user_auths) {
-        if (err) {
-            return res.json({ status: 201, errror: err.message });
-        } else
-            if (null == user_auths) {
-                return res.json({ status: 200, message: 'No Data available! ' });
-            } else {
-                res.json({
-                    status: 202,
-                    message: 'User details loaded succesfully...',
-                    data: user_auths
-                });
-            }
-    });*/
+
 };
 // Handle update user info
 exports.update = function (req, res) {
