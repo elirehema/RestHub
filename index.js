@@ -13,6 +13,13 @@ let productRoutes = require("./app/routes/product-routes");
 let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
 
+const allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    next();
+};
+app.use(allowCrossDomain);
 app.use(session(
     {
         key: 'user_sis',
@@ -25,7 +32,7 @@ app.use(session(
         }
     }
     ));
-// Configure bodyparser to handle post requests
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable

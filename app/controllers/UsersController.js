@@ -19,11 +19,14 @@ exports.index = function (req, res) {
 };
 // Handle create user actions
 exports.new = function (req, res) {
-    var user = new User({
-    UserID:req.body.userid,
-    UserInfo:{Username :req.body.username}
-
-});
+    var user = new User();
+    user.username = req.body.username;
+    user.fname = req.body.fname ? req.body.fname : user.fname;
+    user.lname = req.body.lname;
+    user.phone = req.body.phone;
+    user.image = req.body.image;
+    user.email = req.body.email;
+    user.fullname = user.getFullName();
 
     // save the user and check for errors
     user.save(function (err) {
@@ -43,15 +46,15 @@ exports.view = function (req, res) {
         if (err) {
             return res.json({ status: 201, errror: err.message });
         } else
-            if (null == user) {
-                return res.json({ status: 200, message: 'No Data available! ' });
-            } else {
-                res.json({
-                    status: 202,
-                    message: 'User details loaded succesfully...',
-                    data: user
-                });
-            }
+        if (null == user) {
+            return res.json({ status: 200, message: 'No Data available! ' });
+        } else {
+            res.json({
+                status: 202,
+                message: 'User details loaded succesfully...',
+                data: user
+            });
+        }
     });
 };
 // Handle update user info
@@ -63,7 +66,7 @@ exports.update = function (req, res) {
         if (null == user) {
             return res.json({ status: 200, message: 'No Data available! ' });
         } else {
-            
+
             user.username = req.body.username;
             user.fname = req.body.fname ? req.body.fname : user.fname;
             user.lname = req.body.lname;
@@ -80,7 +83,7 @@ exports.update = function (req, res) {
                     data: user
                 });
             });
-        } 
+        }
     });
 };
 // Handle delete user
