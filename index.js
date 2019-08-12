@@ -12,6 +12,7 @@ let apiRoutes = require("./app/routes/api-routes");
 let productRoutes = require("./app/routes/product-routes");
 let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
+let messageRoute = require("./app/routes/message-api");
 
 const allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -57,9 +58,19 @@ app.use('/api', apiRoutes);
 app.use('/api',productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', auths);
+app.use('/api', messageRoute);
 
 
 // Launch app to listen to specified port
-app.listen(port, function () {
+const server = app.listen(port, function () {
     console.log("Running RestHub on port " + port);
+});
+
+const io = require('socket.io')(server);
+
+io.on('connection', function(socket) {
+    console.log(socket.id)
+    socket.on('SEND_MESSAGE', function(data) {
+        io.emit('MESSAGE', data)
+    });
 });
