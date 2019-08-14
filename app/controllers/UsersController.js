@@ -1,5 +1,5 @@
 // Import User Model
-User = require('../models/User');
+User = require('../models/UserModel');
 // Handle index Actions
 
 exports.index = function (req, res) {

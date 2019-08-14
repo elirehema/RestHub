@@ -28,7 +28,7 @@ exports.new = function (req, res) {
     // save the user and check for errors
     user.save(function (err, user_auths) {
         if (err) {
-            return res.json({ status: 201, error: err.message });
+            return res.json({status: 201, error: err.message});
         }
 
         res.json({
@@ -41,8 +41,10 @@ exports.new = function (req, res) {
 };
 // Handle view user info
 exports.view = function (req, res) {
-    UserAuth.findOne({ username: req.body.username }, function (err, user) {
-        if (err) { console.error('There was an error reading the file!', err); }
+    UserAuth.findOne({username: req.body.username}, function (err, user) {
+        if (err) {
+            console.error('There was an error reading the file!', err);
+        }
         if (user != null) {
             // test a matching password
             user.comparePassword(req.body.password, function (err, isMatch) {
@@ -54,7 +56,7 @@ exports.view = function (req, res) {
                     sess = req.session;
                     sess._id = user._id;
                     sess.username = req.body.username;
-                    var tokenId = jwt.sign({ id: user._id }, config.secret, {
+                    var tokenId = jwt.sign({id: user._id}, config.secret, {
                         expiresIn: 86400 // expires in 24 hours
                     });
 
@@ -72,7 +74,7 @@ exports.view = function (req, res) {
             });
         } else {
             res.json({
-                auth:false,
+                auth: false,
                 status: '404',
                 message: 'Usename ' + req.body.username + '  Not Found',
                 accessToken: null
@@ -86,7 +88,7 @@ exports.view = function (req, res) {
 exports.update = function (req, res) {
     UserAuth.findById(req.params.user_id, function (err, user_auths) {
         if (err) {
-            return res.json({ status: 201, error: err.message });
+            return res.json({status: 201, error: err.message});
         }
 
         user_auths.username = req.body.username;
@@ -117,14 +119,13 @@ exports.delete = function (req, res) {
     });
 };
 
-exports.logout = (req, res) =>
-{
-    if(req.session.user && req.cookies.user_id){
+exports.logout = (req, res) => {
+    if (req.session.user && req.cookies.user_id) {
         res.clearCookie('user_sis');
         res.redirect('/')
-        res.status(200).send({ auth: false, token: null });
-      }else{
-          res.redirect('/');
-      }
+        res.status(200).send({auth: false, token: null});
+    } else {
+        res.redirect('/');
+    }
 };
 

@@ -45,8 +45,8 @@ userSchema.methods.findUserWithSimilarname = function (cb) {
 userSchema.methods.findUserWithSimilarEmailAddress = function(email){
     return this.model('user').find({email: this.email}, email);
 };
-// Export User model
-var User = module.exports = mongoose.model('user', userSchema);
+// Export UserModel model
+var UserModel = module.exports = mongoose.model('user', userSchema);
 module.exports.get = function (callback, limit) {
-    User.find(callback).limit(limit);
+    UserModel.find(callback).limit(limit);
 };
