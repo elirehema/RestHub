@@ -52,7 +52,7 @@ exports.view = function (req, res) {
                 if (req.body.password, isMatch) {
                     var hour = 3600000;
                     req.session.cookie.expires = new Date(Date.now() + hour)
-                    req.session.cookie.maxAge = hour
+                    req.session.cookie.maxAge = hour;
                     sess = req.session;
                     sess._id = user._id;
                     sess.username = req.body.username;
