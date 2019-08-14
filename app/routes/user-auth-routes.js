@@ -21,7 +21,7 @@ router.route('/auth/:id')
     .put(AuthController.update)
     .delete(AuthController.delete);
 router.route('/auth/login')
-    .get(AuthController.view);
+    .post(AuthController.view);
 router.route('/auth/logout')
     .get(AuthController.logout);
 // Export API routes
