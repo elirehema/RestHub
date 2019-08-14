@@ -3,62 +3,84 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
-// Initialize the app
-const app = express();
-var cors = require('cors');
-app.use(cors());
+
 // Import routes
-let apiRoutes = require("./app/routes/api-routes");
+let apiRoutes = require("./app/routes/cont-routes");
 let productRoutes = require("./app/routes/product-routes");
 let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
-let messageRoute = require("./app/routes/message-api");
+let messageRoute = require("./app/routes/msg-routes");
 
-const allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-    next();
-};
-app.use(allowCrossDomain);
-app.use(session(
-    {
-        key: 'user_sis',
-        resave: true,
+const app = express();
+var cors = require('cors');
+
+var sess = {
+    secret: 'fdsakhfdsjabgidshngaerniaerpbeijdskagkgsakjnk',
+    cookie: {
+        resave: false,
         saveUninitialized: true,
-        secret: 'fdsakhfdsjabgidshngaerniaerpbeijdskagkgsakjnk',
-        cookie: {
-            expires: 600000,
-            secure: true
-        }
+        cookie: { secure: true },
+        maxAge  : 24*60*60*1000,
+        secure: true
     }
-    ));
+};
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+}
+
+
+app.use(session(sess))
+app.use(cors())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use('/api', apiRoutes)
+app.use('/api', productRoutes)
+app.use('/api', userRoutes)
+app.use('/api', auths)
+app.use('/api', messageRoute)
+
+app.get('/', function(req, res){
+        res.send('RestHub api started...');
+        let sess = req.session;
+        if(sess.username && sess.id) {
+            return res.redirect('/');
+        }
+        res.redirect('/login');
+    });
+
+
 // Connect to Mongoose and set connection variable
+const options = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0,
+    connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+    family: 4 // Use IPv4, skip trying IPv6
+};
 
-mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true, useCreateIndex: true });
+
+mongoose.connect('mongodb://127.0.0.1/resthub', options)
+    .catch(error => handleError(error));
+
+//Handle db connection errors
 var db = mongoose.connection;
-//db 
 db.on('error', console.error.bind(console, 'DB connection error!'));
-db.on('open', function(){
+db.on('open', function () {
     console.log('Database Connection successfully!');
 });
 
 
-
 // Setup server port
 var port = process.env.PORT || 8080;
-var sess;
-app.get('/', (req, res) => res.send('Hello RestHub'));
-
-// Use Api routes in the App
-app.use('/api', apiRoutes);
-app.use('/api',productRoutes);
-app.use('/api', userRoutes);
-app.use('/api', auths);
-app.use('/api', messageRoute);
 
 
 // Launch app to listen to specified port
@@ -68,9 +90,9 @@ const server = app.listen(port, function () {
 
 const io = require('socket.io')(server);
 
-io.on('connection', function(socket) {
-    console.log(socket.id)
-    socket.on('SEND_MESSAGE', function(data) {
+io.on('connection', function (socket) {
+    //console.log(socket.id);
+    socket.on('SEND_MESSAGE', function (data) {
         io.emit('MESSAGE', data)
     });
 });
