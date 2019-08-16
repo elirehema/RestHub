@@ -2,6 +2,8 @@
 // Initialize express router
 
 let router = require('express').Router();
+// Initialize express router
+const auths = require('../middleware/auth');
 // Set default API response
 router.get('/', function (req, res) {
     res.json({
@@ -14,12 +16,12 @@ router.get('/', function (req, res) {
 var contactController = require('../controllers/contactController');
 // Contact routes
 router.route('/contacts')
-    .get(contactController.index)
-    .post(contactController.new);
+    .get(auths, contactController.index)
+    .post(auths,contactController.new);
 router.route('/contacts/:contact_id')
-    .get(contactController.view)
-    .patch(contactController.update)
-    .put(contactController.update)
-    .delete(contactController.delete);
+    .get(auths, contactController.view)
+    .patch(auths, contactController.update)
+    .put(auths,contactController.update)
+    .delete(auths,contactController.delete);
 // Export API routes
 module.exports = router;

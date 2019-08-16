@@ -2,6 +2,7 @@
 // Initialize express router
 
 let router = require('express').Router();
+const auths = require('../middleware/auth');
 // Set default API response
 router.get('/', function (req, res) {
     res.json({
@@ -13,12 +14,12 @@ router.get('/', function (req, res) {
 var messageController = require('../controllers/MessageController');
 // Contact routes
 router.route('/message')
-    .get(messageController.index)
-    .post(messageController.new);
+    .get(auths,messageController.index)
+    .post(auths,messageController.new);
 router.route('/message/:message_id')
-    .get(messageController.view)
-    .patch(messageController.update)
-    .put(messageController.update)
-    .delete(messageController.delete);
+    .get(auths,messageController.view)
+    .patch(auths,messageController.update)
+    .put(auths,messageController.update)
+    .delete(auths,messageController.delete);
 // Export API routes
 module.exports = router;

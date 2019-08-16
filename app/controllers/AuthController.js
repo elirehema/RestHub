@@ -54,9 +54,7 @@ exports.view = function (req, res) {
                     req.session.cookie.expires = new Date(Date.now() + hour)
                     req.session.cookie.maxAge = hour;
                     sess = req.session;
-                    sess._id = user._id;
-                    sess.username = req.body.username;
-                    var tokenId = jwt.sign({id: user._id}, config.secret, {
+                    var tokenId = jwt.sign({userId: user._id}, config.TOKEN_SECRET, {
                         expiresIn: 86400 // expires in 24 hours
                     });
 

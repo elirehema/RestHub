@@ -2,6 +2,7 @@
 // Initialize express router
 
 let router = require('express').Router();
+const auths = require('../middleware/auth');
 // Set default API response
 router.get('/', function (req, res) {
     res.json({
@@ -13,12 +14,12 @@ router.get('/', function (req, res) {
 var productController = require('../controllers/productController');
 // Contact routes
 router.route('/products')
-    .get(productController.index)
-    .post(productController.new);
+    .get(auths,productController.index)
+    .post(auths, productController.new);
 router.route('/products/:product_id')
-    .get(productController.view)
-    .patch(productController.update)
-    .put(productController.update)
-    .delete(productController.delete);
+    .get(auths,productController.view)
+    .patch(auths, productController.update)
+    .put(auths, productController.update)
+    .delete(auths, productController.delete);
 // Export API routes
 module.exports = router;

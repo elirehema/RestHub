@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const config = require('./app/config/config');
 
 // Import routes
 let apiRoutes = require("./app/routes/cont-routes");
@@ -24,22 +25,26 @@ var sess = {
         secure: true
     }
 };
-
 if (app.get('env') === 'production') {
-    app.set('trust proxy', 1) // trust first proxy
+    app.use(function(req, res, next) {
+        var protocol = req.get('x-forwarded-proto');
+        protocol === 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
+    });
+
+    app.set('trust proxy', 1);// trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
 
 
-app.use(session(sess))
-app.use(cors())
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-app.use('/api', apiRoutes)
-app.use('/api', productRoutes)
-app.use('/api', userRoutes)
-app.use('/api', auths)
-app.use('/api', messageRoute)
+app.use(session(sess));
+app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use('/api', apiRoutes);
+app.use('/api', productRoutes);
+app.use('/api', userRoutes);
+app.use('/api', auths);
+app.use('/api', messageRoute);
 
 app.get('/', function(req, res){
         res.send('RestHub api started...');
@@ -68,7 +73,7 @@ const options = {
 };
 
 
-mongoose.connect('mongodb://127.0.0.1/resthub', options)
+mongoose.connect(config.MONGO_URI, options)
     .catch(error => handleError(error));
 
 //Handle db connection errors
@@ -79,13 +84,10 @@ db.on('open', function () {
 });
 
 
-// Setup server port
-var port = process.env.PORT || 8080;
-
 
 // Launch app to listen to specified port
-const server = app.listen(port, function () {
-    console.log("Running RestHub on port " + port);
+const server = app.listen(config.LISTEN_PORT, function () {
+    console.log("Running RestHub on port " + config.LISTEN_PORT);
 });
 
 const io = require('socket.io')(server);
