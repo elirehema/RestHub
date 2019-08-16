@@ -6,9 +6,10 @@ var mongoose = require('mongoose'),
     config = require('../config/config');
 
 var UserAuthSchema = new Schema({
-    username: { type: String, required: true, index: { unique: true } },
+    username: { type: String,  unique: true, lowercase: true, required: 'EmailInvalid' },
     password: { type: String, required: true }
 });
+UserAuthSchema.index({ username: 1 }, { unique: true });
 UserAuthSchema.pre('save', function (next) {
     var user = this;
 
@@ -36,7 +37,7 @@ UserAuthSchema.methods.comparePassword = function (candidatePassword, cb) {
         cb(null, isMatch);
     });
 };
-var UserAuthSchema = module.exports = mongoose.model('UserAuth', UserAuthSchema);
+var AuthSchema = module.exports = mongoose.model('UserAuth', UserAuthSchema);
 module.exports.get = function (callback, limit) {
-    UserAuthSchema.find(callback).limit(limit);
+    AuthSchema.find(callback).limit(limit);
 };
