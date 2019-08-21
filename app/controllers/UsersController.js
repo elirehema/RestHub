@@ -20,6 +20,7 @@ exports.index = function (req, res) {
 // Handle create user actions
 exports.new = function (req, res) {
     var user = new User();
+user._id = req.body.id;
     user.username = req.body.username;
     user.fname = req.body.fname ? req.body.fname : user.fname;
     user.lname = req.body.lname;
@@ -99,4 +100,3 @@ exports.delete = function (req, res) {
         });
     });
 };
-
