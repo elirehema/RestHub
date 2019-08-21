@@ -1,5 +1,6 @@
 // Import express
-"use strict";
+const updateNotifier = require('update-notifier');
+const pkg = require('./package.json');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -37,6 +38,18 @@ if (app.get('env') === 'production') {
     sess.cookie.secure = true // serve secure cookies
 }
 
+// Checks for available update and returns an instance
+// Notify using the built-in convenience method
+notifier.notify();
+// Notify using the built-in convenience method
+const notifier = updateNotifier({
+    pkg,
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
+});
+
+if (notifier.update) {
+    console.log(`Update available: ${notifier.update.latest}`);
+}
 
 app.use(session(sess));
 app.use(cors());
