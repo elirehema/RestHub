@@ -1,4 +1,18 @@
 // Import express
+"use strict";
+const updateNotifier = require('update-notifier');
+const pkg = require('./package.json');
+
+// Notify using the built-in convenience method
+const notifier = updateNotifier({
+    pkg,
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
+});
+
+if (notifier.update) {
+    console.log(`Update available: ${notifier.update.latest}`);
+}
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
