@@ -92,7 +92,7 @@ exports.view = function(req, res) {
 };
 // Handle update user info
 exports.update = function(req, res) {
-  UserAuth.findById(req.params.user_id, function(err, user_auths) {
+  UserAuth.findById(req.params.id, function(err, user_auths) {
     if (err) {
       return res.json({
         status: 201,
@@ -117,7 +117,7 @@ exports.update = function(req, res) {
 // Handle delete user
 exports.delete = function(req, res) {
   UserAuth.remove({
-    _id: req.params.user_id
+    _id: req.params.id
   }, function(err, user) {
     if (err)
       res.send(err);
@@ -129,7 +129,7 @@ exports.delete = function(req, res) {
 };
 
 exports.logout = (req, res) => {
-  if (req.session.user && req.cookies.user_id) {
+  if (req.session.user && req.cookies.id) {
     res.clearCookie('user_sis');
     res.redirect('/')
     res.status(200).send({
