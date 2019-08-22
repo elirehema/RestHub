@@ -36,7 +36,24 @@ var userSchema = mongoose.Schema({
   create_date: {
     type: Date,
     default: Date.now
+  },
+  address: {
+    type: String,
+    require: false
+  },
+  city: {
+    type: String,
+    require: false
+  },
+  country: {
+    type: String,
+    require: false
+  },
+  postal: {
+    type: String,
+    require: false
   }
+
 });
 userSchema.methods.getFullName = function() {
   return this.fname + " " + this.lname;
