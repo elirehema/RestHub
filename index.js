@@ -21,9 +21,9 @@ var sess = {
     cookie: {
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: true },
         maxAge  : 24*60*60*1000,
-        secure: true
+        secure: true,
+        expires: 0
     }
 };
 if (app.get('env') === 'production') {
