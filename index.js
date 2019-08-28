@@ -113,3 +113,5 @@ io.on('connection', function (socket) {
         io.emit('MESSAGE', data)
     });
 });
+
+module.exports = server;
