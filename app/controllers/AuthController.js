@@ -34,11 +34,22 @@ exports.new = function(req, res) {
         error: err.message
       });
     }
+    var hour = 3600000;
+    req.session.cookie.expires = new Date(Date.now() + hour)
+    req.session.cookie.maxAge = hour;
+    sess = req.session;
+    var tokenId = jwt.sign({
+      userId: user_auths._id
+    }, config.TOKEN_SECRET, {
+      expiresIn: 86400 // expires in 24 hours
+    });
 
     res.json({
       status: 200,
-      message: 'Saved succesfully',
-      data: user_auths
+      session: sess,
+      message: 'Registration Success',
+      data: {id: user_auths._id, name: user_auths.name, email: user_auths.email},
+      accessToken: tokenId
     });
 
   });
