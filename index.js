@@ -67,7 +67,7 @@ app.get('/', function(req, res){
         if(sess.username && sess.id) {
             return res.redirect('/');
         }
-        res.redirect('/login');
+        return res.redirect('/login');
     });
 
 
