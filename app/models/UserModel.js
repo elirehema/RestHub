@@ -63,7 +63,7 @@ var userSchema = mongoose.Schema({
     require: false
   }
 
-});
+}, { bufferCommands: false, collection: 'users' });
   /*
   Define Model instance method to work with
   */
@@ -87,13 +87,34 @@ userSchema.methods.findUserWithSimilarEmailAddress = function(email) {
     email: this.email
   }, email);
 };
+    /**
+     * Define Mongoose Query helper function for mongoose query
+     * Let you extends Chainable Builder APi
+     * https://mongoosejs.com/docs/queries.html
+     * **/
+
+
+userSchema.query.byName = function(name){
+  return this.where({username: new RegExp(username, 'i')})
+}
+/**
+ * Define Virtuals
+ * **/
+
+ userSchema.virtual('fullName').get(function(){
+   return this.fname +' ' + this.lname;
+ });
+
+
 /*
   Convert UserSchema to UserModel so we can work with
   then
   Export UserModel model
 */
 userSchema.plugin(uniqueValidator)
-var UserModel = module.exports = mongoose.model('user', userSchema);
+const UserModel = module.exports = mongoose.model('user', userSchema);
+
+
 module.exports.get = function(callback, limit) {
   UserModel.find(callback).limit(limit);
 };
