@@ -8,12 +8,12 @@ var commentSchema = mongoose.Schema({
     message: {
         type: String,
     },
-    create_date: {
+    comment_on: {
         type: Date,
         default: Date.now
     }
    
-});
+},{ _id: false });
 // Export Comment model
 var Comment = module.exports = mongoose.model('comment', commentSchema);
 module.exports.get = function (callback, limit) {
