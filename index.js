@@ -95,7 +95,7 @@ mongoose.connect(config.MONGO_URI, options)
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'DB connection error!'));
 db.on('open', function () {
-    console.log('Database Connection successfully!');
+    console.log('OK');
 });
 
 
