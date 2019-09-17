@@ -1,8 +1,8 @@
 // Import Message Model
 Message = require('../models/messagesModel');
 
-exports.index = function (req, res) {
-    Message.get(function (err, message) {
+exports.index = async function (req, res) {
+    await Message.get(function (err, message) {
         if (err) {
             res.json({
                 status: 500,
@@ -18,13 +18,13 @@ exports.index = function (req, res) {
     });
 };
 // Handle create message actions
-exports.new = function (req, res) {
+exports.new = async function (req, res) {
 
     var parent = new Message();
     parent.period = parent.getDate();
     var childrens = {name: req.body.name, message: req.body.message, sentOn: parent.getCurrentTime()};
 
-    Message.findOneAndUpdate({period: parent.getDate()}, {$push: {children: childrens}},{safe: true, upsert: true},
+    await Message.findOneAndUpdate({period: parent.getDate()}, {$push: {children: childrens}},{safe: true, upsert: true},
         function (error, success) {
             if (error) {
                 console.log(error);
@@ -34,8 +34,8 @@ exports.new = function (req, res) {
         });
 };
 // Handle view Message info
-exports.view = function (req, res) {
-    Message.findById(req.params.message_id, function (err, message) {
+exports.view = async function (req, res) {
+   await Message.findById(req.params.message_id, function (err, message) {
         if (err) {
             return res.json({status: 201, errror: err.message});
         } else if (null == message) {
@@ -50,8 +50,8 @@ exports.view = function (req, res) {
     });
 };
 // Handle update message info
-exports.update = function (req, res) {
-    Message.findById(req.params.message_id, function (err, message) {
+exports.update = async  function (req, res) {
+    await Message.findById(req.params.message_id, function (err, message) {
         if (err) {
             return res.json({status: 201, errror: err.message});
         }
@@ -74,8 +74,8 @@ exports.update = function (req, res) {
     });
 };
 // Handle delete message
-exports.delete = function (req, res) {
-    Message.remove({
+exports.delete = async function (req, res) {
+    await Message.remove({
         _id: req.params.message_id
     }, function (err, message) {
         if (err)

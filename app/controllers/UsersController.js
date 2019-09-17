@@ -2,8 +2,8 @@
 User = require('../models/UserModel');
 // Handle index Actions
 
-exports.index = function (req, res) {
-    User.get(function (err, users) {
+exports.index = async function (req, res) {
+   await  User.get(function (err, users) {
         if (err) {
             res.json({
                 status: "error",
@@ -18,7 +18,7 @@ exports.index = function (req, res) {
     });
 };
 // Handle create user actions
-exports.new = function (req, res) {
+exports.new = async function (req, res) {
     var user = new User();
     user._id = req.body.id;
     user.username = req.body.username;
@@ -34,7 +34,7 @@ exports.new = function (req, res) {
     user.fullname = user.getFullName();
 
     // save the user and check for errors
-    user.save(function (err) {
+    await user.save(function (err) {
         if (err) {
             return res.json({ status: 201, error: err.message });
         }
@@ -46,8 +46,8 @@ exports.new = function (req, res) {
     });
 };
 // Handle view user info
-exports.view = function (req, res) {
-    User.findById(req.params.user_id, function (err, user) {
+exports.view = async function (req, res) {
+    await User.findById(req.params.user_id, function (err, user) {
         if (err) {
             return res.json({ status: 201, errror: err.message });
         } else
@@ -63,8 +63,8 @@ exports.view = function (req, res) {
     });
 };
 // Handle update user info
-exports.update = function (req, res) {
-    User.findById(req.params.user_id, function (err, user) {
+exports.update = async  function (req, res) {
+    await User.findById(req.params.user_id, function (err, user) {
         if (err) {
             return res.json({ status: 201, errror: err.message });
         }
@@ -92,8 +92,8 @@ exports.update = function (req, res) {
     });
 };
 // Handle delete user
-exports.delete = function (req, res) {
-    User.remove({
+exports.delete = async  function (req, res) {
+   await User.remove({
         _id: req.params.user_id
     }, function (err, user) {
         if (err)
