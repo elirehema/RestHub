@@ -3,7 +3,6 @@ node_js:
   - 10.16.3
 before_script:
   - npm install -g
-  - npm ci
 cache:
   directories:
     - "node_modules"
