@@ -1,6 +1,9 @@
 language: node_js
 node_js:
-  - "stable"
+  - 10.16.3
+before_script:
+  - npm install
+  - npm ci
 cache:
   directories:
     - "node_modules"
