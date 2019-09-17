@@ -3,8 +3,8 @@ Product = require('../models/productModel');
 Comments = require('../models/commentModel');
 // Handle index actions
 
-exports.index = function (req, res) {
-    Product.get(function (err, products) {
+exports.index = async  function (req, res) {
+    await Product.get(function (err, products) {
         if (err) {
             res.json({
                 status: "error",
@@ -19,7 +19,7 @@ exports.index = function (req, res) {
     });
 };
 // Handle create product actions
-exports.new = function (req, res) {
+exports.new = async  function (req, res) {
     var product = new Product();
     var comment = new Comments();
     
@@ -34,7 +34,7 @@ exports.new = function (req, res) {
     product.color = req.body.color;
     product.comments = comment;
     // save the product and check for errors
-    product.save(function (err) {
+     product.save(function (err) {
         if (err) {
             return res.json({ status: 500, error: err.message });
         }
@@ -47,8 +47,8 @@ exports.new = function (req, res) {
     });
 };
 // Handle view product info
-exports.view = function (req, res) {
-    Product.findById(req.params.product_id, function (err, product) {
+exports.view = async function (req, res) {
+    await Product.findById(req.params.product_id, function (err, product) {
         if (err)
             res.send(err.message);
         res.json({
@@ -58,8 +58,8 @@ exports.view = function (req, res) {
     });
 };
 // Handle update product info
-exports.update = function (req, res) {
-    Product.findById(req.params.product_id, function (err, product) {
+exports.update = async  function (req, res) {
+    await Product.findById(req.params.product_id, function (err, product) {
         if (err) res.send(err);
         product.name = req.body.name ? req.body.name : product.name;
         product.price = req.body.price;
@@ -73,7 +73,7 @@ exports.update = function (req, res) {
         product.comments = comment;
 
         // save the product and check for errors
-        product.save(function (err) {
+     product.save(function (err) {
             if (err)
                 res.json(err);
             res.json({
@@ -84,8 +84,8 @@ exports.update = function (req, res) {
     });
 };
 // Handle delete product
-exports.delete = function (req, res) {
-    Product.remove({
+exports.delete = async function (req, res) {
+   await  Product.remove({
         _id: req.params.product_id
     }, function (err, product) {
         if (err)

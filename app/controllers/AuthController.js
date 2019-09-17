@@ -55,8 +55,8 @@ exports.new = function(req, res) {
   });
 };
 // Handle view user info
-exports.view = function(req, res) {
-  UserAuth.findOne({
+exports.view = async function(req, res) {
+  await UserAuth.findOne({
     email: req.body.email
   }, function(err, user) {
     if (err) {
@@ -102,8 +102,8 @@ exports.view = function(req, res) {
 
 };
 // Handle update user info
-exports.update = function(req, res) {
-  UserAuth.findById(req.params.id, function(err, user_auths) {
+exports.update = async function(req, res) {
+  await UserAuth.findById(req.params.id, function(err, user_auths) {
     if (err) {
       return res.json({
         status: 201,
@@ -126,8 +126,8 @@ exports.update = function(req, res) {
   });
 };
 // Handle delete user
-exports.delete = function(req, res) {
-  UserAuth.remove({
+exports.delete =async function(req, res) {
+  await UserAuth.remove({
     _id: req.params.id
   }, function(err, user) {
     if (err)
