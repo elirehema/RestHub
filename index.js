@@ -20,6 +20,7 @@ mongoose.set('useCreateIndex', true);
 const session = require('express-session');
 const config = require('./app/config/config');
 
+
 // Import routes
 let apiRoutes = require("./app/routes/cont-routes");
 let productRoutes = require("./app/routes/product-routes");
@@ -35,13 +36,13 @@ var sess = {
     cookie: {
         resave: false,
         saveUninitialized: true,
-        maxAge  : 24*60*60*1000,
+        maxAge: 24 * 60 * 60 * 1000,
         secure: true,
         expires: 0
     }
 };
 if (app.get('env') === 'production') {
-    app.use(function(req, res, next) {
+    app.use(function (req, res, next) {
         var protocol = req.get('x-forwarded-proto');
         protocol === 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
     });
@@ -50,10 +51,9 @@ if (app.get('env') === 'production') {
     sess.cookie.secure = true // serve secure cookies
 }
 
-
 app.use(session(sess));
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api', apiRoutes);
 app.use('/api', productRoutes);
@@ -61,17 +61,27 @@ app.use('/api', userRoutes);
 app.use('/api', auths);
 app.use('/api', messageRoute);
 
-app.get('/', function(req, res){
-        res.send('RestHub api started...');
-        let sess = req.session;
-        if(sess.username && sess.id) {
-            return res.redirect('/');
-        }
-        return res.redirect('/login');
-    });
+
+/** 
+ * Create api user sessions
+ * `req` is an http.IncomingMessage, which is a Readable Stream
+ * `res` is an http.ServerResponse, which is a Writable Stream
+ * **/
 
 
-// Connect to Mongoose and set connection variable
+app.get('/', function (req, res) {
+    res.send('RestHub api started...');
+    let sess = req.session;
+    if (sess.username && sess.id) {
+        return res.redirect('/');
+    }
+    return res.redirect('/login');
+});
+
+
+/**
+ *   Connect to Mongoose and set connection variable 
+ * */
 const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -91,16 +101,21 @@ const options = {
 mongoose.connect(config.MONGO_URI, options)
     .catch(error => handleError(error));
 
-//Handle db connection errors
+/**
+ * Handle db connection errors
+ * If error respond with message   `Database connection Error`
+ * */
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'DB connection error!'));
+db.on('error', console.error.bind(console, 'Database connection error!'));
 db.on('open', function () {
     console.log('OK');
 });
 
 
 
-// Launch app to listen to specified port
+/** 
+ *  Launch app to listen to specified port
+**/
 const server = app.listen(config.LISTEN_PORT, function () {
     console.log("Running RestHub on port " + config.LISTEN_PORT);
 });
@@ -113,5 +128,7 @@ io.on('connection', function (socket) {
         io.emit('MESSAGE', data)
     });
 });
-
+/**
+ * Export server for other external modules
+ * **/
 module.exports = server;
