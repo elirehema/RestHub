@@ -2,7 +2,7 @@
 module.exports = {
     'secret': 'supersecret',
     // 1. MongoDB
-    MONGO_URI: process.env.MONGO_URI || 'mongodb://127.0.0.1/resthub',
+    MONGO_URI: process.env.MONGO_URI || 'mongodb+srv://read_write:password@vue-shop-7qzhn.mongodb.net/test?retryWrites=true&w=majority',
 
     // 2. JWT
     TOKEN_SECRET: process.env.TOKEN_SECRET || 'pvpnCCZfwOF85pBjbOebZiYIDhZ3w9LZrKwBZ7152K89mPCOHtbRlmr5Z91ci4L',
