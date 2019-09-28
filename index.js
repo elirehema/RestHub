@@ -19,6 +19,7 @@ const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const session = require('express-session');
 const config = require('./app/config/config');
+var validate = require("validate-npm-package-name");
 
 
 // Import routes
