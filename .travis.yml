@@ -5,6 +5,4 @@ node_js:
 before_script:
   - npm install -g
   - npm install
-cache:
-  directories:
-    - "node_modules"
+
