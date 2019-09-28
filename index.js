@@ -34,12 +34,13 @@ var cors = require('cors');
 var sess = {
     secret: 'fdsakhfdsjabgidshngaerniaerpbeijdskagkgsakjnk',
     cookie: {
-        resave: false,
-        saveUninitialized: true,
         maxAge: 24 * 60 * 60 * 1000,
         secure: true,
         expires: 0
-    }
+    },
+
+    resave: false,
+    saveUninitialized: true,
 };
 if (app.get('env') === 'production') {
     app.use(function (req, res, next) {
@@ -86,6 +87,7 @@ const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
+    useUnifiedTopology: true,
     autoIndex: false, // Don't build indexes
     reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
     reconnectInterval: 500, // Reconnect every 500ms
@@ -98,9 +100,13 @@ const options = {
 };
 
 
-mongoose.connect(config.MONGO_URI, options)
-    .catch(error => handleError(error));
-
+ mongoose.connect(config.MONGO_URI, options, function(err) {
+    if (err) {
+        logger.error('MongoDB connection error: ' + err);
+        // return reject(err);
+        process.exit(1);
+    }
+}); 
 /**
  * Handle db connection errors
  * If error respond with message   `Database connection Error`
