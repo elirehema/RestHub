@@ -22,14 +22,14 @@ describe('server', function () {
  */
 
 describe('/', function () {
-it('should return 200', function (done) {
+it('It should return 200', function (done) {
 http.get('http://localhost:8080', function (res) {
   assert.equal(200, res.statusCode);
   done();
 });
 });
 
-it('should say "Hello, world!"', function (done) {
+it('should say "RestHub api started...!"', function (done) {
 http.get('http://localhost:8080', function (res) {
   var data = '';
 
