@@ -6,12 +6,12 @@ exports.index = async function (req, res) {
    await  User.get(function (err, users) {
         if (err) {
             res.json({
-                status: "error",
+                status: res.statusCode,
                 message: err,
             });
         }
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: "User retrieved successfully",
             data: users
         });
@@ -36,10 +36,10 @@ exports.new = async function (req, res) {
     // save the user and check for errors
     await user.save(function (err) {
         if (err) {
-            return res.json({ status: 201, error: err.message });
+            return res.json({ status: res.statusCode, error: err.message });
         }
         res.json({
-            status: 500,
+            status: res.statusCode,
             message: 'New User created succesfully!',
             data: user
         });
@@ -49,13 +49,13 @@ exports.new = async function (req, res) {
 exports.view = async function (req, res) {
     await User.findById(req.params.user_id, function (err, user) {
         if (err) {
-            return res.json({ status: 201, errror: err.message });
+            return res.json({ status: res.statusCode, errror: err.message });
         } else
             if (null == user) {
-                return res.json({ status: 200, message: 'No Data available! ' });
+                return res.json({ status: res.statusCode, message: 'No Data available! ' });
             } else {
                 res.json({
-                    status: 202,
+                    status: res.statusCode,
                     message: 'User details loaded succesfully...',
                     data: user
                 });
@@ -66,7 +66,7 @@ exports.view = async function (req, res) {
 exports.update = async  function (req, res) {
     await User.findById(req.params.user_id, function (err, user) {
         if (err) {
-            return res.json({ status: 201, errror: err.message });
+            return res.json({ status: res.statusCode, errror: err.message });
         }
             user.username = req.body.username;
             user.fname = req.body.fname ? req.body.fname : user.fname;
@@ -84,6 +84,7 @@ exports.update = async  function (req, res) {
                 if (err)
                     res.json(err);
                 res.json({
+                    status: res.statusCode,
                     message: 'User Info updated',
                     data: user
                 });
@@ -99,7 +100,7 @@ exports.delete = async  function (req, res) {
         if (err)
             res.send(err);
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: 'User deleted'
         });
     });

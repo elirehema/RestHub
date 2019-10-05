@@ -5,13 +5,13 @@ exports.index = async function (req, res) {
     await Message.get(function (err, message) {
         if (err) {
             res.json({
-                status: 500,
+                status: res.statusCode,
                 message: err,
             });
         }
 
         res.json({
-            status: 200,
+            status: res.statusCode,
             message: "Message retrieved successfully",
             data: message
         });
@@ -29,7 +29,10 @@ exports.new = async function (req, res) {
             if (error) {
                 console.log(error);
             } else {
-                console.log('success');
+                res.json({
+                    status: res.statusCode,
+                    message: ''
+                })
             }
         });
 };
@@ -37,12 +40,12 @@ exports.new = async function (req, res) {
 exports.view = async function (req, res) {
    await Message.findById(req.params.message_id, function (err, message) {
         if (err) {
-            return res.json({status: 201, errror: err.message});
+            return res.json({status: res.statusCode, errror: err.message});
         } else if (null == message) {
-            return res.json({status: 200, message: 'No Data available! '});
+            return res.json({status: res.statusCode, message: 'No Data available! '});
         } else {
             res.json({
-                status: 202,
+                status: res.statusCode,
                 message: 'Message loaded succesfully...',
                 data: message
             });
@@ -53,10 +56,10 @@ exports.view = async function (req, res) {
 exports.update = async  function (req, res) {
     await Message.findById(req.params.message_id, function (err, message) {
         if (err) {
-            return res.json({status: 201, errror: err.message});
+            return res.json({status: res.statusCode, errror: err.message});
         }
         if (null == message) {
-            return res.json({status: 200, message: 'No Data available! '});
+            return res.json({status: res.statusCode, message: 'No Data available! '});
         } else {
 
             message.name = req.body.name;
@@ -66,6 +69,7 @@ exports.update = async  function (req, res) {
                 if (err)
                     res.json(err);
                 res.json({
+                    status: res.statusCode,
                     message: 'message Info updated',
                     data: message
                 });
@@ -81,7 +85,7 @@ exports.delete = async function (req, res) {
         if (err)
             res.send(err);
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: 'Message deleted'
         });
     });
