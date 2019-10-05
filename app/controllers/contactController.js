@@ -11,7 +11,7 @@ exports.index = async function (req, res) {
             });
         }
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: "Contacts retrieved successfully",
             data: contacts
         });
@@ -27,9 +27,10 @@ exports.new = async function (req, res) {
     // save the contact and check for errors
     await contact.save(function (err) {
         if (err) {
-            return res.json({ status: 500, error: err });
+            return res.json({ status: res.statusCode, error: err });
         }
         res.json({
+            status: res.statusCode,
             message: 'New contact created!',
             data: contact
         });
@@ -44,6 +45,7 @@ exports.view = async function (req, res) {
                 console.log('No contacts found!')
             }else{
         res.json({
+            status: res.statusCode,
             message: 'Contact details loading..',
             data: contact
         
@@ -65,6 +67,7 @@ exports.update = async  function (req, res) {
             if (err)
                 res.json(err);
             res.json({
+                status: res.statusCode,
                 message: 'Contact Info updated',
                 data: contact
             });
@@ -79,7 +82,7 @@ exports.delete = async function (req, res) {
         if (err)
             res.send(err);
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: 'Contact deleted'
         });
     });

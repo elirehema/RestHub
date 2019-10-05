@@ -12,7 +12,7 @@ exports.index = async  function (req, res) {
             });
         }
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: "Product retrieved successfully",
             data: products
         });
@@ -36,11 +36,11 @@ exports.new = async  function (req, res) {
     // save the product and check for errors
      product.save(function (err) {
         if (err) {
-            return res.json({ status: 500, error: err.message });
+            return res.json({ status: res.statusCode, error: err.message });
         }
         //res.json({ status: 500, product: product });
         res.json({
-            status: 500,
+            status: res.statusCode,
             message: 'New product created!',
             data: product
         });
@@ -52,6 +52,7 @@ exports.view = async function (req, res) {
         if (err)
             res.send(err.message);
         res.json({
+            status: res.statusCode,
             message: 'Product details loading..',
             data: product
         });
@@ -77,6 +78,7 @@ exports.update = async  function (req, res) {
             if (err)
                 res.json(err);
             res.json({
+                status: res.statusCode,
                 message: 'Product Info updated',
                 data: product
             });
@@ -91,7 +93,7 @@ exports.delete = async function (req, res) {
         if (err)
             res.send(err);
         res.json({
-            status: "success",
+            status: res.statusCode,
             message: 'Product deleted'
         });
     });

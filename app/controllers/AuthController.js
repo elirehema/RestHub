@@ -7,14 +7,14 @@ exports.index = function(req, res) {
   UserAuth.get(function(err, user_auths) {
     if (err) {
       res.json({
-        status: 500,
+        status: res.statusCode,
         message: err.message,
       });
     }
 
 
     res.json({
-      status: 200,
+      status: res.statusCode,
       message: "User retrieved successfully",
       data: user_auths
     });
@@ -30,7 +30,7 @@ exports.new = function(req, res) {
   user.save(function(err, user_auths) {
     if (err) {
       return res.json({
-        status: 201,
+        status: res.statusCode,
         error: err.message
       });
     }
@@ -45,7 +45,7 @@ exports.new = function(req, res) {
     });
 
     res.json({
-      status: 200,
+      status: res.statusCode,
       session: sess,
       message: 'Registration Success',
       data: {id: user_auths._id, name: user_auths.name, email: user_auths.email},
@@ -79,7 +79,7 @@ exports.view = async function(req, res) {
 
           res.json({
             auth: true,
-            status: 200,
+            status: res.statusCode,
             session: sess,
             message: 'Login Success',
             data: {id: user._id, name: user.name, email: user.email},
@@ -92,7 +92,7 @@ exports.view = async function(req, res) {
     } else {
       res.json({
         auth: false,
-        status: '404',
+        status: res.statusCode,
         message: 'Email ' + req.body.email + '  Not Found',
         accessToken: null
       })
@@ -106,7 +106,7 @@ exports.update = async function(req, res) {
   await UserAuth.findById(req.params.id, function(err, user_auths) {
     if (err) {
       return res.json({
-        status: 201,
+        status: res.statusCode,
         error: err.message
       });
     }
@@ -118,6 +118,7 @@ exports.update = async function(req, res) {
       if (err)
         res.json(err);
       res.json({
+        status: res.statusCode,
         message: 'User Info updated',
         data: user_auths
       });
@@ -133,7 +134,7 @@ exports.delete =async function(req, res) {
     if (err)
       res.send(err);
     res.json({
-      status: "success",
+      status: res.statusCode,
       message: 'User deleted'
     });
   });

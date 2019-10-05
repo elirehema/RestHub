@@ -28,6 +28,7 @@ let productRoutes = require("./app/routes/product-routes");
 let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
+let teamRoutes = require("./app/routes/team-routes")
 
 const app = express();
 var cors = require('cors');
@@ -62,6 +63,7 @@ app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', auths);
 app.use('/api', messageRoute);
+app.use('/api/teams', teamRoutes);
 
 
 /** 
