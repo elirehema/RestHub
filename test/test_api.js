@@ -1,7 +1,5 @@
 var assert = require('assert'),
-  http = require('http'),
-  https = require('https');
-const config = require('../app/config/config');
+  http = require('http');
 
 /**
  * Test for API's landing pages
@@ -9,7 +7,7 @@ const config = require('../app/config/config');
  * **/
 describe('/', function () {
   it('should return 200', function (done) {
-    https.get(config.REMOTE_URL + 'api/', function (res) {
+    http.get('http://localhost:8080/api/', function (res) {
       assert.equal(200, res.statusCode);
       done();
     });
