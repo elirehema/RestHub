@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "./node_modules/.bin/mocha --reporter mochawesome  --timeout 15000",
-    "test:watch": "./node_modules/.bin/mocha --reporter mochawesome --watch  --timeout 15000"
+    "test": "./node_modules/.bin/mocha --reporter mochawesome",
+    "test:watch": "./node_modules/.bin/mocha --reporter mochawesome --watch"
   },
   "repository": {
     "type": "git",
