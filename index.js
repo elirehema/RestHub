@@ -125,8 +125,8 @@ db.on('open', function () {
 /** 
  *  Launch app to listen to specified port
 **/
-const server = app.listen(config.LISTEN_PORT, function () {
-    console.log("Running RestHub on port " + config.LISTEN_PORT);
+const server = app.listen(config.HOSTING_PORT, function () {
+    console.log("Running RestHub on port " + config.HOSTING_PORT);
 });
 
 const io = require('socket.io')(server);
