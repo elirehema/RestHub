@@ -1,6 +1,8 @@
 
 var assert = require('assert'),
 http = require('http');
+var https = require('https');
+const config = require('../app/config/config');
 
 
 /*
@@ -23,14 +25,14 @@ describe('server', function () {
 
 describe('/', function () {
 it('It should return 200', function (done) {
-http.get('http://localhost:8080', function (res) {
+https.get(config.REMOTE_URL, function (res) {
   assert.equal(200, res.statusCode);
   done();
 });
 });
 
 it('should say "RestHub api started...!"', function (done) {
-http.get('http://localhost:8080', function (res) {
+https.get(config.REMOTE_URL, function (res) {
   var data = '';
 
   res.on('data', function (chunk) {

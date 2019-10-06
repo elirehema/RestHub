@@ -10,5 +10,7 @@ module.exports = {
     // 3. Express Server Port
     LISTEN_PORT: process.env.LISTEN_PORT || 8080,
 
-    HOSTING_PORT: process.env.PORT || 3338
+    HOSTING_PORT: process.env.PORT || 3338,
+    
+    REMOTE_URL: process.env.REMOTE_URL || 'https://infosk.herokuapp.com/'
 };
