@@ -13,5 +13,9 @@ module.exports = {
      // 1. Local MongoDB
     LOCAL_MONGO_URI: process.env.LOCAL_MONGO_URI || 'mongodb://127.0.0.1/resthub',
 
-    HOSTING_PORT: process.env.PORT || 3338
+    HOSTING_PORT: process.env.PORT || 3338,
+
+    /**
+     * Node development Eviroment**/
+    DEVELOPER_ENVIROMENT: process.env.NODE_ENV ||"development",
 };

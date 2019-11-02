@@ -1,6 +1,8 @@
 // productModel.js
 var mongoose = require('mongoose');
-comment = require('../models/productModel');
+products = require('../models/productModel');
+Comment = require('../models/commentModel');
+var commentSchema = new mongoose.Schema({ name: String });
 // Setup schema
 var productSchema = mongoose.Schema({
     name: {
@@ -16,8 +18,22 @@ var productSchema = mongoose.Schema({
         required: true
         },
     phone: String,
-    color:String,
-    comments: comment,
+    color: String,
+    comments: [
+        {
+            sendername: {
+                type: String
+            },
+            message: {
+                type: String,
+            },
+            comment_on: {
+                type: Date,
+                default: Date.now
+            }
+
+        }
+    ],
     create_date: {
         type: Date,
         default: Date.now

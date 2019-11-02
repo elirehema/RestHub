@@ -120,7 +120,7 @@ const options = {
         // return reject(err);
         process.exit(1);
     }
-}); 
+});
 /**
  * Handle db connection errors
  * If error respond with message   `Database connection Error`

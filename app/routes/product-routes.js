@@ -21,5 +21,7 @@ router.route('/products/:product_id')
     .patch(auths, productController.update)
     .put(auths, productController.update)
     .delete(auths, productController.delete);
+router.route('/product/comment/:product_id')
+    .patch(auths, productController.comment);
 // Export API routes
 module.exports = router;
