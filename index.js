@@ -114,7 +114,7 @@ const options = {
 };
 
 
- mongoose.connect(config.LOCAL_MONGO_URI, options, function(err) {
+ mongoose.connect(config.REMOTE_MONGO_URI, options, function(err) {
     if (err) {
         logger.error('MongoDB connection error: ' + err);
         // return reject(err);
