@@ -1,7 +1,8 @@
 // productModel.js
 var mongoose = require('mongoose');
+
 // Setup schema
-var commentSchema = mongoose.Schema({
+var commentSchema = new mongoose.Schema({
     sendername: {
         type: String
     },
@@ -13,9 +14,6 @@ var commentSchema = mongoose.Schema({
         default: Date.now
     }
    
-},{ _id: false });
-// Export Comment model
-var Comment = module.exports = mongoose.model('comment', commentSchema);
-module.exports.get = function (callback, limit) {
-    Comment.find(callback).limit(limit);
-};
+});
+
+module.exports =  commentSchema;
