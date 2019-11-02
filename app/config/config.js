@@ -10,5 +10,8 @@ module.exports = {
     // 3. Express Server Port
     LISTEN_PORT: process.env.LISTEN_PORT || 8080,
 
+     // 1. Local MongoDB
+    LOCAL_MONGO_URI: process.env.LOCAL_MONGO_URI || 'mongodb://127.0.0.1/resthub',
+
     HOSTING_PORT: process.env.PORT || 3338
 };

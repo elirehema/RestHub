@@ -20,6 +20,17 @@ mongoose.set('useCreateIndex', true);
 const session = require('express-session');
 const config = require('./app/config/config');
 var validate = require("validate-npm-package-name");
+var graphqlHTTP = require('express-graphql');
+var { buildSchema } = require('graphql');
+const {
+    GraphQLID,
+    GraphQLString,
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLObjectType,
+    GraphQLSchema
+} = require("graphql");
+
 
 
 // Import routes
@@ -103,7 +114,7 @@ const options = {
 };
 
 
- mongoose.connect(config.MONGO_URI, options, function(err) {
+ mongoose.connect(config.LOCAL_MONGO_URI, options, function(err) {
     if (err) {
         logger.error('MongoDB connection error: ' + err);
         // return reject(err);
