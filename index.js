@@ -4,6 +4,8 @@ const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const user_docs = require('./docs/user.json');
 const product_docs = require('./docs/products.json');
+const auth_docs = require('./docs/auth.json');
+
 
 // Notify using the built-in convenience method
 const notifier = updateNotifier({
@@ -59,6 +61,10 @@ const sptions = {
         {
             url: '/api-doc/user',
             name: 'User'
+        },
+        {
+            url: '/api-doc/auth',
+            name: 'Authentication'
         },
       ]
     }
@@ -126,6 +132,9 @@ app.get('/api-doc/user', function(req, res){
 });
 app.get('/api-doc/products', function(req, res){
     return res.json(product_docs);
+});
+app.get('/api-doc/auth', function(req, res){
+    return res.json(auth_docs);
 });
 
 
