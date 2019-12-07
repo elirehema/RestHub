@@ -1,165 +1,236 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "Yet Another Node.js Blogg Application API",
-      "description": "Yet Another Node.js Blogg Application API",
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Elog Api for Products",
+    "description": "Elog Api for creating, Updating, Editing and Deleting Products",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     },
-    "host": "localhost:3000",
-    "basePath": "/api/v1",
-    "tags": [
-      {
-        "name": "Products",
-        "description": "API for users in the system"
-      }
-    ],
-    "schemes": [
-      "http"
-    ],
-    "consumes": [
-      "application/json"
-    ],
-    "produces": [
-      "application/json"
-    ],
-    "paths": {
-      "/users": {
-        "post": {
-          "tags": [
-            "Products"
-          ],
-          "description": "Create new user in system",
-          "parameters": [
-            {
-              "name": "user",
-              "in": "body",
-              "description": "User that we want to create",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "New user is created",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        },
-        "get": {
-          "tags": [
-            "Users"
-          ],
-          "summary": "Get all users in system",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/definitions/Users"
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3338/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Products",
+      "description": "API for products in the system"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get all products in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
               }
             }
           }
         }
       },
-      "/users/{userId}": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Create new product in system",
+        "requestBody": {
+          "description": "Product that we want to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "New product is created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "product"
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get product with given ID",
         "parameters": [
           {
-            "name": "userId",
+            "name": "productId",
             "in": "path",
+            "description": "ID of product that we want to find",
             "required": true,
-            "description": "ID of user that we want to find",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "get": {
-          "tags": [
-            "Users"
-          ],
-          "summary": "Get user with given ID",
-          "responses": {
-            "200": {
-              "description": "User is found",
+        "responses": {
+          "200": {
+            "description": "Product is found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update product with give ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Product with new values of properties",
+          "content": {
+            "application/json": {
               "schema": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Product is updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
               }
             }
           }
         },
-        "delete": {
-          "summary": "Delete user with given ID",
-          "tags": [
-            "Users"
-          ],
-          "responses": {
-            "200": {
-              "description": "User is deleted",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
+        "x-codegen-request-body-name": "product"
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete product with given ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
-        },
-        "put": {
-          "summary": "Update user with give ID",
-          "tags": [
-            "Users"
-          ],
-          "parameters": [
-            {
-              "name": "user",
-              "in": "body",
-              "description": "User with new values of properties",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "User is updated",
-              "schema": {
-                "$ref": "#/definitions/User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
               }
             }
           }
         }
       }
-    },
-    "definitions": {
-      "User": {
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
         "required": [
-          "email",
-          "_id"
+          "name",
+          "price",
+          "image",
+          "phone",
+          "color"
         ],
+        "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "uniqueItems": true
-          },
-          "email": {
-            "type": "string",
-            "uniqueItems": true
-          },
-          "lastName": {
+          "name": {
             "type": "string"
           },
-          "firstName": {
+          "price": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comments"
+            }
+          }
+        }
+      },
+      "Products": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Product"
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "sendername": {
+            "type": "string"
+          },
+          "receivername": {
             "type": "string"
           }
         }
       },
-      "Users": {
+      "Comments": {
         "type": "array",
-        "$ref": "#/definitions/User"
+        "items": {
+          "$ref": "#/components/schemas/Comment"
+        }
       }
     }
   }
+}

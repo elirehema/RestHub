@@ -47,8 +47,8 @@ const app = express();
 
 const swaggerUi = require('swagger-ui-express');
 
-var sptions = {
-    explore: true,
+const sptions = {
+    explorer: true,
     swaggerOptions:{
       urls:[
        
@@ -58,12 +58,12 @@ var sptions = {
         },
         {
             url: '/api-doc/user',
-            name: 'Users'
+            name: 'User'
         },
       ]
     }
 };
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, sptions) );
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, sptions));
 
 
 var cors = require('cors');
@@ -93,12 +93,12 @@ app.use(session(sess));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/api', apiRoutes);
-app.use('/api', productRoutes);
-app.use('/api', userRoutes);
-app.use('/api', auths);
-app.use('/api', messageRoute);
-app.use('/api/teams', teamRoutes);
+app.use('/api/v1', apiRoutes);
+app.use('/api/v1', productRoutes);
+app.use('/api/v1', userRoutes);
+app.use('/api/v1', auths);
+app.use('/api/v1', messageRoute);
+app.use('/api/v1/teams', teamRoutes);
 
 
 
