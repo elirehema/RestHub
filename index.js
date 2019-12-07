@@ -53,19 +53,20 @@ const sptions = {
     explorer: true,
     swaggerOptions:{
       urls:[
-       
         {
-            url: '/api-doc/products',
-            name: 'Products'
+            url: '/api-doc/auth',
+            name: 'Authentication'
         },
         {
             url: '/api-doc/user',
             name: 'User'
         },
         {
-            url: '/api-doc/auth',
-            name: 'Authentication'
+            url: '/api-doc/products',
+            name: 'Products'
         },
+        
+       
       ]
     }
 };
