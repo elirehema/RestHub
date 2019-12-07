@@ -2,6 +2,8 @@
 "use strict";
 const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
+const user_docs = require('./docs/user.json');
+const product_docs = require('./docs/products.json');
 
 // Notify using the built-in convenience method
 const notifier = updateNotifier({
@@ -39,9 +41,31 @@ let productRoutes = require("./app/routes/product-routes");
 let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
-let teamRoutes = require("./app/routes/team-routes")
+let teamRoutes = require("./app/routes/team-routes");
 
 const app = express();
+
+const swaggerUi = require('swagger-ui-express');
+
+var sptions = {
+    explore: true,
+    swaggerOptions:{
+      urls:[
+       
+        {
+            url: 'http://192.168.3.149:3338/api-doc/products',
+            name: 'Products'
+        },
+        {
+            url: 'http://192.168.3.149:3338/api-doc/user',
+            name: 'Users'
+        },
+      ]
+    }
+};
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, sptions) );
+
+
 var cors = require('cors');
 
 var sess = {
@@ -77,6 +101,8 @@ app.use('/api', messageRoute);
 app.use('/api/teams', teamRoutes);
 
 
+
+
 /** 
  * Create api user sessions
  * `req` is an http.IncomingMessage, which is a Readable Stream
@@ -91,6 +117,13 @@ app.get('/', function (req, res) {
         return res.redirect('/');
     }
     return res.redirect('/login');
+});
+
+app.get('/api-doc/user', function(req, res){
+    return res.json(user_docs);
+});
+app.get('/api-doc/products', function(req, res){
+    return res.json(product_docs);
 });
 
 
