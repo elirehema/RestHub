@@ -7,7 +7,7 @@ var assert = require('assert'),
  * **/
 describe('/', function () {
   it('should return 200', function (done) {
-    http.get('https://infosk.herokuapp.com/api/', function (res) {
+    http.get('http://localhost:3338/api/', function (res) {
       assert.equal(200, res.statusCode);
       done();
     });
