@@ -53,11 +53,11 @@ var sptions = {
       urls:[
        
         {
-            url: 'http://192.168.3.149:3338/api-doc/products',
+            url: '/api-doc/products',
             name: 'Products'
         },
         {
-            url: 'http://192.168.3.149:3338/api-doc/user',
+            url: '/api-doc/user',
             name: 'Users'
         },
       ]
