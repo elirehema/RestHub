@@ -4,6 +4,7 @@ node_js:
   sudo: required
 before_script:
   - npm install
+  - nodemon index.js
 cache:
   directories:
     - "node_modules"

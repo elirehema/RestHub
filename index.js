@@ -116,7 +116,9 @@ app.get('/', function (req, res) {
     if (sess.username && sess.id) {
         return res.redirect('/');
     }
-    return res.redirect('/login');
+    /**
+     * Disabled for headers**/
+   // return res.redirect('/login');
 });
 
 app.get('/api-doc/user', function(req, res){
