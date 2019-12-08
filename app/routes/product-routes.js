@@ -16,15 +16,15 @@ var productController = require('../controllers/productController');
 router.route('/products')
     .get(productController.index)
     .post(auths, productController.createNewProduct);
-router.route('/products/:product_id')
+router.route('/products/:productId')
     .get(productController.view)
     .patch(auths, productController.update)
     .put(auths, productController.update)
     .delete(auths, productController.delete);
-router.route('/product/comments/:product_id')
+router.route('/products/:productId/comments')
     .patch(auths, productController.sendComments)
     .get( productController.getAllComments )
-router.route('product/:product_id/comment/:comment_id')
+router.route('products/:productId/comment/:commentId')
     .get( productController.getCommentById)
 
 // Export API routes

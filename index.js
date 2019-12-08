@@ -59,7 +59,7 @@ const sptions = {
         },
         {
             url: '/api-doc/user',
-            name: 'User'
+            name: 'Users'
         },
         {
             url: '/api-doc/products',
