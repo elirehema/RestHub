@@ -14,10 +14,10 @@ router.get('/', function (req, res) {
 var messageController = require('../controllers/MessageController');
 // Contact routes
 router.route('/message')
-    .get(auths,messageController.index)
+    .get(messageController.index)
     .post(auths,messageController.new);
 router.route('/message/:message_id')
-    .get(auths,messageController.view)
+    .get(messageController.view)
     .patch(auths,messageController.update)
     .put(auths,messageController.update)
     .delete(auths,messageController.delete);

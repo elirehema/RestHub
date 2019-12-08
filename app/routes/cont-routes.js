@@ -16,10 +16,10 @@ router.get('/', function (req, res) {
 var contactController = require('../controllers/contactController');
 // Contact routes
 router.route('/contacts')
-    .get(auths, contactController.index)
+    .get( contactController.index)
     .post(auths,contactController.new);
 router.route('/contacts/:contact_id')
-    .get(auths, contactController.view)
+    .get( contactController.view)
     .patch(auths, contactController.update)
     .put(auths,contactController.update)
     .delete(auths,contactController.delete);

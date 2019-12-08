@@ -15,11 +15,11 @@ router.get('/', function (req, res) {
 var userController = require('../controllers/UsersController');
 // Contact routes
 router.route('/users')
-    .get(auths, userController.index)
+    .get( userController.index)
     .post(auths,userController.new);
 
 router.route('/users/:user_id')
-    .get(auths,userController.view)
+    .get(userController.view)
     .patch(auths,userController.update)
     .put(auths,userController.update)
     .delete(auths,userController.delete);

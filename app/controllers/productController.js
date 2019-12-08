@@ -1,6 +1,7 @@
 // Import product model
 Product = require('../models/productModel');
-Comments = require('../models/commentModel');
+Comments = require('../models/CommentSchema');
+
 // Handle index actions
 
 exports.index = async  function (req, res) {
@@ -19,14 +20,14 @@ exports.index = async  function (req, res) {
     });
 };
 // Handle create product actions
-exports.new = async  function (req, res) {
+exports.createNewProduct = async  function (req, res) {
     var product = new Product();
     product.name = req.body.name ? req.body.name : product.name;
     product.price = req.body.price;
     product.image = req.body.image;
     product.phone = req.body.phone;
     product.color = req.body.color;
-    product.comments = null;
+    product.comments = [];
     // save the product and check for errors
      product.save(function (err) {
         if (err) {
@@ -52,6 +53,9 @@ exports.view = async function (req, res) {
         });
     });
 };
+
+
+
 // Handle update product info
 exports.update = async  function (req, res) {
     await Product.findById(req.params.product_id, function (err, product) {
@@ -73,21 +77,37 @@ exports.update = async  function (req, res) {
         });
     });
 };
-exports.comment = async function(req, res){
-    await Product.findByIdAndUpdate(req.params.product_id, {
-        $push: {
-            'comments': {sendername: "Elirehema", message: "req.body.message", comment_on: Date.now()}
-        }
-            },
-        function (err) {
-            if (err) {
-                console.log(err.statusCode)
-            }else {
-
-            }
-        }
-    );
+exports.sendComments = async function(req, res){
+    var update = {
+        $addToSet: { comments: {sendername: req.body.sendername, message: req.body.message, comment_on: Date.now()}}
+      }
+    await Product.findByIdAndUpdate(req.params.product_id,update,function (err) {
+        if (err) {
+            return res.json({ status: res.statusCode, error: err.message });
+          } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
+    });
 };
+exports.getAllComments = async function (req, res) {
+    await Product.findById(req.params.product_id, function (err, product) {
+        if (err)
+            res.send(err.message);
+        res.json({
+            status: res.statusCode,
+            message: 'List of comments..',
+            data: product.comments
+        });
+    });
+};
+exports.getCommentById = async function(req, res){
+    await Product.findById(req.params.product_id, function (err, product) {
+        if (err)
+            res.send(err.message);
+        res.json({
+            status: res.statusCode,
+            message: 'Comment by id..',
+        });
+    });
+}
 
 // Handle delete product
 exports.delete = async function (req, res) {

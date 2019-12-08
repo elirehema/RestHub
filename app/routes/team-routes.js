@@ -9,10 +9,10 @@ const auths = require('../middleware/auth');
 var productController = require('../controllers/Teams/TeamsController');
 // Contact routes
 router.route('/team/league/:league_id')
-    .get(auths,productController.find)
+    .get(productController.find)
     .post(auths, productController.new);
 router.route('/team/:team_id')
-.get(auths,productController.view)
+    .get(productController.view)
     .patch(auths, productController.update)
     .put(auths, productController.update)
     .delete(auths, productController.delete);
