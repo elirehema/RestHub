@@ -239,7 +239,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Comments"
                 }
               }
             }
@@ -267,7 +267,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Product"
+                "$ref": "#/components/schemas/Comment"
               }
             }
           },
@@ -279,7 +279,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "code"
+                      ],
+                      "default": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "enum": [
+                        "message"
+                      ],
+                      "default": "Comment sent !"
+                    }
+                  }
                 }
               }
             }
@@ -320,7 +335,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Product"
+                  "$ref": "#/components/schemas/Comment"
                 }
               }
             }
@@ -373,6 +388,12 @@
       "Comment": {
         "type": "object",
         "properties": {
+          "comment_on": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
           "sendername": {
             "type": "string"
           },
