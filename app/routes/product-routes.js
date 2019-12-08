@@ -14,14 +14,18 @@ router.get('/', function (req, res) {
 var productController = require('../controllers/productController');
 // Contact routes
 router.route('/products')
-    .get(auths,productController.index)
-    .post(auths, productController.new);
+    .get(productController.index)
+    .post(auths, productController.createNewProduct);
 router.route('/products/:product_id')
-    .get(auths,productController.view)
+    .get(productController.view)
     .patch(auths, productController.update)
     .put(auths, productController.update)
     .delete(auths, productController.delete);
-router.route('/product/comment/:product_id')
-    .patch(auths, productController.comment);
+router.route('/product/comments/:product_id')
+    .patch(auths, productController.sendComments)
+    .get( productController.getAllComments )
+router.route('product/:product_id/comment/:comment_id')
+    .get( productController.getCommentById)
+
 // Export API routes
 module.exports = router;

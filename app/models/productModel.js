@@ -1,44 +1,33 @@
 // productModel.js
 var mongoose = require('mongoose');
 products = require('../models/productModel');
-Comment = require('../models/commentModel');
-var commentSchema = new mongoose.Schema({ name: String });
+var commentSchema = require('./CommentSchema');
+
+
 // Setup schema
 var productSchema = mongoose.Schema({
-    name: {
+    name:  { type: String, required: true },
+    price: { type: String, required: true },
+    image: { type: String, required: true },
+    phone: { type: String, required: true },
+    color: { type: String, required: true },
+    comments: [{  sendername: {
         type: String,
-        required: true
+        required: true,
     },
-    price: {
+    message: {
         type: String,
-        required: true
+        required: true,
     },
-    image:{
-        type: String,
-        required: true
-        },
-    phone: String,
-    color: String,
-    comments: [
-        {
-            sendername: {
-                type: String
-            },
-            message: {
-                type: String,
-            },
-            comment_on: {
-                type: Date,
-                default: Date.now
-            }
-
-        }
-    ],
-    create_date: {
+    comment_on: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+        required: true
+    }}],
+    created_date: { type: Date, default: Date.now }
 });
+
+
 // Export Product model
 var Product = module.exports = mongoose.model('product', productSchema);
 module.exports.get = function (callback, limit) {
