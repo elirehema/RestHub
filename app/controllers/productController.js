@@ -43,7 +43,7 @@ exports.createNewProduct = async  function (req, res) {
 };
 // Handle view product info
 exports.view = async function (req, res) {
-    await Product.findById(req.params.product_id, function (err, product) {
+    await Product.findById(req.params.productId, function (err, product) {
         if (err)
             res.send(err.message);
         res.json({
@@ -58,7 +58,7 @@ exports.view = async function (req, res) {
 
 // Handle update product info
 exports.update = async  function (req, res) {
-    await Product.findById(req.params.product_id, function (err, product) {
+    await Product.findById(req.params.productId, function (err, product) {
         if (err) res.send(err);
         product.name = req.body.name ? req.body.name : product.name;
         product.price = req.body.price;
@@ -81,14 +81,14 @@ exports.sendComments = async function(req, res){
     var update = {
         $addToSet: { comments: {sendername: req.body.sendername, message: req.body.message, comment_on: Date.now()}}
       }
-    await Product.findByIdAndUpdate(req.params.product_id,update,function (err) {
+    await Product.findByIdAndUpdate(req.params.productId,update,function (err) {
         if (err) {
             return res.json({ status: res.statusCode, error: err.message });
           } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
     });
 };
 exports.getAllComments = async function (req, res) {
-    await Product.findById(req.params.product_id, function (err, product) {
+    await Product.findById(req.params.productId, function (err, product) {
         if (err)
             res.send(err.message);
         res.json({
@@ -99,7 +99,7 @@ exports.getAllComments = async function (req, res) {
     });
 };
 exports.getCommentById = async function(req, res){
-    await Product.findById(req.params.product_id, function (err, product) {
+    await Product.findById(req.params.productId, function (err, product) {
         if (err)
             res.send(err.message);
         res.json({
@@ -112,7 +112,7 @@ exports.getCommentById = async function(req, res){
 // Handle delete product
 exports.delete = async function (req, res) {
    await  Product.remove({
-        _id: req.params.product_id
+        _id: req.params.productId
     }, function (err, product) {
         if (err)
             res.send(err);

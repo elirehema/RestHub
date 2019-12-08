@@ -145,6 +145,47 @@
         },
         "x-codegen-request-body-name": "product"
       },
+      "patch": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update fields of product with give ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Product with new values of properties",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Product is updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "product"
+      },
       "delete": {
         "tags": [
           "Products"
@@ -164,6 +205,118 @@
         "responses": {
           "200": {
             "description": "Product is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{productId}/comments": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get all coments of a give product with a given ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product comments found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Comments a product fo a given ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Product with new comment",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Product is updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "product"
+      }
+    },
+    "/products/{productId}/comments/{commentId}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get comment by ID of a give productID with a given",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "ID of comment that we want to find",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product comments found",
             "content": {
               "application/json": {
                 "schema": {
