@@ -5,7 +5,7 @@ const pkg = require('./package.json');
 const user_docs = require('./docs/user.json');
 const product_docs = require('./docs/products.json');
 const auth_docs = require('./docs/auth.json');
-
+const contact_docs = require('./docs/contact.json');
 
 // Notify using the built-in convenience method
 const notifier = updateNotifier({
@@ -64,6 +64,10 @@ const sptions = {
         {
             url: '/api-doc/products',
             name: 'Products'
+        },
+        {
+            url: '/api-doc/contacts',
+            name: 'Contacts'
         },
         
        
@@ -136,6 +140,9 @@ app.get('/api-doc/products', function(req, res){
 });
 app.get('/api-doc/auth', function(req, res){
     return res.json(auth_docs);
+});
+app.get('/api-doc/contacts', function(req, res){
+    return res.json(contact_docs);
 });
 
 
