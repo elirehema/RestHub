@@ -1,6 +1,5 @@
 // Import User Model
 
-UserAuth = require('../models/UserAuthSchema');
 // Handle index Actions
 var sess;
 exports.index = function(req, res) {
