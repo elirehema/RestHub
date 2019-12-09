@@ -44,6 +44,7 @@ let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
+let classRoutes = require("./app/routes/classes-routes");
 
 const app = express();
 
@@ -109,6 +110,7 @@ app.use('/api/v1', productRoutes);
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', auths);
 app.use('/api/v1', messageRoute);
+app.use('/api/v1', classRoutes);
 app.use('/api/v1/teams', teamRoutes);
 
 
@@ -155,8 +157,6 @@ const options = {
     useFindAndModify: false,
     useUnifiedTopology: true,
     autoIndex: false, // Don't build indexes
-    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
-    reconnectInterval: 500, // Reconnect every 500ms
     poolSize: 10, // Maintain up to 10 socket connections
     // If not connected, return errors immediately rather than waiting for reconnect
     bufferMaxEntries: 0,
@@ -166,19 +166,11 @@ const options = {
 };
 
 
- mongoose.connect(config.REMOTE_MONGO_URI, options, function(err) {
-    if (err) {
-        logger.error('MongoDB connection error: ' + err);
-        // return reject(err);
-        process.exit(1);
-    }
-});
-/**
- * Handle db connection errors
- * If error respond with message   `Database connection Error`
- * */
+ mongoose.connect(config.REMOTE_MONGO_URI, options)
+    .then(()=> console.log("Connected to DataBase..."))
+    .catch(err => console.error("An Error has occured", err))
+
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Database connection error!'));
 db.on('open', function () {
     console.log('OK');
 });
