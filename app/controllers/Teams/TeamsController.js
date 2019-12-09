@@ -1,7 +1,6 @@
 // Import TeamModel Model
-Team = require('../../models/Teams/teamsModel');
+Team = require('../../Schemas/Teams/teamsModel');
 // Handle index Actions
-
 exports.find = async function (req, res) {
     await Team.get(function (err, teams) {
         if (err) {

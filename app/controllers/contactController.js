@@ -1,6 +1,6 @@
 // contactController.js
 // Import contact model
-Contact = require('../models/contactModel');
+Contact = require('../Schemas/contactModel');
 // Handle index actions
 exports.index = async function (req, res) {
     await Contact.get(function (err, contacts) {

@@ -1,5 +1,5 @@
 // Import Message Model
-Message = require('../models/messagesModel');
+Message = require('../Schemas/messagesModel');
 
 exports.index = async function (req, res) {
     await Message.get(function (err, message) {

@@ -1,6 +1,6 @@
 // productModel.js
 var mongoose = require('mongoose');
-products = require('../models/productModel');
+products = require('../Schemas/productModel');
 var commentSchema = require('./CommentSchema');
 
 
