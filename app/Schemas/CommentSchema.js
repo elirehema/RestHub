@@ -1,9 +1,8 @@
-// productModel.js
+// CommentsSchema for comments
 var mongoose = require('mongoose');
 
-// Setup schema
 var commentSchema = new mongoose.Schema({
-    sendername: {
+    senderName: {
         type: String,
         required: true,
     },
@@ -11,10 +10,10 @@ var commentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    comment_on: {
+    commentedOn: {
         type: Date,
         default: Date.now,
-        required: true
+        required: true,
     }
    
 });

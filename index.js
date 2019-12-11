@@ -46,6 +46,8 @@ let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
 let classRoutes = require("./app/routes/classes-routes");
 
+let questionsRoute = require("./app/routes/questions-route");
+
 const app = express();
 
 const swaggerUi = require('swagger-ui-express');
@@ -111,6 +113,7 @@ app.use('/api/v1', userRoutes);
 app.use('/api/v1', auths);
 app.use('/api/v1', messageRoute);
 app.use('/api/v1', classRoutes);
+app.use('/api/v1', questionsRoute);
 app.use('/api/v1/teams', teamRoutes);
 
 
