@@ -7,14 +7,14 @@ var assert = require('assert'),
  * **/
 describe('/', function () {
   it('should return 200', function (done) {
-    http.get('http://localhost:3338/api/', function (res) {
+    http.get('http://localhost:3338/', function (res) {
       assert.equal(200, res.statusCode);
       done();
     });
   });
 
   /* it('should say "API Its Working"', function (done) {
-  http.get('http://localhost:8080/api/', function (res) {
+  http.get('http://localhost:8080/', function (res) {
     var data = '';
   
     res.on('data', function (chunk) {

@@ -25,7 +25,7 @@ describe('server', function () {
 
 describe('/', function () {
 it('It should return 200', function (done) {
-http.get('http://localhost:3338/api/', function (res) {
+http.get('http://localhost:3338/', function (res) {
   assert.equal(200, res.statusCode);
   done();
 });

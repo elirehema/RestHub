@@ -105,6 +105,7 @@ exports.getCommentById = async function(req, res){
         res.json({
             status: res.statusCode,
             message: 'Comment by id..',
+            data: product.comments
         });
     });
 }
