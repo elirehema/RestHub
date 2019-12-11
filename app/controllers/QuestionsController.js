@@ -1,6 +1,6 @@
 //define QuestionController.js
 
-var Schema = require('../Schemas/QuestionsSchemas')
+Schema = require('../Schemas/QuestionsSchemas')
 exports.getAllQuestions = async function(req, res){
     await Schema.get( function(err, response){
         if (err) {
@@ -19,7 +19,7 @@ exports.getAllQuestions = async function(req, res){
 /** Ask new question **/
 exports.askNewQuestion = async function(req, res){
     var question = new Schema();
-    question.question = req.param.question;
+    question.question = req.body.question;
     question.save(function(err){
         if(err){ return res.json({ status: res.statusCode, error: err.message }); }
         res.json({
@@ -65,5 +65,24 @@ exports.getQuestionById = async function(req, res){
                 data: question
             });
 
+    });
+}
+/** Reply to specific question **/
+exports.replyToSpecifiQuestion = async function(req,res){
+    var chilval = {
+        $addToSet: {  replyInfo:[
+            { userName: req.body.username, userId: req.body.userId}]}
+    };
+    var update = {
+        $addToSet: { questionAnswers : {
+            replyMessage: req.body.message,
+            replyInfo: chilval,
+          
+        }}
+      }
+    await Schema.findByIdAndUpdate(req.params.questionId,update,function (err) {
+        if (err) {
+            return res.json({ status: res.statusCode, error: err.message });
+          } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
     });
 }

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Elog Api for Products",
-    "description": "Elog Api for creating, Updating, Editing and Deleting Products",
+    "title": "oPus Api for Products",
+    "description": "oPus Api for creating, Updating, Editing and Deleting Products",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -306,13 +306,13 @@
     "/products/{productId}/comments/{commentId}": {
       "get": {
         "tags": [
-          "Product"
+          "ProductComments"
         ],
         "summary": "Get comment by ID of a give productID with a given",
         "parameters": [
           {
             "name": "productId",
-            "in": "path",
+            "in": "query",
             "description": "ID of product that we want to find",
             "required": true,
             "schema": {
@@ -336,6 +336,44 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductComments"
+        ],
+        "summary": "Delete specific comment in a specific product",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "ID of product you want to delete comment from",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commentId",
+            "in": "query",
+            "description": "ID of comment you want to delete from this product",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment deleted succesfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Responses"
                 }
               }
             }
@@ -383,6 +421,26 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Product"
+        }
+      },
+      "Responses": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              200,
+              404
+            ],
+            "default": 200
+          },
+          "message": {
+            "type": "string",
+            "enum": [
+              "Response"
+            ],
+            "default": "Comment Deleted Succesfully !"
+          }
         }
       },
       "Comment": {
