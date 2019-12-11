@@ -8,7 +8,9 @@ router.route('/questions')
 router.route('/questions/:questionId')
     .get(Controller.getQuestionById)
     .patch(auths, Controller.updateQuestion)
-    .put(auths, Controller.updateQuestion)
+    .put(auths, Controller.updateQuestion);
+router.route('/questions/reply/:questionId')
+    .post(auths, Controller.replyToSpecifiQuestion)
     
 
 

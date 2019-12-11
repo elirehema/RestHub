@@ -6,8 +6,8 @@ exports.index = async function (req, res) {
    await  User.get(function (err, users) {
         if (err) {
             res.json({
-                status: res.statusCode,
-                message: err,
+                status: err.statusCode,
+                message: err.message,
             });
         }
         res.json({

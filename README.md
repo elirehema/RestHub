@@ -2,7 +2,7 @@
 
 ## Project
 
- This repo contain a demo NODEJS apis for [eLog](https://github.com/elirehema/Onn/) Project
+ This repo contain a demo NODEJS apis for [oPus](https://github.com/elirehema/Onn/) Project
 
 ## API's
 

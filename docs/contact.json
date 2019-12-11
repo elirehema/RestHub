@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.1",
     "info": {
-      "title": "Elog Api for Contacts",
-      "description": "Elog Api for accessing user contacts",
+      "title": "oPus Api for Contacts",
+      "description": "oPus Api for accessing user contacts",
       "license": {
         "name": "MIT",
         "url": "https://opensource.org/licenses/MIT"

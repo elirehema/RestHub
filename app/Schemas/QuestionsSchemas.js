@@ -28,7 +28,7 @@ var replies =  [{
         
     }]
 }];
-var QuestionsSchemas = mongoose.Schema({
+var QuestionsSchemas = new mongoose.Schema({
     question:{
         type: String,
         required: true,
@@ -66,8 +66,7 @@ var QuestionsSchemas = mongoose.Schema({
                 required: true
             },
             userId:{
-                type: String,
-                required: true
+                type: String
             },
             
         }],
@@ -80,4 +79,11 @@ var QuestionsSchemas = mongoose.Schema({
     }
 
 
-})
+});
+
+const QuestionsSchema = module.exports = mongoose.model('user_questions', QuestionsSchemas);
+
+
+module.exports.get = function(callback, limit) {
+  QuestionsSchema.find(callback).limit(limit);
+};

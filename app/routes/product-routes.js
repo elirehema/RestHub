@@ -15,6 +15,7 @@ router.route('/products/:productId/comments')
     .get( productController.getAllComments )
 router.route('products/:productId/comments/:commentId')
     .get( productController.getCommentById)
+    .delete(auths, productController.deleteCommentById)
 
 // Export API routes
 module.exports = router;

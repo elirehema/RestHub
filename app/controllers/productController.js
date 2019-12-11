@@ -109,7 +109,27 @@ exports.getCommentById = async function(req, res){
         });
     });
 }
+/** Define delete Comment operation**/
+exports.deleteCommentById = async function(req, res){
+    await Product.update(
+        { _id: req.params.productId },
+        { $pull: { comments:{ _id: req.params.commentId }}},
+        { multi: true },
+         function(err, product){
+        if(err){
+            res.json({
+                status: res.status,
+                message: err.message,
 
+            })
+            res.json({
+                status: res.status,
+                message: "Comment Deleted Succesfully !",
+            })
+
+        }
+    });
+}
 // Handle delete product
 exports.delete = async function (req, res) {
    await  Product.remove({

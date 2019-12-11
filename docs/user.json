@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Elog Api for Users",
-    "description": "Elog Api for creating, Updating, Editing and Deletion of system users",
+    "title": "oPus Api for Users",
+    "description": "oPus Api for creating, Updating, Editing and Deletion of system users",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
