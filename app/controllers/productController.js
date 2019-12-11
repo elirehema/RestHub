@@ -8,7 +8,7 @@ exports.index = async  function (req, res) {
     await Product.get(function (err, products) {
         if (err) {
             res.json({
-                status: "error",
+                status: res.statusCode,
                 message: err,
             });
         }

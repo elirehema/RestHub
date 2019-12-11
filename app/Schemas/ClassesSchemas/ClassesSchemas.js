@@ -1,3 +1,5 @@
+//define classes Schema for multiple classes
+
 var mongoose = require('mongoose');
 var ClassesSchema = mongoose.Schema({
     className: {
