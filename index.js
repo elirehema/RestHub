@@ -45,6 +45,7 @@ let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
 let classRoutes = require("./app/routes/classes-routes");
+let documentsRoutes = require("./app/routes/documents-routes");
 
 let questionsRoute = require("./app/routes/questions-route");
 
@@ -57,19 +58,19 @@ const sptions = {
     swaggerOptions:{
       urls:[
         {
-            url: '/api-doc/auth',
+            url: '/api/doc/auth',
             name: 'Authentication'
         },
         {
-            url: '/api-doc/user',
+            url: '/api/doc/user',
             name: 'Users'
         },
         {
-            url: '/api-doc/products',
+            url: '/api/doc/products',
             name: 'Products'
         },
         {
-            url: '/api-doc/contacts',
+            url: '/api/doc/contacts',
             name: 'Contacts'
         },
         
@@ -77,7 +78,7 @@ const sptions = {
       ]
     }
 };
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, sptions));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, sptions));
 
 
 var cors = require('cors');
@@ -115,15 +116,8 @@ app.use('/api/v1', messageRoute);
 app.use('/api/v1', classRoutes);
 app.use('/api/v1', questionsRoute);
 app.use('/api/v1/teams', teamRoutes);
+app.use('/api/doc', documentsRoutes);
 
-
-
-
-/** 
- * Create api user sessions
- * `req` is an http.IncomingMessage, which is a Readable Stream
- * `res` is an http.ServerResponse, which is a Writable Stream
- * **/
 
 
 app.get('/', function (req, res) {
@@ -132,23 +126,9 @@ app.get('/', function (req, res) {
     if (sess.username && sess.id) {
         return res.redirect('/');
     }
-    /**
-     * Disabled for headers**/
-   // return res.redirect('/login');
 });
 
-app.get('/api-doc/user', function(req, res){
-    return res.json(user_docs);
-});
-app.get('/api-doc/products', function(req, res){
-    return res.json(product_docs);
-});
-app.get('/api-doc/auth', function(req, res){
-    return res.json(auth_docs);
-});
-app.get('/api-doc/contacts', function(req, res){
-    return res.json(contact_docs);
-});
+
 
 
 /**
