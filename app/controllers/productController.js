@@ -8,7 +8,7 @@ exports.index = async  function (req, res) {
     await Product.get(function (err, products) {
         if (err) {
             res.json({
-                status: res.statusCode,
+                status: res.status(),
                 message: err,
             });
         }
@@ -78,8 +78,7 @@ exports.update = async  function (req, res) {
     });
 };
 exports.sendComments = async function(req, res){
-    var update = {
-        $addToSet: { comments: {sendername: req.body.sendername, message: req.body.message, comment_on: Date.now()}}
+    var update = { $addToSet: { comments: {sendername: req.body.sendername, message: req.body.message, comment_on: Date.now()}}
       }
     await Product.findByIdAndUpdate(req.params.productId,update,function (err) {
         if (err) {

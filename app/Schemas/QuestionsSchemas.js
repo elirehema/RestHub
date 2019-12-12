@@ -79,7 +79,7 @@ var QuestionsSchemas = new mongoose.Schema({
     }
 
 
-});
+},{versionKey: false});
 
 const QuestionsSchema = module.exports = mongoose.model('user_questions', QuestionsSchemas);
 
