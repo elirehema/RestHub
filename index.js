@@ -2,20 +2,11 @@
 "use strict";
 const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
-const user_docs = require('./docs/user.json');
-const product_docs = require('./docs/products.json');
-const auth_docs = require('./docs/auth.json');
-const contact_docs = require('./docs/contact.json');
 
 // Notify using the built-in convenience method
-const notifier = updateNotifier({
-    pkg,
-    updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
-});
+const notifier = updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 * 24 * 7 });
 
-if (notifier.update) {
-    console.log(`Update available: ${notifier.update.latest}`);
-}
+if (notifier.update) { console.log(`Update available: ${notifier.update.latest}`); }
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -45,7 +36,6 @@ let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
 let classRoutes = require("./app/routes/classes-routes");
-let documentsRoutes = require("./app/routes/documents-routes");
 
 let questionsRoute = require("./app/routes/questions-route");
 
@@ -58,19 +48,19 @@ const sptions = {
     swaggerOptions:{
       urls:[
         {
-            url: '/api/doc/auth',
+            url: '/api/doc/auth.json',
             name: 'Authentication'
         },
         {
-            url: '/api/doc/user',
+            url: '/api/doc/user.json',
             name: 'Users'
         },
         {
-            url: '/api/doc/products',
+            url: '/api/doc/products.json',
             name: 'Products'
         },
         {
-            url: '/api/doc/contacts',
+            url: '/api/doc/contact.json',
             name: 'Contacts'
         },
         
@@ -116,7 +106,7 @@ app.use('/api/v1', messageRoute);
 app.use('/api/v1', classRoutes);
 app.use('/api/v1', questionsRoute);
 app.use('/api/v1/teams', teamRoutes);
-app.use('/api/doc', documentsRoutes);
+app.use('/api/doc', express.static('docs'));
 
 
 
@@ -129,11 +119,7 @@ app.get('/', function (req, res) {
 });
 
 
-
-
-/**
- *   Connect to Mongoose and set connection variable 
- * */
+/** Connect to Mongoose and set connection variable **/
 const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -160,9 +146,7 @@ db.on('open', function () {
 
 
 
-/** 
- *  Launch app to listen to specified port
-**/
+/**   Launch app to listen to specified port **/
 const server = app.listen(config.HOSTING_PORT, function () {
     console.log("Running RestHub on port " + config.HOSTING_PORT);
 });
@@ -175,7 +159,6 @@ io.on('connection', function (socket) {
         io.emit('MESSAGE', data)
     });
 });
-/**
- * Export server for other external modules
- * **/
+
+/** Export server for other external modules **/
 module.exports = server;
