@@ -36,7 +36,7 @@ exports.updateQuestion = async function(req, res){
         if (err) res.send(err);
         question.question = req.body.question ? req.body.question : question.question;
         question.questionLastUpdated = Date.now();
-     product.save(function (err) {
+     question.save(function (err) {
             if (err)
                 res.json({
                     status: res.statusCode,
@@ -67,22 +67,70 @@ exports.getQuestionById = async function(req, res){
 
     });
 }
-/** Reply to specific question **/
-exports.replyToSpecifiQuestion = async function(req,res){
-    var chilval = {
-        $addToSet: {  replyInfo:[
-            { userName: req.body.username, userId: req.body.userId}]}
-    };
-    var update = {
-        $addToSet: { questionAnswers : {
-            replyMessage: req.body.message,
-            replyInfo: chilval,
-          
-        }}
-      }
+/** Answer  to specific question **/
+exports.answerTheQuestion = async function(req,res){
+    var update = { $addToSet: { questionAnswers : { replyMessage: req.body.message }} }
     await Schema.findByIdAndUpdate(req.params.questionId,update,function (err) {
         if (err) {
-            return res.json({ status: res.statusCode, error: err.message });
+            return res.json({ status: res.statusCode, error: 'err.message' });
           } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
+    });
+}
+
+/** Reply to specific question **/
+exports.replyToQuestion = async function(req,res){
+    var update = { $addToSet: { questionReplies : { replyMessage: req.body.message }} }
+    await Schema.findByIdAndUpdate(req.params.questionId,update,function (err) {
+        if (err) {
+            return res.json({ status: res.statusCode, error: 'err.message' });
+          } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
+    });
+}
+
+/** Get Specific Question Replies **/
+exports.getAllQuestionReplies = async function(req, res){
+    await Schema.findById(req.params.questionId, function (err, question) {
+        if (err)
+            res.json({
+                status: err.statusCode,
+                message: err.message,
+            })
+        res.json({
+            status: res.statusCode,
+            message: res.message,
+            data: question.questionReplies
+        });
+    });
+}
+
+/** Get Specific Question Replies **/
+exports.getAllQuestionAnswers = async function(req, res){
+    await Schema.findById(req.params.questionId, function (err, question) {
+        if (err)
+            res.json({
+                status: err.statusCode,
+                message: err.message,
+            })
+        res.json({
+            status: res.statusCode,
+            message: res.message,
+            data: question.questionAnswers
+        });
+    });
+}
+
+exports.upvoteQuestionAnswer = async function(req, res){
+    await Schema.update({_id: req.params.questionId, 'questionAnswers._id':req.params.answerId },
+    { $addToSet: { 'questionAnswers.$.replyVoters': req.body.userId } },
+    { upsert: true}, function(err, question){
+        if(err){
+            res.json({
+                status: err.status
+            });
+        }
+        res.json({
+            status: res.status,
+            data: question
+        });
     });
 }

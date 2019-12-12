@@ -63,6 +63,10 @@ const sptions = {
             url: '/api/doc/contact.json',
             name: 'Contacts'
         },
+        {
+            url: '/api/doc/questions.json',
+            name: 'Questions'
+        },
         
        
       ]
