@@ -13,9 +13,9 @@ var AnswersSchemas = new Schema({
     },
     questionId:{type: Schema.Types.ObjectId, ref: 'opus_questions'},
     answerVoters: [{ type: Schema.Types.ObjectId, ref: 'opus_users' }],
-    answerReplies: [{
+    answerComments: [{
         type: Schema.Types.ObjectId,
-        ref: 'opus_replies'
+        ref: 'opus_comments'
     }]
    
 })

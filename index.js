@@ -35,7 +35,7 @@ let userRoutes = require("./app/routes/user-routes");
 let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
-let classRoutes = require("./app/routes/classes-routes");
+let classRoutes = require("./app/routes/route-classes");
 
 let questionsRoute = require("./app/routes/questions-route");
 
@@ -111,6 +111,9 @@ app.use('/api/v1', classRoutes);
 app.use('/api/v1', questionsRoute);
 app.use('/api/v1/teams', teamRoutes);
 app.use('/api/doc', express.static('docs'));
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
 
 
 
@@ -154,15 +157,22 @@ db.on('open', function () {
 const server = app.listen(config.HOSTING_PORT, function () {
     console.log("Running RestHub on port " + config.HOSTING_PORT);
 });
+function logErrors (err, req, res, next) {
+    console.error(err.stack)
+    next(err)
+  };
 
-const io = require('socket.io')(server);
-
-io.on('connection', function (socket) {
-    //console.log(socket.id);
-    socket.on('SEND_MESSAGE', function (data) {
-        io.emit('MESSAGE', data)
-    });
-});
+  function clientErrorHandler (err, req, res, next) {
+    if (req.xhr) {
+      res.status(500).send({ error: 'Something failed!' })
+    } else {
+      next(err)
+    }
+  };
+  function errorHandler (err, req, res, next) {
+    res.status(500)
+    res.render('error', { error: err })
+  }
 
 /** Export server for other external modules **/
 module.exports = server;

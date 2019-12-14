@@ -55,24 +55,8 @@ var UserSchemas = mongoose.Schema({
         },
         
     }],
-    userParticipation:[{
-        participationTitle:{
-            type:String,
-            required: true,
-        },
-        participationId:{
-            type:String,
-            required:true
-        },
-        participationScores:{
-            type: Number,
-            required: true
-        },
-        participationDate:{
-            type: Date,
-            required: true
-        }
-    }],
+    userAnswers:[{type: Schema.Types.ObjectId, ref: 'opus_answers'}],
+    userComments:[{type: Schema.Types.ObjectId, ref: 'opus_comments'}]
 
 
 })

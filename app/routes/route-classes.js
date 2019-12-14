@@ -1,6 +1,6 @@
 let router = require('express').Router();
 const auth = require('../middleware/auth');
-var Controller = require('../controllers/ClassesController/ClassessController');
+var Controller = require('../controllers/ControllerClassess');
 
 router.route('/classes')
     .get(Controller.getAllClasses)
