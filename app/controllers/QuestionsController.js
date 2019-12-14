@@ -1,6 +1,7 @@
 //define QuestionController.js
 
 Schema = require('../Schemas/QuestionsSchemas')
+const Answer = require('../Schemas/AnswersSchemas')
 exports.getAllQuestions = async function(req, res){
     await Schema.get( function(err, response){
         if (err) {
@@ -20,6 +21,7 @@ exports.getAllQuestions = async function(req, res){
 exports.askNewQuestion = async function(req, res){
     var question = new Schema();
     question.question = req.body.question;
+    question.questionAnswers = await Answer.find();
     question.save(function(err){
         if(err){ return res.json({ status: res.statusCode, error: err.message }); }
         res.json({
@@ -53,28 +55,39 @@ exports.updateQuestion = async function(req, res){
 
 /** Get question by Id **/
 exports.getQuestionById = async function(req, res){
-    await Schema.findOne({_id: req.params.questionId }, function (err, question) {
-        if (err)
-                res.json({
-                    status: res.statusCode,
-                    message: res.message,
-                });
-            res.json({
-                status: res.statusCode,
-                message: 'Retrieved Succesfully',
-                data: question
-            });
-
+    await Schema.find()
+    .populate({path: "questionAnswers", model: "opus_answers"})
+    .exec(function (err, question) {
+        if(err) return handleError(err);
+        res.json({
+            status: res.statusCode,
+            message: 'Created succesfully...!',
+            data: question,
+        });
     });
 }
 /** Answer  to specific question **/
 exports.answerTheQuestion = async function(req,res){
-    var update = { $addToSet: { questionAnswers : { replyMessage: req.body.message }} }
+    var answer = new Answer();
+    answer.answerMessage = req.body.message;
+    answer.questionId = await Schema.findOne({_id: req.params.questionId})
+    answer.save(function(err){
+        if(err){ return res.json({ status: res.statusCode, error: err.message }); }
+        res.json({
+            status: res.statusCode,
+            message: 'Created succesfully...!',
+            data: answer
+        });
+    });
+    console.log(answer._id);
+
+    /*var update = { $addToSet: { questionAnswers : { replyMessage: req.body.message }} }
     await Schema.findByIdAndUpdate(req.params.questionId,update,function (err) {
         if (err) {
             return res.json({ status: res.statusCode, error: 'err.message' });
           } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
     });
+    */
 }
 
 /** Reply to specific question **/
@@ -133,4 +146,8 @@ exports.upvoteQuestionAnswer = async function(req, res){
             data: question
         });
     });
+}
+
+handleError = function(err){
+    console.log("Error " + err + "has occured !!!")
 }

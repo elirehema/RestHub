@@ -77,4 +77,4 @@ var UserSchemas = mongoose.Schema({
 
 })
 
-var UserSchema = module.exports = mongoose.model('UsersSchema', UserSchemas);
+var UserSchema = module.exports = mongoose.model('opus_users', UserSchemas);
