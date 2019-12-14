@@ -1,89 +1,48 @@
 //define Questions Schema
+
 var mongoose = require('mongoose');
-var replies =  [{
-    replyDate:{
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    replyMessage:{
-        type:String,
-        required: true,
-    },
-    replyVoters: [{
-        userId:{
-            type:String,
-            required: true
-        }
-    }],
-    replyInfo:[{
-        userName:{
-            type: String,
-            required: true
-        },
-        userId:{
-            type: String,
-            required: true
-        },
-        
-    }]
-}];
-var QuestionsSchemas = new mongoose.Schema({
-    question:{
+//mongoose.plugin(require('../plugins/loadedAt'))
+const Schema = mongoose.Schema,
+        ObjectId = Schema.ObjectId;
+
+var QuestionsSchemas = new Schema({
+    question: {
         type: String,
-        required: true,
+        required: true
     },
-    questionValidity:{
+    questionValidity: {
         type: Boolean,
         default: true
     },
-    questionDate:{
+    questionDate: {
         type: Date,
         required: true,
         default: Date.now
     },
+    questionAuthor: {
+        type: Schema.Types.ObjectId,
+        ref: 'opus_users'
+    },
     questionVotes: Number,
     questionAnswers: [{
-        replyDate:{
-            type: Date,
-            required: true,
-            default: Date.now
-        },
-        replyMessage:{
-            type:String,
-            required: true,
-        },
-        replyVoters:[{
-            userId:{
-                type:String,
-                required: true,
-            }
-        }],
-
-        replyInfo:[{
-            userName:{
-                type: String,
-                required: true
-            },
-            userId:{
-                type: String
-            },
-            
-        }],
-        replyReplies: replies
-
+        type: Schema.Types.ObjectId,
+        ref: 'opus_answers',
+        
     }],
-    questionReplies: replies,
-    questionLastUpdated:{
-        type:Date,
+    questionReplies: [{
+        type: ObjectId,
+        ref: 'opus_replies'
+    }],
+    questionLastUpdated: {
+        type: Date
     }
 
 
-},{versionKey: false});
+});
 
-const QuestionsSchema = module.exports = mongoose.model('user_questions', QuestionsSchemas);
+const QuestionsSchema = module.exports = mongoose.model('opus_questions', QuestionsSchemas);
 
 
-module.exports.get = function(callback, limit) {
-  QuestionsSchema.find(callback).limit(limit);
+module.exports.get = function (callback, limit) {
+    QuestionsSchema.find(callback).limit(limit);
 };

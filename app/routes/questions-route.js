@@ -14,7 +14,7 @@ router.route('/questions/:questionId/replies')
     .patch(auths, Controller.replyToQuestion)
 router.route('/questions/:questionId/answers')
     .get( Controller.getAllQuestionAnswers)
-    .patch(auths, Controller.answerTheQuestion)
+    .post(auths, Controller.answerTheQuestion)
 router.route('/questions/:questionId/upvote/:answerId')
     .patch(auths, Controller.upvoteQuestionAnswer)
 
