@@ -1,7 +1,7 @@
 //define QuestionController.js
 
 Schema = require('../Schemas/QuestionsSchemas')
-const Answer = require('../Schemas/AnswersSchemas')
+const Answer = require('../Schemas/SchemaAnswers')
 exports.getAllQuestions = async function(req, res){
     await Schema.get( function(err, response){
         if (err) {

@@ -1,6 +1,5 @@
 // Import product model
-Product = require('../Schemas/productModel');
-Comments = require('../Schemas/CommentSchema');
+const Product = require('../Schemas/productModel');
 
 // Handle index actions
 
