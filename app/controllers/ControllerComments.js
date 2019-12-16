@@ -1,5 +1,5 @@
 
-const  Comments = require('../Schemas/SchemaComments');
+const Comments = require('../Schemas/SchemaComments');
 const User = require('../Schemas/SchemaUsers');
 
 /** Get All Comment **/
