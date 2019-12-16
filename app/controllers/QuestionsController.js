@@ -1,7 +1,8 @@
 //define QuestionController.js
 
-Schema = require('../Schemas/QuestionsSchemas')
-const Answer = require('../Schemas/SchemaAnswers')
+Schema = require('../Schemas/QuestionsSchemas');
+const Answer = require('../Schemas/SchemaAnswers');
+const Replies = require('../Schemas/SchemaReplies');
 exports.getAllQuestions = async function(req, res){
     await Schema.get( function(err, response){
         if (err) {
@@ -55,8 +56,9 @@ exports.updateQuestion = async function(req, res){
 
 /** Get question by Id **/
 exports.getQuestionById = async function(req, res){
-    await Schema.find()
+    await Schema.findOne({_id: req.params.questionId})
     .populate({path: "questionAnswers", model: "opus_answers"})
+    .populate({path: "questionReplies", model: "opus_replies"})
     .exec(function (err, question) {
         if(err) return handleError(err);
         res.json({
@@ -68,68 +70,142 @@ exports.getQuestionById = async function(req, res){
 }
 /** Answer  to specific question **/
 exports.answerTheQuestion = async function(req,res){
-    var answer = new Answer();
-    answer.answerMessage = req.body.message;
-    answer.questionId = await Schema.findOne({_id: req.params.questionId})
-    answer.save(function(err){
-        if(err){ return res.json({ status: res.statusCode, error: err.message }); }
-        res.json({
-            status: res.statusCode,
-            message: 'Created succesfully...!',
-            data: answer
-        });
-    });
-    console.log(answer._id);
 
-    /*var update = { $addToSet: { questionAnswers : { replyMessage: req.body.message }} }
-    await Schema.findByIdAndUpdate(req.params.questionId,update,function (err) {
-        if (err) {
-            return res.json({ status: res.statusCode, error: 'err.message' });
-          } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
-    });
-    */
+     var answer = new Answer();
+    Schema.findOneAndUpdate(
+    {_id: req.params.questionId},
+    { $push: {questionAnswers: answer._id}},
+     function (error, success) {
+            if (error) {
+                res.json({
+                message: error.message,
+                name: error.name,
+                kind: error.kind,
+                path: error.path,
+                reason: error.reason,
+                model: error.model
+                })
+            } else {
+                    answer.answerMessage = req.body.message;
+                    answer.questionId = req.params.questionId;
+                    answer.save(function(err){
+                        if(err){ return res.json({ status: res.statusCode, error: err.message }); }
+                        res.json({
+                            status: res.statusCode,
+                            message: 'Created succesfully...!',
+                            data: answer
+                        });
+                    });
+            }
+        });
 }
 
 /** Reply to specific question **/
 exports.replyToQuestion = async function(req,res){
-    var update = { $addToSet: { questionReplies : { replyMessage: req.body.message }} }
-    await Schema.findByIdAndUpdate(req.params.questionId,update,function (err) {
-        if (err) {
-            return res.json({ status: res.statusCode, error: 'err.message' });
-          } else { res.json({ status: res.statusCode, message: 'Comment sent !'});}
-    });
+        var reply = new Replies();
+       Schema.findOneAndUpdate(
+       {_id: req.params.questionId},
+       { $push: {questionReplies: reply._id}},
+        function (error, success) {
+               if (error) {
+                   res.json({
+                   message: error.message,
+                   name: error.name,
+                   kind: error.kind,
+                   path: error.path,
+                   reason: error.reason,
+                   model: error.model
+                   })
+               } else {
+                       reply.replyMessage = req.body.message;
+                       reply.questionId = req.params.questionId;
+                       reply.save(function(err){
+                           if(err){ return res.json({ status: res.statusCode, error: err.message }); }
+                           res.json({
+                               status: res.statusCode,
+                               message: 'Created succesfully...!',
+                               data: reply
+                           });
+                       });
+               }
+           });
 }
 
 /** Get Specific Question Replies **/
 exports.getAllQuestionReplies = async function(req, res){
-    await Schema.findById(req.params.questionId, function (err, question) {
-        if (err)
-            res.json({
-                status: err.statusCode,
-                message: err.message,
-            })
-        res.json({
-            status: res.statusCode,
-            message: res.message,
-            data: question.questionReplies
-        });
-    });
+    await Schema.findOne({_id: req.params.questionId}).select('questionReplies')
+       .populate({path: "questionReplies", model: "opus_replies"})
+       .exec(function (err, answers){
+       if(err){
+       }else{
+       res.json({
+                   message: 'Created succesfully...!',
+                   data: answers,
+               });
+       }
+
+       })
+}
+
+/** Get Specific Question Replies ID's**/
+exports.getAllQuestionAnswerIds = async function(req, res){
+    await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
+    .exec(function (error, answers){
+    if(error){
+      res.json({
+                    message: error.message,
+                    name: error.name,
+                    kind: error.kind,
+                    path: error.path,
+                    reason: error.reason,
+                    model: error.model
+                    })
+    }else{
+    res.json({
+                message: 'Created succesfully...!',
+                data: answers,
+            });
+    }
+
+    })
+};
+/** Get Specific Question Replies ID's**/
+exports.getAllQuestionRepliesIds = async function(req, res){
+    await Schema.findOne({_id: req.params.questionId}).select('questionReplies')
+    .exec(function (error, answers){
+    if(error){
+      res.json({
+                    message: error.message,
+                    name: error.name,
+                    kind: error.kind,
+                    path: error.path,
+                    reason: error.reason,
+                    model: error.model
+                    })
+    }else{
+    res.json({
+                message: 'Created succesfully...!',
+                data: answers,
+            });
+    }
+
+    })
 }
 
 /** Get Specific Question Replies **/
 exports.getAllQuestionAnswers = async function(req, res){
-    await Schema.findById(req.params.questionId, function (err, question) {
-        if (err)
-            res.json({
-                status: err.statusCode,
-                message: err.message,
-            })
-        res.json({
-            status: res.statusCode,
-            message: res.message,
-            data: question.questionAnswers
-        });
-    });
+    await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
+    .populate({path: "questionAnswers", model: "opus_answers"})
+    .exec(function (err, answers){
+    if(err){
+    }else{
+    res.json({
+                message: 'Created succesfully...!',
+                data: answers,
+            });
+    }
+
+    })
 }
 
 exports.upvoteQuestionAnswer = async function(req, res){
