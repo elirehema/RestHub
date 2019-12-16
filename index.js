@@ -36,6 +36,7 @@ let auths = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
 let classRoutes = require("./app/routes/route-classes");
+let commentsRoutes = require("./app/routes/route-comments");
 
 let questionsRoute = require("./app/routes/questions-route");
 
@@ -109,6 +110,7 @@ app.use('/api/v1', auths);
 app.use('/api/v1', messageRoute);
 app.use('/api/v1', classRoutes);
 app.use('/api/v1', questionsRoute);
+app.use('/api/v1', commentsRoutes);
 app.use('/api/v1/teams', teamRoutes);
 app.use('/api/doc', express.static('docs'));
 app.use(logErrors)

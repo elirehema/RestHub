@@ -1,5 +1,6 @@
 //define user( i.e. Student Schemas)
 var mongoose  = require('mongoose');
+var Schema = mongoose.Schema;
 var UserSchemas = mongoose.Schema({
     userName:{
         type:String,
