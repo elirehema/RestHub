@@ -4,13 +4,7 @@
 let router = require('express').Router();
 // Initialize express router
 const auths = require('../middleware/auth');
-// Set default API response
-router.get('/', function (req, res) {
-    res.json({
-        status: 'API Its Working',
-        message: 'Welcome to RESTHub crafted with love!',
-    });
-});
+
 
 // Import contact controller
 var contactController = require('../controllers/contactController');
