@@ -3,6 +3,7 @@
 Schema = require('../Schemas/SchemaQuestions');
 const Answer = require('../Schemas/SchemaAnswers');
 const Replies = require('../Schemas/SchemaReplies');
+const Comments = require('../Schemas/SchemaComments');
 exports.getAllQuestions = async function(req, res){
     await Schema.get( function(err, response){
         if (err) {
@@ -53,6 +54,19 @@ exports.updateQuestion = async function(req, res){
         });
     });
 }
+/**Delete Questions **/
+exports.deleteQuestion = async  function (req, res) {
+    await Comments.remove({
+         _id: req.params.questionId
+     }, function (err, question) {
+         if (err)
+             res.send(err);
+         res.json({
+             status: res.statusCode,
+             message: 'Question Deleted Succesfully ...'
+         });
+     });
+ };
 
 /** Get question by Id **/
 exports.getQuestionById = async function(req, res){

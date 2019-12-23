@@ -2,7 +2,7 @@
 var mongoose  = require('mongoose');
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
-var SchemaReplies = new Schema({
+var SchemaComments = new Schema({
     Date:{
         type: Date,
         required: true,
@@ -18,4 +18,4 @@ var SchemaReplies = new Schema({
 
 })
 
-var SchemaReplie = module.exports = mongoose.model('opus_comments', SchemaReplies);
+var SchemaComment = module.exports = mongoose.model('opus_comments', SchemaComments);
