@@ -32,7 +32,7 @@ const {
 let apiRoutes = require("./app/routes/cont-routes");
 let productRoutes = require("./app/routes/product-routes");
 let userRoutes = require("./app/routes/user-routes");
-let auths = require("./app/routes/user-auth-routes");
+let authRoutes = require("./app/routes/user-auth-routes");
 let messageRoute = require("./app/routes/msg-routes");
 let teamRoutes = require("./app/routes/team-routes");
 let classRoutes = require("./app/routes/route-classes");
@@ -106,16 +106,16 @@ app.use(bodyParser.json());
 app.use('/api/v1', apiRoutes);
 app.use('/api/v1', productRoutes);
 app.use('/api/v1', userRoutes);
-app.use('/api/v1', auths);
+app.use('/api/v1', authRoutes);
 app.use('/api/v1', messageRoute);
 app.use('/api/v1', classRoutes);
 app.use('/api/v1', questionsRoute);
 app.use('/api/v1', commentsRoutes);
 app.use('/api/v1/teams', teamRoutes);
 app.use('/api/doc', express.static('docs'));
-app.use(logErrors)
-app.use(clientErrorHandler)
-app.use(errorHandler)
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 
 
@@ -146,7 +146,7 @@ const options = {
 
  mongoose.connect(config.REMOTE_MONGO_URI, options)
     .then(()=> console.log("Connected to DataBase..."))
-    .catch(err => console.error("An Error has occured", err))
+    .catch(err => console.error("An Error has occured", err));
 
 var db = mongoose.connection;
 db.on('open', function () {
@@ -160,20 +160,20 @@ const server = app.listen(config.HOSTING_PORT, function () {
     console.log("Running RestHub on port " + config.HOSTING_PORT);
 });
 function logErrors (err, req, res, next) {
-    console.error(err.stack)
-    next(err)
-  };
+    console.error(err.stack);
+    next(err);
+  }
 
   function clientErrorHandler (err, req, res, next) {
     if (req.xhr) {
-      res.status(500).send({ error: 'Something failed!' })
+      res.status(500).send({ error: 'Something failed!' });
     } else {
-      next(err)
+      next(err);
     }
-  };
+  }
   function errorHandler (err, req, res, next) {
-    res.status(500)
-    res.render('error', { error: err })
+    res.status(500);
+    res.render('error', { error: err });
   }
 
 /** Export server for other external modules **/
