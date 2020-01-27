@@ -149,7 +149,7 @@ exports.replyToQuestion = async function (req, res) {
                 });
             }
         });
-}
+};
 
 /** Get Specific Question Replies **/
 exports.getAllQuestionReplies = async function (req, res) {
