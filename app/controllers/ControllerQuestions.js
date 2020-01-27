@@ -35,7 +35,7 @@ exports.askNewQuestion = async function (req, res) {
             data: question
         });
     })
-}
+};
 
 /** Update Questions **/
 exports.updateQuestion = async function (req, res) {
@@ -56,7 +56,7 @@ exports.updateQuestion = async function (req, res) {
             });
         });
     });
-}
+};
 /**Delete Questions **/
 exports.deleteQuestion = async function (req, res) {
     await Comments.remove({
@@ -116,7 +116,7 @@ exports.answerTheQuestion = async function (req, res) {
                 });
             }
         });
-}
+};
 
 /** Reply to specific question **/
 exports.replyToQuestion = async function (req, res) {
@@ -167,7 +167,9 @@ exports.getAllQuestionReplies = async function (req, res) {
         })
 };
 
-/** Get Specific Question Replies ID's**/
+
+
+/** Get Specific Question Answers ID's**/
 exports.getAllQuestionAnswerIds = async function (req, res) {
     await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
         .exec(function (error, answers) {
@@ -189,6 +191,7 @@ exports.getAllQuestionAnswerIds = async function (req, res) {
 
         })
 };
+
 /** Get Specific Question Replies ID's**/
 exports.getAllQuestionRepliesIds = async function (req, res) {
     await Schema.findOne({_id: req.params.questionId}).select('questionReplies')
@@ -212,7 +215,7 @@ exports.getAllQuestionRepliesIds = async function (req, res) {
         })
 }
 
-/** Get Specific Question Replies **/
+/** Get Specific Question Answers **/
 exports.getAllQuestionAnswers = async function (req, res) {
     await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
         .populate({path: "questionAnswers", model: "opus_answers"})
@@ -227,7 +230,21 @@ exports.getAllQuestionAnswers = async function (req, res) {
 
         })
 };
+/** Get Specific Question AnswerById **/
+exports.getAllQuestionAnswerByAnswerId = async function (req, res) {
+    await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
+        .populate({path: "questionAnswers", model: "opus_answers"})
+        .exec(function (err, answers) {
+            if (err) {
+            } else {
+                res.json({
+                    message: 'Created succesfully...!',
+                    data: answers.questionAnswers.find(answer => answer._id = req.params.answerId),
+                });
+            }
 
+        })
+};
 exports.upvoteQuestionAnswer = async function (req, res) {
     await Schema.update({_id: req.params.questionId, 'questionAnswers._id': req.params.answerId},
         {$addToSet: {'questionAnswers.$.replyVoters': req.body.userId}},

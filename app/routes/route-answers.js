@@ -5,7 +5,7 @@ var Controller = require('../controllers/ControllerAnswers');
 router.route('/answers')
     .get(Controller.getAllAnswers);
 router.route('/answers/:questionId')
-    .get(Controller.getAnswersByQuestionId)
+    .get(Controller.getAnswersByQuestionId);
 
 
 module.exports = router;
