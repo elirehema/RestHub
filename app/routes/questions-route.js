@@ -22,6 +22,8 @@ router.route('/questions/:questionId/replies/ids')
      .get( Controller.getAllQuestionRepliesIds);
 router.route('/questions/:questionId/upvote/:answerId')
     .patch(auths, Controller.upvoteQuestionAnswer);
+router.route('/questions/:questionId/answers/:answerId')
+    .get(Controller.getAllQuestionAnswerByAnswerId)
 
 
 // Export API routes
