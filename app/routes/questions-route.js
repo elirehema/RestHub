@@ -12,16 +12,16 @@ router.route('/questions/:questionId')
     .delete(auths, Controller.deleteQuestion);
 router.route('/questions/:questionId/replies')
     .get( Controller.getAllQuestionReplies)
-    .patch(auths, Controller.replyToQuestion)
+    .patch(auths, Controller.replyToQuestion);
 router.route('/questions/:questionId/answers')
     .get( Controller.getAllQuestionAnswers)
-    .patch(auths, Controller.answerTheQuestion)
+    .patch(auths, Controller.answerTheQuestion);
 router.route('/questions/:questionId/answers/ids')
-    .get( Controller.getAllQuestionAnswerIds)
+    .get( Controller.getAllQuestionAnswerIds);
 router.route('/questions/:questionId/replies/ids')
-     .get( Controller.getAllQuestionRepliesIds)
+     .get( Controller.getAllQuestionRepliesIds);
 router.route('/questions/:questionId/upvote/:answerId')
-    .patch(auths, Controller.upvoteQuestionAnswer)
+    .patch(auths, Controller.upvoteQuestionAnswer);
 
 
 // Export API routes

@@ -16,6 +16,6 @@ var SchemaComments = new Schema({
     answerId: { type: ObjectId, ref: 'opus_answers' },
     userId: { type: ObjectId, ref: 'opus_users' }
 
-})
+});
 
 var SchemaComment = module.exports = mongoose.model('opus_comments', SchemaComments);

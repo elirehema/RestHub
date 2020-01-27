@@ -1,24 +1,25 @@
 //define QuestionController.js
-
 Schema = require('../Schemas/SchemaQuestions');
 const Answer = require('../Schemas/SchemaAnswers');
 const Replies = require('../Schemas/SchemaReplies');
 const Comments = require('../Schemas/SchemaComments');
 exports.getAllQuestions = async function (req, res) {
-    await Schema.get(function (err, response) {
-        if (err) {
+    await Schema.find({})
+        .populate({path: "questionAnswers", model: "opus_answers"})
+        .exec(function (err, response) {
+            if (err) {
+                res.json({
+                    status: res.statusCode,
+                    message: err.message,
+                });
+            }
             res.json({
                 status: res.statusCode,
-                message: err.message,
+                message: "Retrieved successfull",
+                data: response
             });
-        }
-        res.json({
-            status: res.statusCode,
-            message: "Retrieved successfully",
-            data: response
         });
-    });
-}
+};
 /** Ask new question **/
 exports.askNewQuestion = async function (req, res) {
     var question = new Schema();
@@ -83,10 +84,9 @@ exports.getQuestionById = async function (req, res) {
                 data: question,
             });
         });
-}
+};
 /** Answer  to specific question **/
 exports.answerTheQuestion = async function (req, res) {
-
     var answer = new Answer();
     Schema.findOneAndUpdate(
         {_id: req.params.questionId},
@@ -226,7 +226,7 @@ exports.getAllQuestionAnswers = async function (req, res) {
             }
 
         })
-}
+};
 
 exports.upvoteQuestionAnswer = async function (req, res) {
     await Schema.update({_id: req.params.questionId, 'questionAnswers._id': req.params.answerId},
@@ -242,8 +242,8 @@ exports.upvoteQuestionAnswer = async function (req, res) {
                 data: question
             });
         });
-}
+};
 
 handleError = function (err) {
     console.log("Error " + err + "has occured !!!")
-}
+};

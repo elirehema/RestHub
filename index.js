@@ -29,16 +29,16 @@ const {
 
 
 // Import routes
-let apiRoutes = require("./app/routes/cont-routes");
-let productRoutes = require("./app/routes/product-routes");
-let userRoutes = require("./app/routes/user-routes");
-let authRoutes = require("./app/routes/user-auth-routes");
-let messageRoute = require("./app/routes/msg-routes");
-let teamRoutes = require("./app/routes/team-routes");
-let classRoutes = require("./app/routes/route-classes");
-let commentsRoutes = require("./app/routes/route-comments");
-
-let questionsRoute = require("./app/routes/questions-route");
+const fn = '/api/v1';
+const apiRoutes = require("./app/routes/cont-routes");
+const productRoutes = require("./app/routes/product-routes");
+const userRoutes = require("./app/routes/user-routes");
+const authRoutes = require("./app/routes/user-auth-routes");
+const messageRoute = require("./app/routes/msg-routes");
+const classRoutes = require("./app/routes/route-classes");
+const commentsRoutes = require("./app/routes/route-comments");
+const answersRoute = require("./app/routes/route-answers");
+const questionsRoute = require("./app/routes/questions-route");
 
 const app = express();
 
@@ -103,15 +103,16 @@ app.use(session(sess));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/api/v1', apiRoutes);
-app.use('/api/v1', productRoutes);
-app.use('/api/v1', userRoutes);
-app.use('/api/v1', authRoutes);
-app.use('/api/v1', messageRoute);
-app.use('/api/v1', classRoutes);
-app.use('/api/v1', questionsRoute);
-app.use('/api/v1', commentsRoutes);
-app.use('/api/v1/teams', teamRoutes);
+
+app.use(fn, apiRoutes);
+app.use(fn, productRoutes);
+app.use(fn, userRoutes);
+app.use(fn, authRoutes);
+app.use(fn, messageRoute);
+app.use(fn, classRoutes);
+app.use(fn, questionsRoute);
+app.use(fn, commentsRoutes);
+app.use(fn, answersRoute);
 app.use('/api/doc', express.static('docs'));
 app.use(logErrors);
 app.use(clientErrorHandler);
@@ -144,7 +145,7 @@ const options = {
 };
 
 
- mongoose.connect(config.REMOTE_MONGO_URI, options)
+ mongoose.connect(config.LOCAL_MONGO_URI, options)
     .then(()=> console.log("Connected to DataBase..."))
     .catch(err => console.error("An Error has occured", err));
 
