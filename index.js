@@ -14,9 +14,7 @@ const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const session = require('express-session');
 const config = require('./src/config/config');
-var validate = require("validate-npm-package-name");
-var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
+var swStats = require('swagger-stats');
 
 
 
@@ -91,6 +89,7 @@ if (app.get('env') === 'production') {
     sess.cookie.secure = true // serve secure cookies
 }
 
+app.use(swStats.getMiddleware());
 app.use(helmet());
 app.use(session(sess));
 app.use(cors());
