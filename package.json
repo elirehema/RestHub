@@ -2,7 +2,7 @@
   "name": "resthub",
   "version": "1.0.0",
   "description": "DEMO RESTAPI's",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter mochawesome",
     "test:watch": "./node_modules/.bin/mocha --reporter mochawesome --watch"
