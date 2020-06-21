@@ -4,8 +4,6 @@
   "description": "DEMO RESTAPI's",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "nodemon": "nodemon index.js",
     "test": "./node_modules/.bin/mocha --reporter mochawesome",
     "test:watch": "./node_modules/.bin/mocha --reporter mochawesome --watch"
   },
