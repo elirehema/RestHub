@@ -41,7 +41,7 @@
     "socket.io": "^2.2.0",
     "swagger-stats": "^0.95.17",
     "swagger-ui-express": "^4.1.2",
-    "update-notifier": "^4.1.0",
+    "update-notifier": "^3.0.1",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
