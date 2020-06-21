@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://infosk.herokuapp.com/api/v1"
+      "url": "https://opusx.herokuapp.com/api/v1"
     },
     {
       "url": "http://localhost:3338/api/v1"
