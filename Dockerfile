@@ -7,7 +7,7 @@ RUN mkdir -p /usr/src/app
 # Define the working dircetory
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app/
+COPY package.json /usr/src/src/
 
 
 

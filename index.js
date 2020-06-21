@@ -2,7 +2,7 @@
 "use strict";
 const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
-
+const helmet = require('helmet');
 // Notify using the built-in convenience method
 const notifier = updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 * 24 * 7 });
 
@@ -13,32 +13,24 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const session = require('express-session');
-const config = require('./app/config/config');
+const config = require('./src/config/config');
 var validate = require("validate-npm-package-name");
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
-const {
-    GraphQLID,
-    GraphQLString,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLObjectType,
-    GraphQLSchema
-} = require("graphql");
 
 
 
 // Import routes
 const fn = '/api/v1';
-const apiRoutes = require("./app/routes/cont-routes");
-const productRoutes = require("./app/routes/product-routes");
-const userRoutes = require("./app/routes/user-routes");
-const authRoutes = require("./app/routes/user-auth-routes");
-const messageRoute = require("./app/routes/msg-routes");
-const classRoutes = require("./app/routes/route-classes");
-const commentsRoutes = require("./app/routes/route-comments");
-const answersRoute = require("./app/routes/route-answers");
-const questionsRoute = require("./app/routes/questions-route");
+const apiRoutes = require("./src/routes/cont-routes");
+const productRoutes = require("./src/routes/product-routes");
+const userRoutes = require("./src/routes/user-routes");
+const authRoutes = require("./src/routes/user-auth-routes");
+const messageRoute = require("./src/routes/msg-routes");
+const classRoutes = require("./src/routes/route-classes");
+const commentsRoutes = require("./src/routes/route-comments");
+const answersRoute = require("./src/routes/route-answers");
+const questionsRoute = require("./src/routes/questions-route");
 
 const app = express();
 
@@ -99,11 +91,11 @@ if (app.get('env') === 'production') {
     sess.cookie.secure = true // serve secure cookies
 }
 
+app.use(helmet());
 app.use(session(sess));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 app.use(fn, apiRoutes);
 app.use(fn, productRoutes);
 app.use(fn, userRoutes);
