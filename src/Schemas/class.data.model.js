@@ -1,6 +1,4 @@
-//define classes Schema for multiple classes
-
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 var ClassesSchema = mongoose.Schema({
     className: {
         type: String,
@@ -23,4 +21,4 @@ var Classes = module.exports = mongoose.model('Classes', ClassesSchema);
 
 module.exports.get = function (callback, limit) {
     Contact.find(callback).limit(limit);
-}
+};

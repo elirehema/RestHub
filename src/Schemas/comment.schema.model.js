@@ -1,21 +1,21 @@
-
-var mongoose  = require('mongoose');
+const sc = require('../plugins/schemas');
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 var SchemaComments = new Schema({
-    Date:{
+    date: {
         type: Date,
         required: true,
         default: Date.now
     },
-    answerMessage:{
-        type:String,
+    message: {
+        type: String,
         required: true,
     },
-    replyVoters: [{ type: ObjectId, ref: 'opus_users' }],
-    answerId: { type: ObjectId, ref: 'opus_answers' },
-    userId: { type: ObjectId, ref: 'opus_users' }
+    voters: [{ type: ObjectId, ref: sc.schema_users }],
+    answerId: { type: ObjectId, ref: sc.schema_answers },
+    userId: { type: ObjectId, ref: sc.schema_users }
 
 });
 
-var SchemaComment = module.exports = mongoose.model('opus_comments', SchemaComments);
+var SchemaComment = module.exports = mongoose.model(sc.schema_comments, SchemaComments);
