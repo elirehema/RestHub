@@ -1,5 +1,5 @@
-// Import product model
-const Product = require('../Schemas/productModel');
+const db = require('../Schemas');
+const Product = db.products;
 
 // Handle index actions
 

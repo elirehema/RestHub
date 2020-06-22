@@ -1,6 +1,7 @@
 let router = require('express').Router();
 const auth = require('../middleware/auth');
-var Controller = require('../controllers/ControllerAnswers');
+var controllers = require('../controllers/');
+var Controller = controllers.answers;
 
 router.route('/answers')
     .get(Controller.getAllAnswers);

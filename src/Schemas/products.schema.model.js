@@ -1,6 +1,6 @@
-// productModel.js
-var mongoose = require('mongoose');
-products = require('../Schemas/productModel');
+const db = require('../Schemas');
+const mongoose = require('mongoose');
+const products = db.products;
 
 
 // Setup schema

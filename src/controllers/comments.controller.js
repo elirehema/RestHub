@@ -1,5 +1,6 @@
-const Comments = require('../Schemas/SchemaComments');
-const User = require('../Schemas/SchemaUsers');
+const db = require('../Schemas');
+const Comments = db.comments;
+const User = db.users;
 
 /** Get All Comment **/
 exports.getAllComments = async function (req, res) {

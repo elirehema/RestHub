@@ -1,5 +1,5 @@
-// Import User Model
-User = require('../Schemas/UserModel');
+const db = require('../Schemas');
+User = db.users;
 // Handle index Actions
 
 exports.index = async function (req, res) {

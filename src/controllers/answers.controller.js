@@ -1,9 +1,12 @@
-const Answers = require('../Schemas/SchemaAnswers');
-const Comments = require('../Schemas/SchemaComments');
-const Users = require('../Schemas/SchemaUsers');
-const Questions = require('../Schemas/SchemaQuestions');
+const db = require('../Schemas');
+const Answers = db.answers;
+const Comments = db.comments;
+const Users = db.users;
+const Questions = db.questions;
+const notifier = require('node-notifier');
 /** Get All Answers **/
 exports.getAllAnswers = async function (req, res) {
+
     await Answers.find({})
         .exec(function (err, response) {
             if (err) {
@@ -16,6 +19,10 @@ exports.getAllAnswers = async function (req, res) {
                 status: res.statusCode,
                 message: "Retrieved successfull",
                 data: response
+            });
+            notifier.notify({
+              title: 'My notification',
+              message: 'Hello, there!'
             });
         });
 };

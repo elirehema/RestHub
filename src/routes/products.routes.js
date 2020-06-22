@@ -1,6 +1,7 @@
 let router = require('express').Router();
 const auths = require('../middleware/auth');
-var productController = require('../controllers/productController');
+var controllers = require('../controllers/');
+var productController = controllers.products;
 // Contact routes
 router.route('/products')
     .get(productController.index)

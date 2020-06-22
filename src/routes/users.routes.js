@@ -1,19 +1,7 @@
-// user-routes.js
-// Initialize express router
-
+const controllers = require('../controllers/');
 let router = require('express').Router();
 const auths = require('../middleware/auth');
-// Set default API response
-router.get('/', function (req, res) {
-    res.json({
-        status: 'API Its Working',
-        message: 'Welcome to RESTHub crafted with love!',
-        throw: new Error('BROKEN')
-    });
-});
-// Import contact controller
-var userController = require('../controllers/UsersController');
-// Contact routes
+var userController = controllers.users;
 router.route('/users')
     .get( userController.index)
     .post(auths,userController.new);

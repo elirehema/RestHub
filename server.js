@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const notifier = updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 * 24 * 7 });
 
 if (notifier.update) { console.log(`Update available: ${notifier.update.latest}`); }
-
+const rout = require("./src/routes");
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -20,15 +20,6 @@ var swStats = require('swagger-stats');
 
 // Import routes
 const fn = '/api/v1';
-const apiRoutes = require("./src/routes/cont-routes");
-const productRoutes = require("./src/routes/product-routes");
-const userRoutes = require("./src/routes/user-routes");
-const authRoutes = require("./src/routes/user-auth-routes");
-const messageRoute = require("./src/routes/msg-routes");
-const classRoutes = require("./src/routes/route-classes");
-const commentsRoutes = require("./src/routes/route-comments");
-const answersRoute = require("./src/routes/route-answers");
-const questionsRoute = require("./src/routes/questions-route");
 
 const app = express();
 
@@ -95,15 +86,10 @@ app.use(session(sess));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(fn, apiRoutes);
-app.use(fn, productRoutes);
-app.use(fn, userRoutes);
-app.use(fn, authRoutes);
-app.use(fn, messageRoute);
-app.use(fn, classRoutes);
-app.use(fn, questionsRoute);
-app.use(fn, commentsRoutes);
-app.use(fn, answersRoute);
+//app.use(fn, rout);
+for (let [key, value] of Object.entries(rout)) {
+  app.use(fn, value)
+}
 app.use('/api/doc', express.static('docs'));
 app.use(logErrors);
 app.use(clientErrorHandler);
