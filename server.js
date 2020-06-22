@@ -3,10 +3,6 @@
 const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const helmet = require('helmet');
-// Notify using the built-in convenience method
-const notifier = updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 * 24 * 7 });
-
-if (notifier.update) { console.log(`Update available: ${notifier.update.latest}`); }
 const rout = require("./src/routes");
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -14,7 +10,14 @@ const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const session = require('express-session');
 const config = require('./src/config/config');
-var swStats = require('swagger-stats');
+const swStats = require('swagger-stats');
+const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
+
+const notifier = updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 * 24 * 7 });
+
+if (notifier.update) { console.log(`Update available: ${notifier.update.latest}`); }
+
 
 
 
@@ -23,9 +26,7 @@ const fn = '/api/v1';
 
 const app = express();
 
-const swaggerUi = require('swagger-ui-express');
-
-const sptions = {
+const swagger_options = {
     explorer: true,
     swaggerOptions:{
       urls:[
@@ -54,10 +55,7 @@ const sptions = {
       ]
     }
 };
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, sptions));
-
-
-var cors = require('cors');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, swagger_options));
 
 var sess = {
     secret: 'fdsakhfdsjabgidshngaerniaerpbeijdskagkgsakjnk',
@@ -86,7 +84,6 @@ app.use(session(sess));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-//app.use(fn, rout);
 for (let [key, value] of Object.entries(rout)) {
   app.use(fn, value)
 }
@@ -122,7 +119,7 @@ const options = {
 };
 
 
- mongoose.connect(config.REMOTE_MONGO_URI, options)
+ mongoose.connect(config.LOCAL_MONGO_URI, options)
     .then(()=> console.log("Connected to DataBase..."))
     .catch(err => console.error("An Error has occured", err));
 

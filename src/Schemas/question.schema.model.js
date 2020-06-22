@@ -1,9 +1,7 @@
-//define Questions Schema
-
 var mongoose = require('mongoose');
-//mongoose.plugin(require('../plugins/loadedAt'))
+const sc = require('../plugins/schemas');
 const Schema = mongoose.Schema,
-        ObjectId = Schema.ObjectId;
+    ObjectId = Schema.ObjectId;
 
 var QuestionsSchemas = new Schema({
     question: {
@@ -21,17 +19,17 @@ var QuestionsSchemas = new Schema({
     },
     questionAuthor: {
         type: Schema.Types.ObjectId,
-        ref: 'opus_users'
+        ref: sc.schema_users
     },
     questionVotes: Number,
     questionAnswers: [{
         type: Schema.Types.ObjectId,
-        ref: 'opus_answers',
-        
+        ref: sc.schema_answers,
+
     }],
     questionReplies: [{
         type: ObjectId,
-        ref: 'opus_replies'
+        ref: sc.schema_replies
     }],
     questionLastUpdated: {
         type: Date
@@ -40,7 +38,7 @@ var QuestionsSchemas = new Schema({
 
 });
 
-const QuestionsSchema = module.exports = mongoose.model('opus_questions', QuestionsSchemas);
+const QuestionsSchema = module.exports = mongoose.model(sc.schema_questions, QuestionsSchemas);
 
 
 module.exports.get = function (callback, limit) {

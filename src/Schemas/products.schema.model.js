@@ -1,34 +1,33 @@
-const db = require('../Schemas');
+const sc = require('../plugins/schemas');
 const mongoose = require('mongoose');
-const products = db.products;
 
-
-// Setup schema
 var productSchema = mongoose.Schema({
-    name:  { type: String, required: true },
+    name: { type: String, required: true },
     price: { type: String, required: true },
     image: { type: String, required: true },
     phone: { type: String, required: true },
     color: { type: String, required: true },
-    comments: [{  sendername: {
-        type: String,
-        required: true,
-    },
-    message: {
-        type: String,
-        required: true,
-    },
-    comment_on: {
-        type: Date,
-        default: Date.now,
-        required: true
-    }}],
+    comments: [{
+       name: {
+            type: String,
+            required: true,
+        },
+        message: {
+            type: String,
+            required: true,
+        },
+        date: {
+            type: Date,
+            default: Date.now,
+            required: true
+        }
+    }],
     created_date: { type: Date, default: Date.now }
 });
 
 
 // Export Product model
-var Product = module.exports = mongoose.model('product', productSchema);
+var Product = module.exports = mongoose.model(sc.schema_products, productSchema);
 module.exports.get = function (callback, limit) {
     Product.find(callback).limit(limit);
 };

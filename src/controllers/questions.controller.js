@@ -1,21 +1,24 @@
-const db = require('../Schemas');
+const db = require('../Schemas/');
+const sc = require('../plugins/schemas');
 const Questions = db.questions;
 const Answer = db.answers;
 const Replies = db.replies;
 const Comments = db.comments;
 exports.getAllQuestions = async function (req, res) {
     await Questions.find({})
-        .populate({path: "questionAnswers", model: "opus_answers"})
+        .populate({ path: "questionAnswers", model: sc.schema_answers })
         .exec(function (err, response) {
             if (err) {
                 res.json({
-                    status: res.statusCode,
+                    status: err.statusCode,
                     message: err.message,
                 });
             }
+
             res.json({
                 status: res.statusCode,
-                message: "Retrieved successfull",
+                method: req.method,
+                message: req.statusMessage,
                 data: response
             });
         });
@@ -27,7 +30,7 @@ exports.askNewQuestion = async function (req, res) {
     question.questionAnswers = await Answer.find();
     question.save(function (err) {
         if (err) {
-            return res.json({status: res.statusCode, error: err.message});
+            return res.json({ status: res.statusCode, error: err.message });
         }
         res.json({
             status: res.statusCode,
@@ -73,9 +76,9 @@ exports.deleteQuestion = async function (req, res) {
 
 /** Get question by Id **/
 exports.getQuestionById = async function (req, res) {
-    await Questions.findOne({_id: req.params.questionId})
-        .populate({path: "questionAnswers", model: "opus_answers"})
-        .populate({path: "questionReplies", model: "opus_replies"})
+    await Questions.findOne({ _id: req.params.questionId })
+        .populate({ path: "questionAnswers", model: sc.schema_answers })
+        .populate({ path: "questionReplies", model: sc.schema_replies })
         .exec(function (err, question) {
             if (err) return handleError(err);
             res.json({
@@ -89,8 +92,8 @@ exports.getQuestionById = async function (req, res) {
 exports.answerTheQuestion = async function (req, res) {
     var answer = new Answer();
     Questions.findOneAndUpdate(
-        {_id: req.params.questionId},
-        {$push: {questionAnswers: answer._id}},
+        { _id: req.params.questionId },
+        { $push: { questionAnswers: answer._id } },
         function (error, success) {
             if (error) {
                 res.json({
@@ -106,7 +109,7 @@ exports.answerTheQuestion = async function (req, res) {
                 answer.questionId = req.params.questionId;
                 answer.save(function (err) {
                     if (err) {
-                        return res.json({status: res.statusCode, error: err.message});
+                        return res.json({ status: res.statusCode, error: err.message });
                     }
                     res.json({
                         status: res.statusCode,
@@ -122,8 +125,8 @@ exports.answerTheQuestion = async function (req, res) {
 exports.replyToQuestion = async function (req, res) {
     var reply = new Replies();
     Questions.findOneAndUpdate(
-        {_id: req.params.questionId},
-        {$push: {questionReplies: reply._id}},
+        { _id: req.params.questionId },
+        { $push: { questionReplies: reply._id } },
         function (error, success) {
             if (error) {
                 res.json({
@@ -139,7 +142,7 @@ exports.replyToQuestion = async function (req, res) {
                 reply.questionId = req.params.questionId;
                 reply.save(function (err) {
                     if (err) {
-                        return res.json({status: res.statusCode, error: err.message});
+                        return res.json({ status: res.statusCode, error: err.message });
                     }
                     res.json({
                         status: res.statusCode,
@@ -153,8 +156,8 @@ exports.replyToQuestion = async function (req, res) {
 
 /** Get Specific Question Replies **/
 exports.getAllQuestionReplies = async function (req, res) {
-    await Questions.findOne({_id: req.params.questionId}).select('questionReplies')
-        .populate({path: "questionReplies", model: "opus_replies"})
+    await Questions.findOne({ _id: req.params.questionId }).select('questionReplies')
+        .populate({ path: "questionReplies", model: "opus_replies" })
         .exec(function (err, answers) {
             if (err) {
             } else {
@@ -167,11 +170,9 @@ exports.getAllQuestionReplies = async function (req, res) {
         })
 };
 
-
-
 /** Get Specific Question Answers ID's**/
 exports.getAllQuestionAnswerIds = async function (req, res) {
-    await Questions.findOne({_id: req.params.questionId}).select('questionAnswers')
+    await Questions.findOne({ _id: req.params.questionId }).select('questionAnswers')
         .exec(function (error, answers) {
             if (error) {
                 res.json({
@@ -194,7 +195,7 @@ exports.getAllQuestionAnswerIds = async function (req, res) {
 
 /** Get Specific Question Replies ID's**/
 exports.getAllQuestionRepliesIds = async function (req, res) {
-    await Questions.findOne({_id: req.params.questionId}).select('questionReplies')
+    await Questions.findOne({ _id: req.params.questionId }).select('questionReplies')
         .exec(function (error, answers) {
             if (error) {
                 res.json({
@@ -217,8 +218,8 @@ exports.getAllQuestionRepliesIds = async function (req, res) {
 
 /** Get Specific Question Answers **/
 exports.getAllQuestionAnswers = async function (req, res) {
-    await Questions.findOne({_id: req.params.questionId}).select('questionAnswers')
-        .populate({path: "questionAnswers", model: "opus_answers"})
+    await Questions.findOne({ _id: req.params.questionId }).select('questionAnswers')
+        .populate({ path: "questionAnswers", model: db.schema.answers })
         .exec(function (err, answers) {
             if (err) {
             } else {
@@ -232,8 +233,8 @@ exports.getAllQuestionAnswers = async function (req, res) {
 };
 /** Get Specific Question AnswerById **/
 exports.getAllQuestionAnswerByAnswerId = async function (req, res) {
-    await Questions.findOne({_id: req.params.questionId}).select('questionAnswers')
-        .populate({path: "questionAnswers", model: "opus_answers"})
+    await Questions.findOne({ _id: req.params.questionId }).select('questionAnswers')
+        .populate({ path: "questionAnswers", model: db.schema.answers })
         .exec(function (err, answers) {
             if (err) {
             } else {
@@ -246,9 +247,9 @@ exports.getAllQuestionAnswerByAnswerId = async function (req, res) {
         })
 };
 exports.upvoteQuestionAnswer = async function (req, res) {
-    await Questions.update({_id: req.params.questionId, 'questionAnswers._id': req.params.answerId},
-        {$addToSet: {'questionAnswers.$.replyVoters': req.body.userId}},
-        {upsert: true}, function (err, question) {
+    await Questions.update({ _id: req.params.questionId, 'questionAnswers._id': req.params.answerId },
+        { $addToSet: { 'questionAnswers.$.replyVoters': req.body.userId } },
+        { upsert: true }, function (err, question) {
             if (err) {
                 res.json({
                     status: err.status
