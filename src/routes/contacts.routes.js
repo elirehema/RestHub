@@ -1,13 +1,7 @@
-// cont-routes.js
-// Initialize express router
-
-let router = require('express').Router();
-// Initialize express router
+const router = require('express').Router();
 const auths = require('../middleware/auth');
-
-
-// Import contact controller
-var contactController = require('../controllers/contactController');
+var controllers = require('../controllers/');
+var contactController = controllers.contacts;
 // Contact routes
 router.route('/contacts')
     .get( contactController.index)

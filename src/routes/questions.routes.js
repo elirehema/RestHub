@@ -1,6 +1,7 @@
 let router = require('express').Router();
 const auths = require('../middleware/auth');
-const Controller = require('../controllers/ControllerQuestions')
+var controllers = require('../controllers/');
+const Controller = controllers.questions;
 
 router.route('/questions')
     .get(Controller.getAllQuestions)

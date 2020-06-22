@@ -1,6 +1,7 @@
 let router = require('express').Router();
 const auth = require('../middleware/auth');
-var Controller = require('../controllers/ControllerComments');
+var controllers = require('../controllers/');
+var Controller = controllers.comments;
 
 router.route('/comments')
     .get(Controller.getAllComments);

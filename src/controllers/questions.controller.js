@@ -1,10 +1,10 @@
-//define QuestionController.js
-Schema = require('../Schemas/SchemaQuestions');
-const Answer = require('../Schemas/SchemaAnswers');
-const Replies = require('../Schemas/SchemaReplies');
-const Comments = require('../Schemas/SchemaComments');
+const db = require('../Schemas');
+const Questions = db.questions;
+const Answer = db.answers;
+const Replies = db.replies;
+const Comments = db.comments;
 exports.getAllQuestions = async function (req, res) {
-    await Schema.find({})
+    await Questions.find({})
         .populate({path: "questionAnswers", model: "opus_answers"})
         .exec(function (err, response) {
             if (err) {
@@ -22,7 +22,7 @@ exports.getAllQuestions = async function (req, res) {
 };
 /** Ask new question **/
 exports.askNewQuestion = async function (req, res) {
-    var question = new Schema();
+    var question = new Questions();
     question.question = req.body.question;
     question.questionAnswers = await Answer.find();
     question.save(function (err) {
@@ -39,7 +39,7 @@ exports.askNewQuestion = async function (req, res) {
 
 /** Update Questions **/
 exports.updateQuestion = async function (req, res) {
-    await Schema.findById(req.params.questionId, function (err, question) {
+    await Questions.findById(req.params.questionId, function (err, question) {
         if (err) res.send(err);
         question.question = req.body.question ? req.body.question : question.question;
         question.questionLastUpdated = Date.now();
@@ -73,7 +73,7 @@ exports.deleteQuestion = async function (req, res) {
 
 /** Get question by Id **/
 exports.getQuestionById = async function (req, res) {
-    await Schema.findOne({_id: req.params.questionId})
+    await Questions.findOne({_id: req.params.questionId})
         .populate({path: "questionAnswers", model: "opus_answers"})
         .populate({path: "questionReplies", model: "opus_replies"})
         .exec(function (err, question) {
@@ -88,7 +88,7 @@ exports.getQuestionById = async function (req, res) {
 /** Answer  to specific question **/
 exports.answerTheQuestion = async function (req, res) {
     var answer = new Answer();
-    Schema.findOneAndUpdate(
+    Questions.findOneAndUpdate(
         {_id: req.params.questionId},
         {$push: {questionAnswers: answer._id}},
         function (error, success) {
@@ -121,7 +121,7 @@ exports.answerTheQuestion = async function (req, res) {
 /** Reply to specific question **/
 exports.replyToQuestion = async function (req, res) {
     var reply = new Replies();
-    Schema.findOneAndUpdate(
+    Questions.findOneAndUpdate(
         {_id: req.params.questionId},
         {$push: {questionReplies: reply._id}},
         function (error, success) {
@@ -153,7 +153,7 @@ exports.replyToQuestion = async function (req, res) {
 
 /** Get Specific Question Replies **/
 exports.getAllQuestionReplies = async function (req, res) {
-    await Schema.findOne({_id: req.params.questionId}).select('questionReplies')
+    await Questions.findOne({_id: req.params.questionId}).select('questionReplies')
         .populate({path: "questionReplies", model: "opus_replies"})
         .exec(function (err, answers) {
             if (err) {
@@ -171,7 +171,7 @@ exports.getAllQuestionReplies = async function (req, res) {
 
 /** Get Specific Question Answers ID's**/
 exports.getAllQuestionAnswerIds = async function (req, res) {
-    await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
+    await Questions.findOne({_id: req.params.questionId}).select('questionAnswers')
         .exec(function (error, answers) {
             if (error) {
                 res.json({
@@ -194,7 +194,7 @@ exports.getAllQuestionAnswerIds = async function (req, res) {
 
 /** Get Specific Question Replies ID's**/
 exports.getAllQuestionRepliesIds = async function (req, res) {
-    await Schema.findOne({_id: req.params.questionId}).select('questionReplies')
+    await Questions.findOne({_id: req.params.questionId}).select('questionReplies')
         .exec(function (error, answers) {
             if (error) {
                 res.json({
@@ -217,7 +217,7 @@ exports.getAllQuestionRepliesIds = async function (req, res) {
 
 /** Get Specific Question Answers **/
 exports.getAllQuestionAnswers = async function (req, res) {
-    await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
+    await Questions.findOne({_id: req.params.questionId}).select('questionAnswers')
         .populate({path: "questionAnswers", model: "opus_answers"})
         .exec(function (err, answers) {
             if (err) {
@@ -232,7 +232,7 @@ exports.getAllQuestionAnswers = async function (req, res) {
 };
 /** Get Specific Question AnswerById **/
 exports.getAllQuestionAnswerByAnswerId = async function (req, res) {
-    await Schema.findOne({_id: req.params.questionId}).select('questionAnswers')
+    await Questions.findOne({_id: req.params.questionId}).select('questionAnswers')
         .populate({path: "questionAnswers", model: "opus_answers"})
         .exec(function (err, answers) {
             if (err) {
@@ -246,7 +246,7 @@ exports.getAllQuestionAnswerByAnswerId = async function (req, res) {
         })
 };
 exports.upvoteQuestionAnswer = async function (req, res) {
-    await Schema.update({_id: req.params.questionId, 'questionAnswers._id': req.params.answerId},
+    await Questions.update({_id: req.params.questionId, 'questionAnswers._id': req.params.answerId},
         {$addToSet: {'questionAnswers.$.replyVoters': req.body.userId}},
         {upsert: true}, function (err, question) {
             if (err) {

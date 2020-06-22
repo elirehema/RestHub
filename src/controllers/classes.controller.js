@@ -1,4 +1,5 @@
-let Classess = require('../Schemas/SchemaClasses');
+const db = require('../Schemas');
+const Classess = db.classes;
 exports.getAllClasses = async function (req, res) {
     await Classess.get(function (err, classes) {
         if (err) {
