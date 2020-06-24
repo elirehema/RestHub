@@ -1,17 +1,19 @@
+const sc = require('../plugins/schemas');
 const mongoose = require('mongoose');
 var ClassesSchema = mongoose.Schema({
-    className: {
+    name: {
         type: String,
         required: true
     },
-    classCode: {
+    code: {
         type: String,
         required: true
     },
-    lastUpdated: {
-        type: Date
+    updated: {
+        type: Date,
+        default: Date.now
     },
-    createdDate: {
+    date: {
         type: Date,
         default: Date.now
     }

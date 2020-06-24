@@ -9,6 +9,7 @@ db.questions = require('./question.schema.model');
 db.classes  = require('./class.data.model');
 db.replies  = require('./replies.data.model');
 db.subject  = require('./subject.schema.model');
-
-
+db.topic    = require('./topic.data.model');
+db.subject  = require('./subject.schema.model');
+db.resources= require('./resource.data.model');
 module.exports = db;

@@ -12,7 +12,7 @@ var SchemaComments = new Schema({
         type: String,
         required: true,
     },
-    voters: [{ type: ObjectId, ref: sc.schema_users }],
+    votes: [{ type: ObjectId, ref: sc.schema_users }],
     answerId: { type: ObjectId, ref: sc.schema_answers },
     userId: { type: ObjectId, ref: sc.schema_users }
 

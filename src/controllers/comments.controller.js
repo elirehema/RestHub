@@ -51,12 +51,12 @@ exports.commentQuestionById = async function (req, res) {
     });
 };
 exports.updateCommentById = async function (req, res) {
-    await Comments.findOne({_id: req.params.commentId})
-}
+    await Comments.findOne({_id: req.params.commentId});
+};
 exports.deleteCommentById = async function (req, res, next) {
     await Comments.findOneAndDelete({_id: req.params.commentId}, sort, function (err) {
         if (err) {
-            next(err)
+            next(err);
         }
 
     });

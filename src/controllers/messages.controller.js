@@ -19,7 +19,6 @@ exports.index = async function (req, res) {
 };
 // Handle create message actions
 exports.new = async function (req, res) {
-
     var parent = new Message();
     parent.period = parent.getDate();
     var childrens = {name: req.body.name, message: req.body.message, sentOn: parent.getCurrentTime()};
@@ -32,7 +31,7 @@ exports.new = async function (req, res) {
                 res.json({
                     status: res.statusCode,
                     message: ''
-                })
+                });
             }
         });
 };

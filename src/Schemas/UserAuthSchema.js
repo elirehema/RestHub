@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const sc = require('../plugins/schemas');
 const Schema = mongoose.Schema
 var  bcrypt = require('bcryptjs');
 const  SALT_WORK_FACTOR = 10;
@@ -43,7 +44,7 @@ UserAuthSchema.methods.comparePassword = function(candidatePassword, cb) {
   });
 };
 UserAuthSchema.plugin(uniqueValidator);
-var AuthSchema = module.exports = mongoose.model('UserAuth', UserAuthSchema);
+var AuthSchema = module.exports = mongoose.model(sc.schema_users, UserAuthSchema);
 module.exports.get = function(callback, limit) {
   AuthSchema.find(callback).limit(limit);
 };
