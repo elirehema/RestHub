@@ -12,20 +12,23 @@ router.route('/questions/:questionId')
     .put(auths, Controller.updateQuestion)
     .delete(auths, Controller.deleteQuestion);
 router.route('/questions/:questionId/replies')
-    .get( Controller.getAllQuestionReplies)
+    .get(Controller.getAllQuestionReplies)
     .patch(auths, Controller.replyToQuestion);
+router.route('/questions/:questionId/replies/:rid')
+    .get(Controller.getAllQuestionRepliesByReplyId);
 router.route('/questions/:questionId/answers')
-    .get( Controller.getAllQuestionAnswers)
+    .get(Controller.getAllQuestionAnswers)
     .patch(auths, Controller.answerTheQuestion);
 router.route('/questions/:questionId/answers/ids')
-    .get( Controller.getAllQuestionAnswerIds);
+    .get(Controller.getAllQuestionAnswerIds);
 router.route('/questions/:questionId/replies/ids')
-     .get( Controller.getAllQuestionRepliesIds);
+    .get(Controller.getAllQuestionRepliesIds);
 router.route('/questions/:questionId/upvote/:answerId')
     .patch(auths, Controller.upvoteQuestionAnswer);
 router.route('/questions/:questionId/answers/:answerId')
-    .get(Controller.getAllQuestionAnswerByAnswerId)
+    .get(Controller.getAllQuestionAnswerByAnswerId);
 
 
 // Export API routes
+
 module.exports = router;

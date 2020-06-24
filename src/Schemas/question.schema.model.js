@@ -8,30 +8,30 @@ var QuestionsSchemas = new Schema({
         type: String,
         required: true
     },
-    questionValidity: {
+    valid: {
         type: Boolean,
         default: true
     },
-    questionDate: {
+    date: {
         type: Date,
         required: true,
         default: Date.now
     },
-    questionAuthor: {
+    author: {
         type: Schema.Types.ObjectId,
         ref: sc.schema_users
     },
-    questionVotes: Number,
-    questionAnswers: [{
+    votes: [{ type: ObjectId, ref: sc.schema_users}],
+    answers: [{
         type: Schema.Types.ObjectId,
         ref: sc.schema_answers,
 
     }],
-    questionReplies: [{
+    replies: [{
         type: ObjectId,
         ref: sc.schema_replies
     }],
-    questionLastUpdated: {
+    updated: {
         type: Date
     }
 

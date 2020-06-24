@@ -13,7 +13,7 @@ var AnswersSchemas = new Schema({
         required: true,
     },
     questionId: { type: Schema.Types.ObjectId, ref: sc.schema_questions },
-    voters: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
+    votes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
     comments: [{
         type: Schema.Types.ObjectId,
         ref: sc.schema_comments

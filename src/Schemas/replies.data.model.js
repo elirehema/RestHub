@@ -2,7 +2,7 @@ const sc = require('../plugins/schemas');
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
-var RepliesSchemas = new Schema({
+var RepliesDataModel = new Schema({
     date: {
         type: Date,
         required: true,
@@ -12,11 +12,11 @@ var RepliesSchemas = new Schema({
         type: String,
         required: true,
     },
-    questionId: { type: Schema.Types.ObjectId, ref: sc.schema_questions },
-    votes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
+    questionId: { type: ObjectId, ref: sc.schema_questions },
+    votes: [{ type: ObjectId, ref: sc.schema_users }],
 });
 
-const RepliesSchema = module.exports = mongoose.model(sc.schema_replies, RepliesSchemas);
+const RepliesSchema = module.exports = mongoose.model(sc.schema_replies, RepliesDataModel);
 
 
 module.exports.get = function (callback, limit) {

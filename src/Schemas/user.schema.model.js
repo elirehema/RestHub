@@ -1,15 +1,5 @@
 var mongoose = require('mongoose');
-
-/*
-  Define mongoose schema to represent MONGODB collection and 
-  define a document within that collection. i.e @userSchema.
-
-  Also defines an Instance Methods, static model methods and 
-  compound Index
-
-  */
-
-const uniqueValidator = require('mongoose-unique-validator')
+const uniqueValidator = require('mongoose-unique-validator');
 // Setup schema
 var userSchema = mongoose.Schema({
   username: {
@@ -95,8 +85,8 @@ userSchema.methods.findUserWithSimilarEmailAddress = function(email) {
 
 
 userSchema.query.byName = function(name){
-  return this.where({username: new RegExp(username, 'i')})
-}
+  return this.where({username: new RegExp(username, 'i')});
+};
 /**
  * Define Virtuals
  * **/
@@ -111,7 +101,7 @@ userSchema.query.byName = function(name){
   then
   Export UserModel model
 */
-userSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator);
 const UserModel = module.exports = mongoose.model('user', userSchema);
 
 
