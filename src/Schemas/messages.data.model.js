@@ -1,7 +1,9 @@
 const sc = require('../plugins/schemas');
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
-var messageSchema = mongoose.Schema({
+var messageSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -9,7 +11,9 @@ var messageSchema = mongoose.Schema({
     message: {
         type: String,
         required: true
-    }
+    },
+    upvotes: [{ type: ObjectId, ref: sc.schema_users }],
+    downvotes: [{ type: ObjectId, ref: sc.schema_users }]
 });
 
 var Message = module.exports = mongoose.model(sc.schema_message, messageSchema);

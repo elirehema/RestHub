@@ -21,7 +21,8 @@ var QuestionsSchemas = new Schema({
         type: Schema.Types.ObjectId,
         ref: sc.schema_users
     },
-    votes: [{ type: ObjectId, ref: sc.schema_users}],
+    upvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
+    downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
     answers: [{
         type: Schema.Types.ObjectId,
         ref: sc.schema_answers,

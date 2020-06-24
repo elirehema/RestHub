@@ -13,7 +13,8 @@ var RepliesDataModel = new Schema({
         required: true,
     },
     questionId: { type: ObjectId, ref: sc.schema_questions },
-    votes: [{ type: ObjectId, ref: sc.schema_users }],
+    upvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
+    downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }]
 });
 
 const RepliesSchema = module.exports = mongoose.model(sc.schema_replies, RepliesDataModel);

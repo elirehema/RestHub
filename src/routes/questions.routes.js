@@ -23,8 +23,8 @@ router.route('/questions/:questionId/answers/ids')
     .get(Controller.getAllQuestionAnswerIds);
 router.route('/questions/:questionId/replies/ids')
     .get(Controller.getAllQuestionRepliesIds);
-router.route('/questions/:questionId/upvote/:answerId')
-    .patch(auths, Controller.upvoteQuestionAnswer);
+router.route('/questions/:questionId/vote/:uid')
+    .patch(auths, Controller.voteForQuestion);
 router.route('/questions/:questionId/answers/:answerId')
     .get(Controller.getAllQuestionAnswerByAnswerId);
 
