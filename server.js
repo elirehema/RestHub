@@ -6,14 +6,17 @@ const helmet = require('helmet');
 const rout = require("./src/routes");
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-mongoose.set('useCreateIndex', true);
+
 const session = require('express-session');
 const config = require('./src/config/config');
 const swStats = require('swagger-stats');
 const swaggerUi = require('swagger-ui-express');
 const cors = require('cors');
 const swaggeroptions = require('./apidoc');
+
+const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
+mongoose.set('debug', true);
 
 const notifier = updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 * 24 * 7 });
 
@@ -92,7 +95,7 @@ const options = {
 
 
 
-mongoose.connect(config.LOCAL_MONGO_URI, options)
+mongoose.connect(config.REMOTE_MONGO_URI, options)
   .then(() => console.log("Connected to DataBase..."))
   .catch(err => console.error("An Error has occured", err));
 

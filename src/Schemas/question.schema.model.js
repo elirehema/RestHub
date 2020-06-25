@@ -5,6 +5,7 @@ const Schema = mongoose.Schema,
 
 var QuestionsSchemas = new Schema({
     question: { type: String, required: true },
+    description: { type: String, required: true },
     valid: { type: Boolean, default: true },
     date: { type: Date, required: true, default: Date.now },
     author: { type: ObjectId, ref: sc.schema_users },

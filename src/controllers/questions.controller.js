@@ -11,16 +11,16 @@ controller.getAllQuestions = async function (req, res) {
     await Questions.
 
         aggregate([
-            {
-                $addFields: {
-                    totalreplies: { $size: "$replies" },
-                    totalanswers: { $size: "$answers" },
 
-                },
-
-            },
             {
                 $project: {
+                    question: "$question",
+                    date: "$date",
+                    updated: "$updated",
+                    valid: "$valid",
+                    description: "$description",
+                    totalreplies: { $size: "$replies" },
+                    totalanswers: { $size: "$answers" },
                     upvotes: { $size: "$upvotes" },
                     downvotes: { $size: "$downvotes" }
 
@@ -64,6 +64,7 @@ controller.getAllQuestions = async function (req, res) {
 controller.askNewQuestion = async function (req, res) {
     var question = new Questions();
     question.question = req.body.question;
+    question.description = req.body.description;
     question.save(function (err) {
         if (err) {
             return res.json({ status: res.statusCode, error: err.message });
@@ -78,22 +79,29 @@ controller.askNewQuestion = async function (req, res) {
 
 /** Update Questions **/
 controller.updateQuestion = async function (req, res) {
-    await Questions.findById(req.params.questionId, function (err, question) {
-        if (err) res.send(err);
-        question.question = req.body.question ? req.body.question : question.question;
-        question.questionLastUpdated = Date.now();
-        question.save(function (err) {
-            if (err)
+    await Questions.findById(req.params.qid, function (err, question) {
+        if (err) {
+            return res.json({ status: res.statusCode, errror: err.message });
+        }
+        if (null == question) {
+            return res.json({ status: res.statusCode, message: 'No Data available! ' });
+        } else {
+            question.question = req.body.question ? req.body.question : question.question;
+            question.description = req.body.description ? req.body.description : question.description;
+            question.questionLastUpdated = Date.now();
+            question.save(function (err) {
+                if (err)
+                    res.json({
+                        status: res.statusCode,
+                        message: res.message,
+                    });
                 res.json({
                     status: res.statusCode,
-                    message: res.message,
+                    message: 'Updated Succesfully',
+                    data: question
                 });
-            res.json({
-                status: res.statusCode,
-                message: 'Updated Succesfully',
-                data: question
             });
-        });
+        }
     });
 };
 /**Delete Questions **/
@@ -113,40 +121,40 @@ controller.deleteQuestion = async function (req, res) {
 /** Get question by Id **/
 controller.getQuestionById = async function (req, res) {
     await Questions.aggregate([
-            { $match : { _id : mongoose.Types.ObjectId(req.params.qid) } } ,
-            {
-                $addFields: {
-                    totalreplies: { $size: "$replies" },
-                    totalanswers: { $size: "$answers" },
-
-                },
+        { $match: { _id: mongoose.Types.ObjectId(req.params.qid) } },
+        {
+            $addFields: {
+                totalreplies: { $size: "$replies" },
+                totalanswers: { $size: "$answers" },
 
             },
-            {
-                $project: {
-                    upvotes: { $size: "$upvotes" },
-                    downvotes: { $size: "$downvotes" }
 
-                }
-            },
+        },
+        {
+            $project: {
+                upvotes: { $size: "$upvotes" },
+                downvotes: { $size: "$downvotes" }
 
-            {
-                $lookup: {
-                    from: sc.schema_replies,
-                    localField: "_id",
-                    foreignField: "questionId",
-                    as: "replies"
-                }
-            },
-            {
-                $lookup: {
-                    from: sc.schema_answers,
-                    localField: "_id",
-                    foreignField: "questionId",
-                    as: "answers"
-                }
             }
-        ])
+        },
+
+        {
+            $lookup: {
+                from: sc.schema_replies,
+                localField: "_id",
+                foreignField: "questionId",
+                as: "replies"
+            }
+        },
+        {
+            $lookup: {
+                from: sc.schema_answers,
+                localField: "_id",
+                foreignField: "questionId",
+                as: "answers"
+            }
+        }
+    ])
         .exec(function (err, response) {
             if (err) return handleError(err);
             res.json({
