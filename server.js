@@ -26,15 +26,17 @@ const app = express();
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, swaggeroptions));
 
 var sess = {
-  secret: 'fdsakhfdsjabgidshngaerniaerpbeijdskagkgsakjnk',
+  secret:  config.TOKEN_SECRET,
   cookie: {
+    path: '/',
+    httpOnly: false ,
     maxAge: 24 * 60 * 60 * 1000,
     secure: true,
     expires: 0
   },
 
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 };
 if (app.get('env') === 'production') {
   app.use(function (req, res, next) {

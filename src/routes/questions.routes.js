@@ -6,7 +6,7 @@ const Controller = controllers.questions;
 router.route('/questions')
     .get(Controller.getAllQuestions)
     .post(auths, Controller.askNewQuestion);
-router.route('/questions/:questionId')
+router.route('/questions/:qid')
     .get(Controller.getQuestionById)
     .patch(auths, Controller.updateQuestion)
     .put(auths, Controller.updateQuestion)
@@ -23,7 +23,7 @@ router.route('/questions/:questionId/answers/ids')
     .get(Controller.getAllQuestionAnswerIds);
 router.route('/questions/:questionId/replies/ids')
     .get(Controller.getAllQuestionRepliesIds);
-router.route('/questions/:questionId/vote/:uid')
+router.route('/questions/:questionId/vote')
     .patch(auths, Controller.voteForQuestion);
 router.route('/questions/:questionId/answers/:answerId')
     .get(Controller.getAllQuestionAnswerByAnswerId);

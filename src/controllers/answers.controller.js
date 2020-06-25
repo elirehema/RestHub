@@ -37,6 +37,7 @@ exports.getAnswerByAnswerId = async function (req, res) {
                     message: err.message,
                 });
             }
+            
             res.json({
                 status: res.statusCode,
                 size: response.answerComments.length,
