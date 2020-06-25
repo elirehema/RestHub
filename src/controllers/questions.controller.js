@@ -1,4 +1,5 @@
 const db = require('../Schemas/');
+var mongoose = require('mongoose');
 const sc = require('../plugins/schemas');
 const { replies, answers } = require('../Schemas/');
 const Questions = db.questions;
@@ -13,10 +14,19 @@ controller.getAllQuestions = async function (req, res) {
             {
                 $addFields: {
                     totalreplies: { $size: "$replies" },
-                    totalanswers: { $size: "$answers" }
+                    totalanswers: { $size: "$answers" },
+
                 },
 
             },
+            {
+                $project: {
+                    upvotes: { $size: "$upvotes" },
+                    downvotes: { $size: "$downvotes" }
+
+                }
+            },
+
             {
                 $lookup: {
                     from: sc.schema_replies,
@@ -102,15 +112,47 @@ controller.deleteQuestion = async function (req, res) {
 
 /** Get question by Id **/
 controller.getQuestionById = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId })
-        .populate({ path: "answers", select: ' -questionId -__v' })
-        .populate({ path: "replies", select: ' -questionId -__v' })
-        .exec(function (err, question) {
+    await Questions.aggregate([
+            { $match : { _id : mongoose.Types.ObjectId(req.params.qid) } } ,
+            {
+                $addFields: {
+                    totalreplies: { $size: "$replies" },
+                    totalanswers: { $size: "$answers" },
+
+                },
+
+            },
+            {
+                $project: {
+                    upvotes: { $size: "$upvotes" },
+                    downvotes: { $size: "$downvotes" }
+
+                }
+            },
+
+            {
+                $lookup: {
+                    from: sc.schema_replies,
+                    localField: "_id",
+                    foreignField: "questionId",
+                    as: "replies"
+                }
+            },
+            {
+                $lookup: {
+                    from: sc.schema_answers,
+                    localField: "_id",
+                    foreignField: "questionId",
+                    as: "answers"
+                }
+            }
+        ])
+        .exec(function (err, response) {
             if (err) return handleError(err);
             res.json({
                 status: res.statusCode,
                 message: 'Created succesfully...!',
-                data: question,
+                data: response,
             });
         });
 };
@@ -290,38 +332,60 @@ controller.getAllQuestionRepliesByReplyId = async function (req, res) {
         });
 };
 controller.voteForQuestion = async function (req, res) {
-    console.log("Kik");
-    if (req.query.operation === "upvote"){
-    await Questions.findOneAndUpdate(
-        { _id: req.params.questionId },
-        { $addToSet: { upvotes: req.params.uid } },
-        function (err, question) {
-            if (err) {
-                res.json({
-                    status: err.status
-                });
-            }
-            res.json({
-                status: res.status,
-                data: question
+    let uid = req.session.userId;
+    if (req.query.o === "upvote") {
+        await Questions.findOneAndUpdate(
+            { _id: req.params.questionId },
+            { $addToSet: { upvotes: uid }, },
+
+            function (err, question) {
+                question.save();
             });
-        });
+        await Questions.findOneAndUpdate(
+            { _id: req.params.questionId },
+            { $pull: { downvotes: uid }, },
+
+            function (err, question) {
+                if (err) {
+                    res.json({
+                        status: err.statusCode
+                    });
+                }
+                res.json({
+                    status: res.statusCode,
+                    data: question
+                });
+            });
+
+
+
     }
-    if (req.query.operation === "downvote"){
-    await Questions.findOneAndUpdate(
-        { _id: req.params.questionId },
-        { $addToSet: { downvotes: req.params.uid } },
-        function (err, question) {
-            if (err) {
-                res.json({
-                    status: err.status
-                });
-            }
-            res.json({
-                status: res.status,
-                data: question
+    if (req.query.o === "downvote") {
+        await Questions.findOneAndUpdate(
+            { _id: req.params.questionId },
+
+            { $addToSet: { downvotes: uid } },
+
+
+            function (err, question) {
+                question.save();
             });
-        });
+
+        await Questions.findOneAndUpdate(
+            { _id: req.params.questionId },
+            { $pull: { upvotes: uid }, },
+
+            function (err, question) {
+                if (err) {
+                    res.json({
+                        status: err.statusCode
+                    });
+                }
+                res.json({
+                    status: res.status,
+                    data: question
+                });
+            });
     }
 };
 

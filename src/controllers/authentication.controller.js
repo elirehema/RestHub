@@ -1,4 +1,4 @@
-UserAuth = require('../Schemas/UserAuthSchema')
+UserAuth = require('../Schemas/UserAuthSchema');
 var sess;
 exports.index = function(req, res) {
   UserAuth.get(function(err, user_auths) {
@@ -32,7 +32,7 @@ exports.new = function(req, res) {
       });
     }
     var hour = 3600000;
-    req.session.cookie.expires = new Date(Date.now() + hour)
+    req.session.cookie.expires = new Date(Date.now() + hour);
     req.session.cookie.maxAge = hour;
     sess = req.session;
     var tokenId = jwt.sign({
@@ -73,7 +73,7 @@ exports.view = async function(req, res) {
           }, config.TOKEN_SECRET, {
             expiresIn: 86400 // expires in 24 hours
           });
-
+          
           res.json({
             auth: true,
             status: res.statusCode,
@@ -92,7 +92,7 @@ exports.view = async function(req, res) {
         status: res.statusCode,
         message: 'Email ' + req.body.email + '  Not Found',
         accessToken: null
-      })
+      });
     }
   });
 
@@ -140,7 +140,7 @@ exports.delete =async function(req, res) {
 exports.logout = (req, res) => {
   if (req.session.user && req.cookies.id) {
     res.clearCookie('user_sis');
-    res.redirect('/')
+    res.redirect('/');
     res.status(200).send({
       auth: false,
       token: null

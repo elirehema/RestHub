@@ -4,38 +4,15 @@ const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
 var QuestionsSchemas = new Schema({
-    question: {
-        type: String,
-        required: true
-    },
-    valid: {
-        type: Boolean,
-        default: true
-    },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: sc.schema_users
-    },
-    upvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
-    downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
-    answers: [{
-        type: Schema.Types.ObjectId,
-        ref: sc.schema_answers,
-
-    }],
-    replies: [{
-        type: ObjectId,
-        ref: sc.schema_replies
-    }],
-    updated: {
-        type: Date
-    }
-
+    question: { type: String, required: true },
+    valid: { type: Boolean, default: true },
+    date: { type: Date, required: true, default: Date.now },
+    author: { type: ObjectId, ref: sc.schema_users },
+    upvotes: [{ type: ObjectId, ref: sc.schema_users }],
+    downvotes: [{ type: ObjectId, ref: sc.schema_users }],
+    answers: [{ type: ObjectId, ref: sc.schema_answers }],
+    replies: [{ type: ObjectId, ref: sc.schema_replies }],
+    updated: { type: Date, default: Date.now, required: true }
 
 });
 
