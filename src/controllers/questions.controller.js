@@ -71,7 +71,7 @@ controller.askNewQuestion = async function (req, res) {
         }
         res.json({
             status: res.statusCode,
-            message: 'Created succesfully...!',
+            message: req.statusMessage,
             data: question
         });
     });
@@ -81,7 +81,7 @@ controller.askNewQuestion = async function (req, res) {
 controller.updateQuestion = async function (req, res) {
     await Questions.findById(req.params.qid, function (err, question) {
         if (err) {
-            return res.json({ status: res.statusCode, errror: err.message });
+            return res.json({ status: res.statusCode, error: err.message });
         }
         if (null == question) {
             return res.json({ status: res.statusCode, message: 'No Data available! ' });
@@ -93,11 +93,11 @@ controller.updateQuestion = async function (req, res) {
                 if (err)
                     res.json({
                         status: res.statusCode,
-                        message: res.message,
+                        message: res.statusMessage,
                     });
                 res.json({
                     status: res.statusCode,
-                    message: 'Updated Succesfully',
+                    message: req.statusMessage,
                     data: question
                 });
             });
@@ -119,19 +119,18 @@ controller.deleteQuestion = async function (req, res) {
 };
 
 /** Get question by Id **/
-controller.getQuestionById = async function (req, res) {
+controller.getQuestionByQuestionId = async function (req, res) {
     await Questions.aggregate([
         { $match: { _id: mongoose.Types.ObjectId(req.params.qid) } },
         {
-            $addFields: {
+            $project: {
+                question: "$question",
+                date: "$date",
+                updated: "$updated",
+                valid: "$valid",
+                description: "$description",
                 totalreplies: { $size: "$replies" },
                 totalanswers: { $size: "$answers" },
-
-            },
-
-        },
-        {
-            $project: {
                 upvotes: { $size: "$upvotes" },
                 downvotes: { $size: "$downvotes" }
 
@@ -157,18 +156,15 @@ controller.getQuestionById = async function (req, res) {
     ])
         .exec(function (err, response) {
             if (err) return handleError(err);
-            res.json({
-                status: res.statusCode,
-                message: 'Created succesfully...!',
-                data: response,
-            });
+            res.json(response,
+            );
         });
 };
 /** Answer  to specific question **/
 controller.answerTheQuestion = async function (req, res) {
     var answer = new Answer();
     Questions.findOneAndUpdate(
-        { _id: req.params.questionId },
+        { _id: req.params.qid },
         { $push: { answers: answer._id } },
         function (error, success) {
             if (error) {
@@ -182,14 +178,14 @@ controller.answerTheQuestion = async function (req, res) {
                 });
             } else {
                 answer.message = req.body.message;
-                answer.questionId = req.params.questionId;
+                answer.questionId = req.params.qid;
                 answer.save(function (err) {
                     if (err) {
                         return res.json({ status: res.statusCode, error: err.message });
                     }
                     res.json({
                         status: res.statusCode,
-                        message: 'Created succesfully...!',
+                        message: req.statusMessage,
                         data: answer
                     });
                 });
@@ -201,29 +197,24 @@ controller.answerTheQuestion = async function (req, res) {
 controller.replyToQuestion = async function (req, res) {
     var reply = new Replies();
     Questions.findOneAndUpdate(
-        { _id: req.params.questionId },
+        { _id: req.params.qid },
         { $push: { replies: reply._id } },
         function (error, success) {
             if (error) {
-                console.log(error);
                 res.json({
                     message: error.message,
-                    name: error.name,
-                    kind: error.kind,
-                    path: error.path,
-                    reason: error.reason,
-                    model: error.model
+                    status: res.statusCode
                 });
             } else {
                 reply.message = req.body.message;
-                reply.questionId = req.params.questionId;
+                reply.questionId = req.params.qid;
                 reply.save(function (err) {
                     if (err) {
                         return res.json({ status: res.statusCode, error: err.message });
                     }
                     res.json({
                         status: res.statusCode,
-                        message: 'Created succesfully...!',
+                        message: req.statusMessage,
                         data: reply
                     });
                 });
@@ -233,84 +224,56 @@ controller.replyToQuestion = async function (req, res) {
 
 /** Get Specific Question Replies **/
 controller.getAllQuestionReplies = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId }).select('replies')
-        .populate({ path: "replies" })
-        .exec(function (err, answers) {
+    if(req.query.q === "id"){
+        await Questions.findOne({ _id: req.params.qid }).select('replies')
+        .exec(function (err, payload) {
             if (err) {
             } else {
-                res.json({
-                    message: 'Created succesfully...!',
-                    data: answers,
-                });
+               return res.json(payload.replies);
             }
 
         });
-};
 
-/** Get Specific Question Answers ID's**/
-controller.getAllQuestionAnswerIds = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId }).select('questionAnswers')
-        .exec(function (error, answers) {
-            if (error) {
-                res.json({
-                    message: error.message,
-                    name: error.name,
-                    kind: error.kind,
-                    path: error.path,
-                    reason: error.reason,
-                    model: error.model
-                });
+    }else{
+    await Questions.findOne({ _id: req.params.qid }).select('replies')
+        .populate({ path: "replies", select: "-questionId -__v"})
+        .exec(function (err, payload) {
+            if (err) {
             } else {
-                res.json({
-                    message: 'Created succesfully...!',
-                    data: answers,
-                });
+                return res.json(payload.replies);
             }
 
         });
-};
-
-/** Get Specific Question Replies ID's**/
-controller.getAllQuestionRepliesIds = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId }).select('questionReplies')
-        .exec(function (error, answers) {
-            if (error) {
-                res.json({
-                    message: error.message,
-                    name: error.name,
-                    kind: error.kind,
-                    path: error.path,
-                    reason: error.reason,
-                    model: error.model
-                });
-            } else {
-                res.json({
-                    message: 'Created succesfully...!',
-                    data: answers,
-                });
-            }
-
-        });
+    }
 };
 
 /** Get Specific Question Answers **/
 controller.getAllQuestionAnswers = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId }).select('answers')
-        .populate({ path: "answers" })
-        .exec(function (err, answers) {
+    if(req.query.q === "id"){
+    await Questions.findOne({ _id: req.params.qid }).select('answers')
+        .exec(function (err, payload) {
             if (err) {
             } else {
-                res.json({
-                    message: 'Created succesfully...!',
-                    data: answers,
-                });
+                return res.json(payload.answers);
             }
 
         });
+    }else{
+        await Questions.findOne({ _id: req.params.qid }).select('answers')
+        .populate({ path: "answers" })
+        .exec(function (err, payload) {
+            if (err) {
+            } else {
+                return res.json(payload.answers);
+            }
+
+        });
+
+    }
 };
 /** Get Specific Question AnswerById **/
 controller.getAllQuestionAnswerByAnswerId = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId }).select('answers')
+    await Questions.findOne({ _id: req.params.qid }).select('answers')
         .populate({ path: "answers", select: '-__v -questionId' })
         .exec(function (err, response) {
             if (err) {
@@ -318,14 +281,15 @@ controller.getAllQuestionAnswerByAnswerId = async function (req, res) {
                 res.json({
                     message: res.message,
 
-                    data: response.answers.find(answer => answer._id = req.params.answerId),
+                    data: response.answers.find(answer => answer._id = req.params.aid),
                 });
             }
 
         });
 };
+
 controller.getAllQuestionRepliesByReplyId = async function (req, res) {
-    await Questions.findOne({ _id: req.params.questionId }).select('replies')
+    await Questions.findOne({ _id: req.params.qid }).select('replies')
         .populate({ path: "replies", select: '-__v -questionId' })
         .exec(function (err, response) {
             if (err) {
@@ -398,7 +362,7 @@ controller.voteForQuestion = async function (req, res) {
 };
 
 handleError = function (err) {
-    console.log("Error " + err + "has occured !!!");
+    console.log("Error " + err + "has occurred !!!");
 };
 
 module.exports = controller;
