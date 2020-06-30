@@ -5,14 +5,14 @@ var Controller = controllers.answers;
 
 router.route('/answers')
     .get(Controller.getAllAnswers);
-router.route('/answers/:questionId')
-    .get(Controller.getAnswersByQuestionId);
-router.route('/answer/:answerId')
+router.route('/answers/:aid')
     .get(Controller.getAnswerByAnswerId);
-router.route('/answer/:answerId/votes')
-    .get(Controller.getAnswerVoters)
+router.route('/answers/:aid')
+    .get(Controller.getAnswerByAnswerId);
+router.route('/answers/:aid/votes')
+    .get(Controller.getAnswerVotes)
     .put(auth, Controller.upvoteAnswer);
-router.route('/answer/:answerId/comments')
+router.route('/answers/:aid/comments')
     .get(Controller.getAnswerComments)
     .patch(auth, Controller.commentOnQuestionAnswer);
 module.exports = router;

@@ -52,12 +52,7 @@ controller.getAllQuestions = async function (req, res) {
                 });
             }
 
-            res.json({
-                status: res.statusCode,
-                method: req.method,
-                message: req.statusMessage,
-                data: response
-            });
+            res.json(response);
         });
 };
 /** Ask new question **/
@@ -156,8 +151,7 @@ controller.getQuestionByQuestionId = async function (req, res) {
     ])
         .exec(function (err, response) {
             if (err) return handleError(err);
-            res.json(response,
-            );
+            res.json(response);
         });
 };
 /** Answer  to specific question **/

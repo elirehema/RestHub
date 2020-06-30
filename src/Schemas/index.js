@@ -1,5 +1,5 @@
 const db = {};
-db.answers  = require('./answer.data.model.js')
+db.answers  = require('./answer.data.model.js');
 db.messages = require('./messages.data.model.js');
 db.products = require('./products.schema.model');
 db.comments = require('./comment.schema.model.js');

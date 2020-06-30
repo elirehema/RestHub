@@ -2,6 +2,7 @@ module.exports = {
     schema_questions:   'o_questions',
     schema_answers:     'o_answers',
     schema_replies:     'o_replies',
+    schema_auths:       'o_users_outh',
     schema_users:       'o_users',
     schema_comments:    'o_comments',
     schema_contacts:    'o_contacts',
