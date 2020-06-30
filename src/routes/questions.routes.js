@@ -7,25 +7,21 @@ router.route('/questions')
     .get(Controller.getAllQuestions)
     .post(auths, Controller.askNewQuestion);
 router.route('/questions/:qid')
-    .get(Controller.getQuestionById)
+    .get(Controller.getQuestionByQuestionId)
     .patch(auths, Controller.updateQuestion)
     .put(auths, Controller.updateQuestion)
     .delete(auths, Controller.deleteQuestion);
-router.route('/questions/:questionId/replies')
+router.route('/questions/:qid/replies')
     .get(Controller.getAllQuestionReplies)
     .patch(auths, Controller.replyToQuestion);
-router.route('/questions/:questionId/replies/:rid')
+router.route('/questions/:qid/replies/:rid')
     .get(Controller.getAllQuestionRepliesByReplyId);
-router.route('/questions/:questionId/answers')
+router.route('/questions/:qid/answers')
     .get(Controller.getAllQuestionAnswers)
     .patch(auths, Controller.answerTheQuestion);
-router.route('/questions/:questionId/answers/ids')
-    .get(Controller.getAllQuestionAnswerIds);
-router.route('/questions/:questionId/replies/ids')
-    .get(Controller.getAllQuestionRepliesIds);
-router.route('/questions/:questionId/vote')
+router.route('/questions/:qid/vote')
     .patch(auths, Controller.voteForQuestion);
-router.route('/questions/:questionId/answers/:answerId')
+router.route('/questions/:qid/answers/:aid')
     .get(Controller.getAllQuestionAnswerByAnswerId);
 
 
