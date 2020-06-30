@@ -1,16 +1,15 @@
 //define user( i.e. Student Schemas)
 var mongoose  = require('mongoose');
+const sc = require('../plugins/schemas');
+const { schema_answers } = require('../plugins/schemas');
 var Schema = mongoose.Schema;
 var UserSchemas = mongoose.Schema({
-    userName:{
+    username:{
         type:String,
         required: true,
     },
-    userForm:{
-        type: Number,
-        required: false
-    },
-    userProfile:[{
+   
+    profile:[{
         userSocialAccounts:[{
             accounName:{
                 type:String,
@@ -45,10 +44,10 @@ var UserSchemas = mongoose.Schema({
         }
     }],
     userScores:[{
-        bronzeBadge:{
+        bronze:{
             type: Number
         },
-        silverBadge:{
+        silver:{
             type: Number
         },
         reputations:{
@@ -56,10 +55,11 @@ var UserSchemas = mongoose.Schema({
         },
         
     }],
-    userAnswers:[{type: Schema.Types.ObjectId, ref: 'opus_answers'}],
-    userComments:[{type: Schema.Types.ObjectId, ref: 'opus_comments'}]
+    class:{ type: Number,required: false},
+    userAnswers:[{type: Schema.Types.ObjectId, ref: schema_answers}],
+    userComments:[{type: Schema.Types.ObjectId, ref: sc.schema_comments}]
 
 
-})
+});
 
-var UserSchema = module.exports = mongoose.model('opus_users', UserSchemas);
+var UserSchema = module.exports = mongoose.model(sc.schema_users, UserSchemas);
