@@ -1,87 +1,74 @@
-const db = require('../Schemas');
-const Classess = db.classes;
+const Model = require('../Schemas').classes;
 exports.getAllClasses = async function (req, res) {
-    await Classess.get(function (err, classes) {
-        if (err) {
-            res.json({
-                statusCode: res.statusCode,
-                status: res.status,
-                message: err,
-            });
-        }
-        res.json({
-            statusCode: res.statusCode,
-            status: res.status,
-            message: "Classes retrieved successfully",
-            data: classes
+    await Model
+        .find({})
+        .exec(function (err, payload) {
+            if (err) {
+                return res.json({
+                    statusCode: res.statusCode,
+                    status: res.status,
+                    message: err,
+                });
+            }
+            return res.json(payload);
         });
-    });
 };
 exports.createNewClass = async function (req, res) {
-    var classes = new Classess();
-    classes.className = req.body.name ? req.body.name : classes.name;
-    classes.classCode = req.body.code;
+    var classes = new Model({ name: req.body.name, code: req.body.code });
     await classes.save(function (err) {
         if (err) {
+            
             return res.json({
-                status: res.statusCode,
-                error: err
+                message:"Duplicate Classname or CODE"
             });
         }
-        res.json({
-            status: res.statusCode,
-            message: 'New class created!',
-            data: classes
-        });
+        return res.json(classes);
     });
 };
 exports.getClassById = async function (req, res) {
-    await Classess.findById(req.params.classId, function (err, classes) {
-            if (err)
-                res.json({
-                        status: req.statusCode,
-                        message: 'No class with ID: ' +req.params.classId + 'found!'
-                    
-                })
-            
-            res.json({
-                status: res.statusCode,
-                message: 'Class retrieved succesfully ...',
-                data: classes
+    await Model.findById(req.params.id, function (err, payload) {
+        if (err) {
+            return res.json({
+                status: req.statusCode,
+                message: 'No class with ID: ' + req.params.classId + 'found!'
 
             });
-        
+        }
+
+
+        return res.json(payload);
+
     });
 };
 exports.updateClassById = async function (req, res) {
-    await Classess.findById(req.params.classId, function (err, classes) {
-        if (err)
-            res.send(err);
-        classes.className = req.body.name ? req.body.name : classes.name;
-        classes.classCode = req.body.code;
-        classes.lastUpdated = Date.now();
-        classes.save(function (err) {
-            if (err)
-                res.json(err);
-            res.json({
-                status: res.statusCode,
-                message: 'Class with ID:' + req.params.classId + 'was updated succesfully',
-                data: classes
-            });
+    await Model.findById(req.params.id, function (err, payload) {
+        if (err) { res.send(err); }
+
+        payload.name = req.body.name ? req.body.name : payload.name;
+        payload.code = req.body.code ? req.body.code : payload.code;
+
+        payload.save(function (err) {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json(payload);
         });
     });
 };
 
 exports.deleteClassById = async function (req, res) {
-    await Classess.deleteOne({
-        _id: req.params.classId
-    }, function (err, classes) {
-        if (err)
-            res.json({
+    await Model.deleteOne({
+        _id: req.params.id
+    }, function (err, payload) {
+        if (err) {
+            return res.json({
                 status: res.statusCode,
-                message: 'No class with id' + req.params.classId
-            })
-        res.json({
+                message: 'No class with id' + req.params.id
+            });
+        }
+
+        return res.json({
             status: res.statusCode,
             message: 'Class deleted succesfully ...'
         });
