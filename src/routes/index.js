@@ -8,5 +8,6 @@ routes.classes_route = require('./classes.routes');
 routes.comments_route = require('./comments.routes');
 routes.authentications_route = require('./authentications.routes');
 routes.profiles_route = require('./profiles.routes');
+routes.subjects_route = require('./subjects.routes');
 
 module.exports = routes;
