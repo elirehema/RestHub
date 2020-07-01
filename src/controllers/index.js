@@ -6,7 +6,7 @@ controllers.classes = require('./classes.controller');
 controllers.comments = require('./comments.controller');
 controllers.questions = require('./questions.controller');
 controllers.messages = require('./messages.controller');
-controllers.products = require('./product.controller');
+controllers.tags = require('./tags.controller');
 controllers.users = require('./users.controller');
 controllers.contacts = require('./contacts.controller.js');
 

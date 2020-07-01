@@ -64,11 +64,7 @@ controller.askNewQuestion = async function (req, res) {
         if (err) {
             return res.json({ status: res.statusCode, error: err.message });
         }
-        res.json({
-            status: res.statusCode,
-            message: req.statusMessage,
-            data: question
-        });
+        res.json(question);
     });
 };
 
