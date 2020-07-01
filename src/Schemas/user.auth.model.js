@@ -10,6 +10,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 
 const UserAuthSchema = mongoose.Schema({
+  username:{type: String, required: true},
   email: {type: String, index: true, unique: true, required: true },
   password: {
     type: String,

@@ -1,5 +1,4 @@
-const db = require('../Schemas');
-const Model = db.tags;
+const Model = require('../Schemas').tags;
 
 const controller = {};
 

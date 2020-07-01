@@ -1,15 +1,15 @@
-UserAuth = require('../Schemas/UserAuthSchema');
+const UserAuth = require('../Schemas').user_auths;
+const ProfileModel = require('../Schemas').profiles;
+
 var sess;
-exports.index = function(req, res) {
-  UserAuth.get(function(err, user_auths) {
+exports.index = function (req, res) {
+  UserAuth.get(function (err, user_auths) {
     if (err) {
       res.json({
         status: res.statusCode,
         message: err.message,
       });
     }
-
-
     res.json({
       status: res.statusCode,
       message: "User retrieved successfully",
@@ -18,13 +18,12 @@ exports.index = function(req, res) {
   });
 };
 // Handle create user actions
-exports.new = function(req, res) {
-  var user = new UserAuth();
-  user.email = req.body.email;
-  user.password = req.body.password;
+exports.new = function (req, res) {
+  var user = new UserAuth({email: req.body.email, username: req.body.username, password: req.body.password});
+ 
 
   // save the user and check for errors
-  user.save(function(err, user_auths) {
+  user.save(function (err, user_auths) {
     if (err) {
       return res.json({
         status: res.statusCode,
@@ -45,23 +44,27 @@ exports.new = function(req, res) {
       status: res.statusCode,
       session: sess,
       message: 'Registration Success',
-      data: {id: user_auths._id, name: user_auths.name, email: user_auths.email},
+      data: { id: user_auths._id, name: user_auths.name, email: user_auths.email },
       accessToken: tokenId
     });
+    var profile = new ProfileModel({ _id: user_auths._id, username: req.body.username, thumbnail: "https://www.aalforum.eu/wp-content/uploads/2016/04/profile-placeholder.png", email: req.body.email });
+
+    profile.save();
 
   });
+  
 };
 // Handle view user info
-exports.view = async function(req, res) {
+exports.view = async function (req, res) {
   await UserAuth.findOne({
     email: req.body.email
-  }, function(err, user) {
+  }, function (err, user) {
     if (err) {
       console.error('There was an error reading the file!', err);
     }
     if (user != null) {
       // test a matching password
-      user.comparePassword(req.body.password, function(err, isMatch) {
+      user.comparePassword(req.body.password, function (err, isMatch) {
         if (err) throw err;
         if (req.body.password, isMatch) {
           var hour = 3600000;
@@ -73,13 +76,13 @@ exports.view = async function(req, res) {
           }, config.TOKEN_SECRET, {
             expiresIn: 86400 // expires in 24 hours
           });
-          
+
           res.json({
             auth: true,
             status: res.statusCode,
             session: sess,
             message: 'Login Success',
-            user: {id: user._id, name: user.name, email: user.email},
+            user: { id: user._id, name: user.name, email: user.email },
             accessToken: tokenId
           }); // -> Password123: true
         } else {
@@ -99,8 +102,8 @@ exports.view = async function(req, res) {
 
 };
 // Handle update user info
-exports.update = async function(req, res) {
-  await UserAuth.findById(req.params.id, function(err, user_auths) {
+exports.update = async function (req, res) {
+  await UserAuth.findById(req.params.id, function (err, user_auths) {
     if (err) {
       return res.json({
         status: res.statusCode,
@@ -111,7 +114,7 @@ exports.update = async function(req, res) {
     user_auths.email = req.body.email;
     user_auths.password = req.body.password;
     // save the user and check for errors
-    user_auths.save(function(err) {
+    user_auths.save(function (err) {
       if (err)
         res.json(err);
       res.json({
@@ -124,10 +127,10 @@ exports.update = async function(req, res) {
   });
 };
 // Handle delete user
-exports.delete =async function(req, res) {
+exports.delete = async function (req, res) {
   await UserAuth.remove({
     _id: req.params.id
-  }, function(err, user) {
+  }, function (err, user) {
     if (err)
       res.send(err);
     res.json({

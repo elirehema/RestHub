@@ -7,7 +7,7 @@ const Users = db.users;
 const Questions = db.questions;
 const notifier = require('node-notifier');
 const { schema_comments, schema_users } = require('../plugins/schemas');
-const { model } = require('../Schemas/UserAuthSchema');
+const { model } = require('../Schemas/user.auth.model');
 /** Get All Answers **/
 exports.getAllAnswers = async function (req, res) {
 

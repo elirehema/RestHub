@@ -297,14 +297,18 @@ controller.voteForQuestion = async function (req, res) {
     let uid = req.session.userId;
     if (req.query.o === "upvote") {
         await Questions.findOneAndUpdate(
-            { _id: req.params.questionId },
+            { _id: req.params.qid },
             { $addToSet: { upvotes: uid }, },
 
-            function (err, question) {
-                question.save();
+            function (error, payload) {
+               if(error){
+                res.json({
+                    status: err.statusCode
+                });
+               }
             });
         await Questions.findOneAndUpdate(
-            { _id: req.params.questionId },
+            { _id: req.params.qid },
             { $pull: { downvotes: uid }, },
 
             function (err, question) {
