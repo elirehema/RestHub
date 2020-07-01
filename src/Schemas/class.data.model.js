@@ -1,26 +1,8 @@
 const sc = require('../plugins/schemas');
 const mongoose = require('mongoose');
 var ClassesSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    code: {
-        type: String,
-        required: true
-    },
-    updated: {
-        type: Date,
-        default: Date.now
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    name: { type: String, required: true, lowercase: true },
+    code: { type: String, required: true, uppercase: true },
+    date: { type: Date, default: Date.now,required: true }
 });
-
-var Classes = module.exports = mongoose.model('Classes', ClassesSchema);
-
-module.exports.get = function (callback, limit) {
-    Contact.find(callback).limit(limit);
-};
+module.exports = mongoose.model(sc.schema_classes, ClassesSchema);

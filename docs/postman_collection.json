@@ -1,0 +1,707 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"_postman_id": "2e4ad3ed-b16d-47e8-8f22-c9a5145ee4e4",
+		"name": "opus",
+		"description": "Api for Elog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"email@example.com\",\n    \"password\":\"password\"   \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auths/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auths",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"username\",\n    \"password\":\"password\",\n    \"email\":\"email@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auths",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auths"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "List Questions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"question\":\"How many variable in this Name ?\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/questions/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question replies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca",
+								"replies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question  replies query id's",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies?q=id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca",
+								"replies"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Answer a Question",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"message\":\"Message Reply answers in this \"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0410b2572e3f3f44cb/answers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0410b2572e3f3f44cb",
+								"answers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ask new Question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\":\"What are you currently worried about?\",\n\n    \"description\":\"You cannot use the $out or the $merge stage in conjunction with read concern linearizable. That is, if you specify linearizable read concern for db.collection.aggregate(), you cannot include either stages in the pipeline. The following operation on a replica s specifies a Read Concern of majority to read the most recent copy of the data confirmed as having been written to a majority of the nodes.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reply to question",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\":\"For example, 'regex' validator no longer exists and has been replaced with 'matches\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca",
+								"replies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Question",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"You cannot use the $out or the $merge stage in conjunction with read concern linearizable. That is, if you specify linearizable read concern for db.collection.aggregate(), you cannot include either stages in the pipeline. The following operation on a replica s specifies a Read Concern of majority to read the most recent copy of the data confirmed as having been written to a majority of the nodes.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef3a1cd85645e2049ef9d1f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef3a1cd85645e2049ef9d1f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get question answer by answer id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/answers/5ef59c3910b2572e3f3f44cc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca",
+								"answers",
+								"5ef59c3910b2572e3f3f44cc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question answers query id's",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/answers?q=id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca",
+								"answers"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vote for Question",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef3a1cd85645e2049ef9d1f/vote?o=upvote",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef3a1cd85645e2049ef9d1f",
+								"vote"
+							],
+							"query": [
+								{
+									"key": "o",
+									"value": "upvote"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Answers",
+			"item": [
+				{
+					"name": "List Answers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/answers",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"answers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get answer reply by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies/5efb638d00b63001cf0d31fe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"questions",
+								"5ef59c0010b2572e3f3f44ca",
+								"replies",
+								"5efb638d00b63001cf0d31fe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get answevotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc/votes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"answers",
+								"5ef59c3910b2572e3f3f44cc",
+								"votes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get answers comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"answers",
+								"5ef59c3910b2572e3f3f44cc",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment on Answer",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\":\"Message  validation failed: message: Comment should be between 30 and 50 characters\",\n    \"userId\":\"5ef59bbd10b2572e3f3f44c8\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"answers",
+								"5ef59c3910b2572e3f3f44cc",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get answers by answer id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"answers",
+								"5ef59c3910b2572e3f3f44cc"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "List Tags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new TAG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"mathis\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tag",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Mathematics\",\n    \"valid\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tags/5efc5fbd754ab37c56bbe835",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tags",
+								"5efc5fbd754ab37c56bbe835"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWZjNGY5MmQ0NGEzYTMyNGU5ZjNjOWQiLCJpYXQiOjE1OTM1OTU3OTgsImV4cCI6MTU5MzY4MjE5OH0.yn_GeLWwb7Pkxmi1BxKySMe-BPcI59RulIFP4zAEHRM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "38b6cfb6-be87-4dde-a69a-543afa6f920f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0bf6c2f4-4d2d-4a99-9c01-e60fe1315ea0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

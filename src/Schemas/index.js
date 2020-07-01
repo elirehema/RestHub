@@ -1,7 +1,7 @@
 const db = {};
 db.answers  = require('./answer.data.model.js');
 db.messages = require('./messages.data.model.js');
-db.products = require('./products.schema.model');
+db.tags     = require('./tags.data.model');
 db.comments = require('./comment.schema.model.js');
 db.users    = require('./user.schema.model.js');
 db.contacts = require('./contact.data.model.js');

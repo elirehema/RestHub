@@ -1,65 +1,31 @@
 //define user( i.e. Student Schemas)
-var mongoose  = require('mongoose');
+var mongoose = require('mongoose');
 const sc = require('../plugins/schemas');
 const { schema_answers } = require('../plugins/schemas');
 var Schema = mongoose.Schema;
-var UserSchemas = mongoose.Schema({
-    username:{
-        type:String,
-        required: true,
-    },
-   
-    profile:[{
-        userSocialAccounts:[{
-            accounName:{
-                type:String,
-                required: true
-            },
-            accountUrl:{
-                type:String,
-                required: true
-            },
-            
-        }],
-        userFullName:{
-            type:String,
-            required:false
-        },
-        userEmail:{
-            type:String,
-            required: false
-        },
-        userInterests:[{
-            iterestName:{
-                type:String,
-                required:false
-            }
-        }]
-        
-    }],
-    userTagsAccountTags:[{
-        tagName:{
-            type:String,
-            required: true
-        }
-    }],
-    userScores:[{
-        bronze:{
+var UserSchemasModel = mongoose.Schema({
+    _id:  { type:  Schema.Types.ObjectId, ref: sc.schema_auths },
+    username: { type: String, required: true, lowercase: true },
+    email: { type: String, required: true, lowercase: true },
+    fullname: { type: String },
+    tags: [{ type: Schema.Types.ObjectId, ref: sc.schema_tags }],
+    scores: [{
+        bronze: {
             type: Number
         },
-        silver:{
+        silver: {
             type: Number
         },
-        reputations:{
+        reputations: {
             type: Number
         },
-        
+
     }],
-    class:{ type: Number,required: false},
-    userAnswers:[{type: Schema.Types.ObjectId, ref: schema_answers}],
-    userComments:[{type: Schema.Types.ObjectId, ref: sc.schema_comments}]
+    class: { type:  Schema.Types.ObjectId, ref: sc.schema_classes },
+    answers: [{ type: Schema.Types.ObjectId, ref: sc.schema_answers }],
+    comments: [{ type: Schema.Types.ObjectId, ref: sc.schema_comments }],
+    replies: [{ type: Schema.Types.ObjectId, ref: sc.schema_replies }]
 
 
 });
-
-var UserSchema = module.exports = mongoose.model(sc.schema_users, UserSchemas);
+module.exports = mongoose.model(sc.schema_users, UserSchemasModel);
