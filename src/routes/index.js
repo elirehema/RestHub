@@ -7,5 +7,6 @@ routes.answers_route = require('./answers.routes');
 routes.classes_route = require('./classes.routes');
 routes.comments_route = require('./comments.routes');
 routes.authentications_route = require('./authentications.routes');
-routes.users_route = require('./users.routes');
+routes.profiles_route = require('./profiles.routes');
+
 module.exports = routes;
