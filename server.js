@@ -74,6 +74,10 @@ app.get('/', function (req, res) {
   }
 });
 
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile("./assets/favicon.ico",{ root: __dirname });
+});
+
 
 /** Connect to Mongoose and set connection variable **/
 const options = {
