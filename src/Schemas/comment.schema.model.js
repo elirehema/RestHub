@@ -1,9 +1,9 @@
 const sc = require('../plugins/schemas');
 var mongoose = require('mongoose');
+var validate = require('mongoose-validator');
 var Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+  ObjectId = Schema.ObjectId;
 
-    var validate = require('mongoose-validator');
 
 var commentValidator = [
   validate({
@@ -12,21 +12,18 @@ var commentValidator = [
     message: 'Comment should be between 30 and 100 characters'
   })
 ];
-var SchemaComments = new Schema({
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    message: {
-        type: String,
-        required: true,
-        validate: commentValidator
-    },
-    upvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
-    downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
-    by: { type: Schema.Types.ObjectId, ref: sc.schema_users },
-    answerId: { type: ObjectId, ref: sc.schema_answers }
-});
+var schema = new Schema({
+  message: {
+    type: String,
+    required: true,
+    validate: commentValidator
+  },
+  upvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
+  downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
+  by: { type: Schema.Types.ObjectId, ref: sc.schema_users },
+  answerId: { type: ObjectId, ref: sc.schema_answers }
+}, { emitIndexErrors: true, autoCreate: true, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
-var SchemaComment = module.exports = mongoose.model(sc.schema_comments, SchemaComments);
+const _model = mongoose.model(sc.schema_comments, schema);
+
+module.exports = _model;

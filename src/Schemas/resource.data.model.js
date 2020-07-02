@@ -29,7 +29,7 @@ const Schema = mongoose.Schema,
         })
       ];
 
-var ResourceDataModel = new Schema({
+var schema = new Schema({
     name:{
         type: String,
         required: true,
@@ -41,11 +41,9 @@ var ResourceDataModel = new Schema({
         required: true,
         validate: descriptionValidator
     }
-});
+},{ emitIndexErrors: true, autoCreate: true,  timestamps: { createdAt: 'created_at',updatedAt:'updated_at' }});
 
-const ResourcesSchema = module.exports = mongoose.model(sc.schema_resources, ResourceDataModel);
+const resources_schema  = mongoose.model(sc.schema_resources, schema);
 
 
-module.exports.get = function (callback, limit) {
-    ResourcesSchema.find(callback).limit(limit);
-};
+module.exports = resources_schema;

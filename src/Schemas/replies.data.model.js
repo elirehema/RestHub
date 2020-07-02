@@ -2,12 +2,7 @@ const sc = require('../plugins/schemas');
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
-var RepliesDataModel = new Schema({
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
+var schema = new Schema({
     message: {
         type: String,
         required: true,
@@ -15,11 +10,21 @@ var RepliesDataModel = new Schema({
     questionId: { type: ObjectId, ref: sc.schema_questions },
     upvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
     downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }]
-});
-
-const RepliesSchema = module.exports = mongoose.model(sc.schema_replies, RepliesDataModel);
-
-
-module.exports.get = function (callback, limit) {
-    RepliesSchema.find(callback).limit(limit);
+}, { emitIndexErrors: true, autoCreate: true, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
+var handleE11000 = function (error, res, next) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+        next(new Error('There was a duplicate key error'));
+    } else {
+        next();
+    }
 };
+schema.post('save', handleE11000);
+schema.post('update', handleE11000);
+schema.post('findOneAndUpdate', handleE11000);
+schema.post('insertMany', handleE11000);
+
+const _model = mongoose.model(sc.schema_replies, schema);
+
+_model.createIndexes();
+
+module.exports = _model;
