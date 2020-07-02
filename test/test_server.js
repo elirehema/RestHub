@@ -30,11 +30,11 @@ it('should say "RestHub api started..."', function (done) {
 http.get('http://localhost:8080/', function (res) {
   var data = '';
 
-  res.on('data', function (chunk) {
+  res.once('data', function (chunk) {
     data += chunk;
   });
 
-  res.on('end', function () {
+  res.once('end', function () {
     assert.equal('RestHub api started...', data);
     console.log(data);
     done();

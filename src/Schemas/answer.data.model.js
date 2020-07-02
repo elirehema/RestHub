@@ -2,12 +2,7 @@ const sc = require('../plugins/schemas');
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
-var AnswersSchemas = new Schema({
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
+var schema = new Schema({
     message: {
         type: String,
         required: true,
@@ -17,11 +12,9 @@ var AnswersSchemas = new Schema({
     downvotes: [{ type: Schema.Types.ObjectId, ref: sc.schema_users }],
     comments: [{ type: Schema.Types.ObjectId, ref: sc.schema_comments }]
 
-});
+}, { emitIndexErrors: true, autoCreate: true,  timestamps: { createdAt: 'created_at',updatedAt:'updated_at' }});
 
-const AnswersSchema = module.exports = mongoose.model(sc.schema_answers, AnswersSchemas);
+const answer_schema = mongoose.model(sc.schema_answers, schema);
 
 
-module.exports.get = function (callback, limit) {
-    AnswersSchema.find(callback).limit(limit);
-};
+module.exports = answer_schema;

@@ -101,7 +101,7 @@ mongoose.connect(config.REMOTE_MONGO_URI, options)
   .catch(err => console.error("An Error has occured", err));
 
 var db = mongoose.connection;
-db.on('open', function () {
+db.once('open', function () {
   console.log('OK');
 });
 
