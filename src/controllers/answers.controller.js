@@ -1,14 +1,15 @@
 const db = require('../Schemas');
+var https = require('https');
 const sc = require('../plugins/schemas');
 var mongoose = require('mongoose');
 const Answers = db.answers;
 const Comments = db.comments;
 const Users = db.users;
 const Questions = db.questions;
-const notifier = require('node-notifier');
 const { schema_comments, schema_users } = require('../plugins/schemas');
 const { model } = require('../Schemas/user.auth.model');
 /** Get All Answers **/
+
 exports.getAllAnswers = async function (req, res) {
 
     await Answers.find({})
@@ -138,6 +139,7 @@ exports.upvoteAnswer = async function (req, res) {
         { _id: req.params.answerId },
         { $addToSet: { 'answerVoters': req.body.userId } },
         { upsert: true }, function (err, response) {
+            if(err){handlerError(err);}
 
             res.json({
                 status: res.status,
