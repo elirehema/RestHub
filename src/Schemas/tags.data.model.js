@@ -14,7 +14,7 @@ var handleE11000 = function(error, res, next) {
       next();
     }
   };
-  schema.post('save', handleE11000);
+  schema.pre('save', handleE11000);
   schema.post('update', handleE11000);
   schema.post('findOneAndUpdate', handleE11000);
   schema.post('insertMany', handleE11000);
