@@ -15,22 +15,20 @@ controller.getAllSubjects = async function (req, res) {
         });
 };
 controller.createNewSubject = async function (req, res) {
-    var _model = new Model({ name: req.body.name, code: req.body.code });
-    _model.save(function (err) {
+    var model = new Model({ name: req.body.name, code: req.body.code });
+    model.save(function (err) {
         if (err) {
-
             return res.json({
                 message: "Duplicate Subject name or CODE"
             });
         }
-        return res.json(_model);
+        return res.json(model);
     });
 };
 controller.getSubjectById = async function (req, res) {
     await Model.findById(req.params.id, function (error, payload) {
         if (error) { res.send(error); }
         res.json(payload);
-
     });
 };
 controller.updateSubject = async function (req, res) {
@@ -43,14 +41,13 @@ controller.updateSubject = async function (req, res) {
             if (err) {
                 res.json({ message: "There was a duplicate key error" });
             } else {
-
                 res.json(payload);
             }
         });
     });
 };
-controller.deleteSubject = async function(req, res){
-    await Model.deleteOne({_id: req.params.id}, function (err, payload) {
+controller.deleteSubject = async function (req, res) {
+    await Model.deleteOne({ _id: req.params.id }, function (err, payload) {
         if (err) { return res.send(err); }
         return res.json({
             status: res.statusCode,

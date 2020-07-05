@@ -24,6 +24,6 @@ var schema = new Schema({
   answerId: { type: ObjectId, ref: sc.schema_answers }
 }, { emitIndexErrors: true, autoCreate: true, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
-const _model = mongoose.model(sc.schema_comments, schema);
+var model = mongoose.model(sc.schema_comments, schema);
 
-module.exports = _model;
+module.exports = model;
