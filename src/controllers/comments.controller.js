@@ -14,12 +14,9 @@ exports.getAllComments = async function (req, res) {
                     path: error.path,
                     reason: error.reason,
                     model: error.model
-                })
-            } else {
-                res.json({
-                    message: 'Created succesfully...!',
-                    data: response,
                 });
+            } else {
+                res.json(response);
             }
 
         });

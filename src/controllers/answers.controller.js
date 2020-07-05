@@ -13,6 +13,8 @@ const { model } = require('../Schemas/user.auth.model');
 exports.getAllAnswers = async function (req, res) {
 
     await Answers.find({})
+        .sort({ created_at: -1 })
+        .populate('comments').populate('comment_by')
         .exec(function (err, payload) {
             if (err) {
                 res.json({
@@ -28,7 +30,7 @@ exports.getAllAnswers = async function (req, res) {
 exports.getAnswerByAnswerId = async function (req, res) {
     await Answers.aggregate([
         { $match: { _id: mongoose.Types.ObjectId(req.params.aid) } },
-        { $sort : { date : -1 } },
+        { $sort: { date: -1 } },
         {
             $project: {
                 total_comments: { $size: "$comments" },
@@ -39,7 +41,7 @@ exports.getAnswerByAnswerId = async function (req, res) {
                 questionid: "$questionId"
 
             }
-            
+
         },
         {
             $lookup: {
@@ -49,14 +51,14 @@ exports.getAnswerByAnswerId = async function (req, res) {
                 as: "comments"
             }
         },
-    
+
     ]).exec(function (err, payload) {
-            if (err) {
-                return res.json({ status: res.statusCode, message: err.message });
-            } else {
-                return res.json(payload);
-            }
-        });
+        if (err) {
+            return res.json({ status: res.statusCode, message: err.message });
+        } else {
+            return res.json(payload);
+        }
+    });
 };
 exports.getAnswerVotes = async function (req, res) {
     await Answers.aggregate([
@@ -80,9 +82,9 @@ exports.getAnswerVotes = async function (req, res) {
 };
 exports.getAnswerComments = async function (req, res) {
     await Answers.findOne({ _id: req.params.aid }).select('comments')
-    .populate('by', sc.schema_users)
+        .populate('by', sc.schema_users)
         .populate({ path: "comments", model: schema_comments })
-        
+
         .exec(function (err, response) {
             if (err) {
                 res.json({
@@ -139,7 +141,7 @@ exports.upvoteAnswer = async function (req, res) {
         { _id: req.params.answerId },
         { $addToSet: { 'answerVoters': req.body.userId } },
         { upsert: true }, function (err, response) {
-            if(err){handlerError(err);}
+            if (err) { handlerError(err); }
 
             res.json({
                 status: res.status,
