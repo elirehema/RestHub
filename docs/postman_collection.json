@@ -1,707 +1,4778 @@
 {
-	"openapi": "3.0.1",
+	"swagger": "2.0",
 	"info": {
-		"_postman_id": "2e4ad3ed-b16d-47e8-8f22-c9a5145ee4e4",
-		"name": "opus",
-		"description": "Api for Elog",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	  "version": "1.0",
+	  "title": "opus",
+	  "description": "Api for Elog",
+	  "contact": {}
 	},
-	"item": [
-		{
-			"name": "Authentication",
-			"item": [
-				{
-					"name": "Sign In",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\":\"email@example.com\",\n    \"password\":\"password\"   \n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/auths/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"auths",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sign Up",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\":\"username\",\n    \"password\":\"password\",\n    \"email\":\"email@example.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/auths",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"auths"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Questions",
-			"item": [
-				{
-					"name": "List Questions",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"question\":\"How many variable in this Name ?\"\n}",
-							"options": {
-								"raw": {}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8080/api/v1/questions/",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Question by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Question replies",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca",
-								"replies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Question  replies query id's",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies?q=id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca",
-								"replies"
-							],
-							"query": [
-								{
-									"key": "q",
-									"value": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Answer a Question",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\"message\":\"Message Reply answers in this \"\n\t\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0410b2572e3f3f44cb/answers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0410b2572e3f3f44cb",
-								"answers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Ask new Question",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"question\":\"What are you currently worried about?\",\n\n    \"description\":\"You cannot use the $out or the $merge stage in conjunction with read concern linearizable. That is, if you specify linearizable read concern for db.collection.aggregate(), you cannot include either stages in the pipeline. The following operation on a replica s specifies a Read Concern of majority to read the most recent copy of the data confirmed as having been written to a majority of the nodes.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Reply to question",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"message\":\"For example, 'regex' validator no longer exists and has been replaced with 'matches\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca",
-								"replies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Question",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"description\":\"You cannot use the $out or the $merge stage in conjunction with read concern linearizable. That is, if you specify linearizable read concern for db.collection.aggregate(), you cannot include either stages in the pipeline. The following operation on a replica s specifies a Read Concern of majority to read the most recent copy of the data confirmed as having been written to a majority of the nodes.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef3a1cd85645e2049ef9d1f",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef3a1cd85645e2049ef9d1f"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get question answer by answer id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/answers/5ef59c3910b2572e3f3f44cc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca",
-								"answers",
-								"5ef59c3910b2572e3f3f44cc"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Question answers query id's",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/answers?q=id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca",
-								"answers"
-							],
-							"query": [
-								{
-									"key": "q",
-									"value": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Vote for Question",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef3a1cd85645e2049ef9d1f/vote?o=upvote",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef3a1cd85645e2049ef9d1f",
-								"vote"
-							],
-							"query": [
-								{
-									"key": "o",
-									"value": "upvote"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Answers",
-			"item": [
-				{
-					"name": "List Answers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8080/api/v1/answers",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"answers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get answer reply by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/questions/5ef59c0010b2572e3f3f44ca/replies/5efb638d00b63001cf0d31fe",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"questions",
-								"5ef59c0010b2572e3f3f44ca",
-								"replies",
-								"5efb638d00b63001cf0d31fe"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get answevotes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc/votes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"answers",
-								"5ef59c3910b2572e3f3f44cc",
-								"votes"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get answers comments",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc/comments",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"answers",
-								"5ef59c3910b2572e3f3f44cc",
-								"comments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Comment on Answer",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"message\":\"Message  validation failed: message: Comment should be between 30 and 50 characters\",\n    \"userId\":\"5ef59bbd10b2572e3f3f44c8\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc/comments",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"answers",
-								"5ef59c3910b2572e3f3f44cc",
-								"comments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get answers by answer id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8080/api/v1/answers/5ef59c3910b2572e3f3f44cc",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"answers",
-								"5ef59c3910b2572e3f3f44cc"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Tags",
-			"item": [
-				{
-					"name": "List Tags",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8080/api/v1/tags",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"tags"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create new TAG",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"mathis\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/tags",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"tags"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Tag",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"Mathematics\",\n    \"valid\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/tags/5efc5fbd754ab37c56bbe835",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"tags",
-								"5efc5fbd754ab37c56bbe835"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		}
+	"host": "https://opusx.herokuapp.com/api/v1",
+	"basePath": "/",
+	"securityDefinitions": {},
+	"schemes": [
+	  "http"
 	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
+	"consumes": [
+	  "application/json"
+	],
+	"produces": [
+	  "application/json"
+	],
+	"paths": {
+	  "/auths/login": {
+		"post": {
+		  "summary": "Sign In",
+		  "tags": [
+			"Authentication"
+		  ],
+		  "operationId": "SignIn",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
 			{
-				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWZjNGY5MmQ0NGEzYTMyNGU5ZjNjOWQiLCJpYXQiOjE1OTM1OTU3OTgsImV4cCI6MTU5MzY4MjE5OH0.yn_GeLWwb7Pkxmi1BxKySMe-BPcI59RulIFP4zAEHRM",
-				"type": "string"
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
 			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "38b6cfb6-be87-4dde-a69a-543afa6f920f",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/SignIn"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "auth": true,
+				  "status": 200,
+				  "session": {
+					"cookie": {
+					  "originalMaxAge": 3600000,
+					  "expires": "2020-07-01T17:22:23.326Z",
+					  "secure": true,
+					  "httpOnly": false,
+					  "path": "/"
+					}
+				  },
+				  "message": "Login Success",
+				  "user": {
+					"id": "5efc4f92d44a3a324e9f3c9d",
+					"email": "email@example.com"
+				  },
+				  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWZjNGY5MmQ0NGEzYTMyNGU5ZjNjOWQiLCJpYXQiOjE1OTM2MjA1NDMsImV4cCI6MTU5MzcwNjk0M30.gREE4fc0Sc42qKMJk45POYdMa8XfD7Uk8zVFYse7HCI"
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "441"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"1b9-4BsyzNF/SbevvDkOL9O0k3xKXDU\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 16:22:23 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
 			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "0bf6c2f4-4d2d-4a99-9c01-e60fe1315ea0",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+		  }
 		}
-	],
-	"protocolProfileBehavior": {}
-}
+	  },
+	  "/auths": {
+		"post": {
+		  "summary": "Sign Up",
+		  "tags": [
+			"Authentication"
+		  ],
+		  "operationId": "SignUp",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/SignUpRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/SignUp"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "status": 200,
+				  "session": {
+					"cookie": {
+					  "originalMaxAge": 3600000,
+					  "expires": "2020-07-01T17:23:42.044Z",
+					  "secure": true,
+					  "httpOnly": false,
+					  "path": "/"
+					}
+				  },
+				  "message": "Registration Success",
+				  "data": {
+					"id": "5efcb88ba340a10951d669d0",
+					"email": "demopasxa@examplemail.com"
+				  },
+				  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWZjYjg4YmEzNDBhMTA5NTFkNjY5ZDAiLCJpYXQiOjE1OTM2MjA2MjIsImV4cCI6MTU5MzcwNzAyMn0.mFxzKuItMbwo2aOH0RoFLKWadp3E58PoUQQAX960Oyo"
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "444"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"1bc-vJ5rWIyfHuXBz30Wi203wOFXgo8\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 16:23:42 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/questions": {
+		"get": {
+		  "summary": "List Questions",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "ListQuestions",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "consumes": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Content-Type",
+			  "in": "header",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"post": {
+		  "summary": "Ask new Question",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "AsknewQuestion",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/AsknewQuestionRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef59c0010b2572e3f3f44ca": {
+		"get": {
+		  "summary": "Get Question by ID",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "GetQuestionbyID",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef59c0010b2572e3f3f44ca/replies": {
+		"get": {
+		  "summary": "Get Question replies",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "GetQuestionreplies",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"patch": {
+		  "summary": "Reply to question",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "Replytoquestion",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/ReplytoquestionRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef59c0410b2572e3f3f44cb/answers": {
+		"patch": {
+		  "summary": "Answer a Question",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "AnsweraQuestion",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "consumes": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Content-Type",
+			  "in": "header",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/AnsweraQuestionRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef3a1cd85645e2049ef9d1f": {
+		"patch": {
+		  "summary": "Update Question",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "UpdateQuestion",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateQuestionRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef59c0010b2572e3f3f44ca/answers/5ef59c3910b2572e3f3f44cc": {
+		"get": {
+		  "summary": "Get question answer by answer id",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "Getquestionanswerbyanswerid",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/Getquestionanswerbyanswerid"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "data": {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [
+					  "5efb8605434050251931ad79",
+					  "5efb8605434050251931ad79",
+					  "5efb864d434050251931ad7a",
+					  "5efb864d434050251931ad7a",
+					  "5efb86635d321826418b8499",
+					  "5efb86635d321826418b8499",
+					  "5efb86685d321826418b849a",
+					  "5efb86685d321826418b849a",
+					  "5efb8679a14e80272b0d39a4",
+					  "5efb8679a14e80272b0d39a4",
+					  "5efb8682a14e80272b0d39a5",
+					  "5efb8682a14e80272b0d39a5",
+					  "5efb885e6916062ec5b6c093",
+					  "5efb885e6916062ec5b6c093",
+					  "5efb88e82a0fce31efad0059",
+					  "5efb88e82a0fce31efad0059"
+					],
+					"_id": "5ef59c3910b2572e3f3f44cc",
+					"date": "2020-06-26T06:56:57.516Z",
+					"message": "Message Reply answers in this "
+				  }
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "593"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"251-7uIVxJXxE7mAh0l1WzJzRlbSTaI\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 12:26:19 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef59c0010b2572e3f3f44ca/answers": {
+		"get": {
+		  "summary": "Get Question answers query id's",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "GetQuestionanswersqueryid's",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "q",
+			  "in": "query",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "type": "string"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  "5ef59c3910b2572e3f3f44cc",
+				  "5ef59c3d10b2572e3f3f44cd",
+				  "5ef59c3f10b2572e3f3f44ce"
+				]
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "82"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"52-6quaLq87FSWOpoJMto7hxfTDX9U\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 12:26:02 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef3a1cd85645e2049ef9d1f/vote": {
+		"patch": {
+		  "summary": "Vote for Question",
+		  "tags": [
+			"Questions"
+		  ],
+		  "operationId": "VoteforQuestion",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "o",
+			  "in": "query",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/answers": {
+		"get": {
+		  "summary": "List Answers",
+		  "tags": [
+			"Answers"
+		  ],
+		  "operationId": "ListAnswers",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/ListAnswer"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [
+					  "5efb8605434050251931ad79",
+					  "5efb8605434050251931ad79",
+					  "5efb864d434050251931ad7a",
+					  "5efb864d434050251931ad7a",
+					  "5efb86635d321826418b8499",
+					  "5efb86635d321826418b8499",
+					  "5efb86685d321826418b849a",
+					  "5efb86685d321826418b849a",
+					  "5efb8679a14e80272b0d39a4",
+					  "5efb8679a14e80272b0d39a4",
+					  "5efb8682a14e80272b0d39a5",
+					  "5efb8682a14e80272b0d39a5",
+					  "5efb885e6916062ec5b6c093",
+					  "5efb885e6916062ec5b6c093",
+					  "5efb88e82a0fce31efad0059",
+					  "5efb88e82a0fce31efad0059"
+					],
+					"_id": "5ef59c3910b2572e3f3f44cc",
+					"date": "2020-06-26T06:56:57.516Z",
+					"message": "Message Reply answers in this ",
+					"questionId": "5ef59c0010b2572e3f3f44ca",
+					"__v": 0
+				  },
+				  {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [],
+					"_id": "5ef59c3d10b2572e3f3f44cd",
+					"date": "2020-06-26T06:57:01.739Z",
+					"message": "Message Reply answers in this ",
+					"questionId": "5ef59c0010b2572e3f3f44ca",
+					"__v": 0
+				  },
+				  {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [],
+					"_id": "5ef59c3f10b2572e3f3f44ce",
+					"date": "2020-06-26T06:57:03.517Z",
+					"message": "Message Reply answers in this ",
+					"questionId": "5ef59c0010b2572e3f3f44ca",
+					"__v": 0
+				  },
+				  {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [],
+					"_id": "5ef59c7410b2572e3f3f44d0",
+					"date": "2020-06-26T06:57:56.119Z",
+					"message": "Message Reply answers in this ",
+					"questionId": "5ef59c0410b2572e3f3f44cb",
+					"__v": 0
+				  },
+				  {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [],
+					"_id": "5ef59c7510b2572e3f3f44d1",
+					"date": "2020-06-26T06:57:57.445Z",
+					"message": "Message Reply answers in this ",
+					"questionId": "5ef59c0410b2572e3f3f44cb",
+					"__v": 0
+				  },
+				  {
+					"upvotes": [],
+					"downvotes": [],
+					"comments": [],
+					"_id": "5efc73aa5cd016343bdba438",
+					"date": "2020-07-01T11:29:46.909Z",
+					"message": "Message Reply answers in this ",
+					"questionId": "5ef59c0410b2572e3f3f44cb",
+					"__v": 0
+				  }
+				]
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "1644"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"66c-qxIGSkLgK0w+7+CeGt/SMksBXsA\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:34:44 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/questions/5ef59c0010b2572e3f3f44ca/replies/5efb638d00b63001cf0d31fe": {
+		"get": {
+		  "summary": "Get answer reply by id",
+		  "tags": [
+			"Answers"
+		  ],
+		  "operationId": "Getanswerreplybyid",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/Getanswerreplybyid"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "data": {
+					"upvotes": [],
+					"downvotes": [],
+					"_id": "5efb638d00b63001cf0d31fe",
+					"date": "2020-06-30T16:08:45.771Z",
+					"message": "For example, 'regex' validator no longer exists and has been replaced with 'matches"
+				  }
+				}
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "201"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"c9-11NkXnkOQ9klB1CD/f9NZs3giQ8\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:35:22 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/answers/5ef59c3910b2572e3f3f44cc/votes": {
+		"get": {
+		  "summary": "Get answevotes",
+		  "tags": [
+			"Answers"
+		  ],
+		  "operationId": "Getanswevotes",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/Getanswevote"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"_id": "5ef59c3910b2572e3f3f44cc",
+					"upvotes": 0,
+					"downvotes": 0
+				  }
+				]
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "62"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"3e-Fyoz+pEsuKb01hVVzV+hg4hbsFY\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:35:51 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/answers/5ef59c3910b2572e3f3f44cc/comments": {
+		"get": {
+		  "summary": "Get answers comments",
+		  "tags": [
+			"Answers"
+		  ],
+		  "operationId": "Getanswerscomments",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/Getanswerscomments"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "comments": [
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8605434050251931ad79",
+					  "date": "2020-06-30T18:35:49.779Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8605434050251931ad79",
+					  "date": "2020-06-30T18:35:49.779Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb864d434050251931ad7a",
+					  "date": "2020-06-30T18:37:01.784Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb864d434050251931ad7a",
+					  "date": "2020-06-30T18:37:01.784Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb86635d321826418b8499",
+					  "date": "2020-06-30T18:37:23.402Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb86635d321826418b8499",
+					  "date": "2020-06-30T18:37:23.402Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8679a14e80272b0d39a4",
+					  "date": "2020-06-30T18:37:45.464Z",
+					  "message": "Message  validation failed: message: Comment should",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8679a14e80272b0d39a4",
+					  "date": "2020-06-30T18:37:45.464Z",
+					  "message": "Message  validation failed: message: Comment should",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8682a14e80272b0d39a5",
+					  "date": "2020-06-30T18:37:54.833Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8682a14e80272b0d39a5",
+					  "date": "2020-06-30T18:37:54.833Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb885e6916062ec5b6c093",
+					  "date": "2020-06-30T18:45:50.895Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb885e6916062ec5b6c093",
+					  "date": "2020-06-30T18:45:50.895Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb88e82a0fce31efad0059",
+					  "date": "2020-06-30T18:48:08.851Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb88e82a0fce31efad0059",
+					  "date": "2020-06-30T18:48:08.851Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					}
+				  ],
+				  "_id": "5ef59c3910b2572e3f3f44cc"
+				}
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "3575"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"df7-qTU9cIAQoh1i6BaFzq2yxet3c7I\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:36:13 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		},
+		"patch": {
+		  "summary": "Comment on Answer",
+		  "tags": [
+			"Answers"
+		  ],
+		  "operationId": "CommentonAnswer",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CommentonAnswerRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CommentonAnswer"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "comments": [
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8605434050251931ad79",
+					  "date": "2020-06-30T18:35:49.779Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8605434050251931ad79",
+					  "date": "2020-06-30T18:35:49.779Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb864d434050251931ad7a",
+					  "date": "2020-06-30T18:37:01.784Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb864d434050251931ad7a",
+					  "date": "2020-06-30T18:37:01.784Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb86635d321826418b8499",
+					  "date": "2020-06-30T18:37:23.402Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb86635d321826418b8499",
+					  "date": "2020-06-30T18:37:23.402Z",
+					  "message": "Message  validation failed: message:",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8679a14e80272b0d39a4",
+					  "date": "2020-06-30T18:37:45.464Z",
+					  "message": "Message  validation failed: message: Comment should",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8679a14e80272b0d39a4",
+					  "date": "2020-06-30T18:37:45.464Z",
+					  "message": "Message  validation failed: message: Comment should",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8682a14e80272b0d39a5",
+					  "date": "2020-06-30T18:37:54.833Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb8682a14e80272b0d39a5",
+					  "date": "2020-06-30T18:37:54.833Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb885e6916062ec5b6c093",
+					  "date": "2020-06-30T18:45:50.895Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb885e6916062ec5b6c093",
+					  "date": "2020-06-30T18:45:50.895Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb88e82a0fce31efad0059",
+					  "date": "2020-06-30T18:48:08.851Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					},
+					{
+					  "upvotes": [],
+					  "downvotes": [],
+					  "_id": "5efb88e82a0fce31efad0059",
+					  "date": "2020-06-30T18:48:08.851Z",
+					  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+					  "by": "5ef59bbd10b2572e3f3f44c8",
+					  "answerId": "5ef59c3910b2572e3f3f44cc",
+					  "__v": 0
+					}
+				  ],
+				  "_id": "5ef59c3910b2572e3f3f44cc"
+				}
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "3575"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"df7-qTU9cIAQoh1i6BaFzq2yxet3c7I\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:36:51 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/answers/5ef59c3910b2572e3f3f44cc": {
+		"get": {
+		  "summary": "Get answers by answer id",
+		  "tags": [
+			"Answers"
+		  ],
+		  "operationId": "Getanswersbyanswerid",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/Getanswersbyanswerid"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"_id": "5ef59c3910b2572e3f3f44cc",
+					"total_comments": 16,
+					"upvotes": 0,
+					"downvotes": 0,
+					"message": "Message Reply answers in this ",
+					"date": "2020-06-26T06:56:57.516Z",
+					"questionid": "5ef59c0010b2572e3f3f44ca",
+					"comments": [
+					  {
+						"_id": "5efb851e368ad81fee9071de",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:31:58.722Z",
+						"message": "Message  validation failed: message:",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb85ad1fa05f234d4ba19e",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:34:21.115Z",
+						"message": "Message  validation failed: message:",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb8605434050251931ad79",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:35:49.779Z",
+						"message": "Message  validation failed: message:",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb864d434050251931ad7a",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:37:01.784Z",
+						"message": "Message  validation failed: message:",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb86635d321826418b8499",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:37:23.402Z",
+						"message": "Message  validation failed: message:",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb8679a14e80272b0d39a4",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:37:45.464Z",
+						"message": "Message  validation failed: message: Comment should",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb8682a14e80272b0d39a5",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:37:54.833Z",
+						"message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+						"comment_by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb885e6916062ec5b6c093",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:45:50.895Z",
+						"message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+						"by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  },
+					  {
+						"_id": "5efb88e82a0fce31efad0059",
+						"upvotes": [],
+						"downvotes": [],
+						"date": "2020-06-30T18:48:08.851Z",
+						"message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+						"by": "5ef59bbd10b2572e3f3f44c8",
+						"answerId": "5ef59c3910b2572e3f3f44cc",
+						"__v": 0
+					  }
+					]
+				  }
+				]
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "2440"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"988-dmS3vJ9EpZvPqWNbcv9FjxjG0fw\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:37:14 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/tags": {
+		"get": {
+		  "summary": "List Tags",
+		  "tags": [
+			"Tags"
+		  ],
+		  "operationId": "ListTags",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "consumes": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Content-Type",
+			  "in": "header",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/ListTag"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"valid": false,
+					"_id": "5efc5f1fbb6b8c79069ee581",
+					"name": "physics",
+					"created_at": "2020-07-01T10:02:07.188Z",
+					"updated_at": "2020-07-01T10:02:07.188Z",
+					"__v": 0
+				  },
+				  {
+					"valid": false,
+					"_id": "5efc5f31bb6b8c79069ee583",
+					"name": "biology",
+					"created_at": "2020-07-01T10:02:25.356Z",
+					"updated_at": "2020-07-01T10:02:25.356Z",
+					"__v": 0
+				  },
+				  {
+					"valid": true,
+					"_id": "5efc5fbd754ab37c56bbe835",
+					"name": "mathematics",
+					"created_at": "2020-07-01T10:04:45.375Z",
+					"updated_at": "2020-07-01T10:14:59.871Z",
+					"__v": 0
+				  },
+				  {
+					"valid": true,
+					"_id": "5efc624025acf90727ee20bc",
+					"name": "geography",
+					"created_at": "2020-07-01T10:15:28.706Z",
+					"updated_at": "2020-07-01T10:23:09.707Z",
+					"__v": 0
+				  },
+				  {
+					"valid": false,
+					"_id": "5efc6c765cd016343bdba436",
+					"name": "mathis",
+					"created_at": "2020-07-01T10:59:02.414Z",
+					"updated_at": "2020-07-01T10:59:02.414Z",
+					"__v": 0
+				  }
+				]
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "774"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"306-k9J1aIuw7P1Kmz0QU9+xEEaoGXs\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:29:15 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		},
+		"post": {
+		  "summary": "Create new TAG",
+		  "tags": [
+			"Tags"
+		  ],
+		  "operationId": "CreatenewTAG",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreatenewTAGRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/CreatenewTAG"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"valid": false,
+					"_id": "5efc5f1fbb6b8c79069ee581",
+					"name": "physics",
+					"created_at": "2020-07-01T10:02:07.188Z",
+					"updated_at": "2020-07-01T10:02:07.188Z",
+					"__v": 0
+				  },
+				  {
+					"valid": false,
+					"_id": "5efc5f31bb6b8c79069ee583",
+					"name": "biology",
+					"created_at": "2020-07-01T10:02:25.356Z",
+					"updated_at": "2020-07-01T10:02:25.356Z",
+					"__v": 0
+				  },
+				  {
+					"valid": true,
+					"_id": "5efc5fbd754ab37c56bbe835",
+					"name": "mathematics",
+					"created_at": "2020-07-01T10:04:45.375Z",
+					"updated_at": "2020-07-01T10:14:59.871Z",
+					"__v": 0
+				  },
+				  {
+					"valid": true,
+					"_id": "5efc624025acf90727ee20bc",
+					"name": "geography",
+					"created_at": "2020-07-01T10:15:28.706Z",
+					"updated_at": "2020-07-01T10:23:09.707Z",
+					"__v": 0
+				  },
+				  {
+					"valid": false,
+					"_id": "5efc6c765cd016343bdba436",
+					"name": "mathis",
+					"created_at": "2020-07-01T10:59:02.414Z",
+					"updated_at": "2020-07-01T10:59:02.414Z",
+					"__v": 0
+				  }
+				]
+			  },
+			  "headers": {
+				"Server": {
+				  "type": "string",
+				  "default": "Cowboy"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				},
+				"X-Dns-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-Xss-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "774"
+				},
+				"Etag": {
+				  "type": "string",
+				  "default": "W/\"306-k9J1aIuw7P1Kmz0QU9+xEEaoGXs\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 11:33:05 GMT"
+				},
+				"Via": {
+				  "type": "string",
+				  "default": "1.1 vegur"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/tags/5efc624025acf90727ee20bc": {
+		"patch": {
+		  "summary": "Update Tag",
+		  "tags": [
+			"Tags"
+		  ],
+		  "operationId": "UpdateTag",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateTagRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateTag"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "valid": true,
+				  "_id": "5efc624025acf90727ee20bc",
+				  "name": "geography",
+				  "created_at": "2020-07-01T10:15:28.706Z",
+				  "updated_at": "2020-07-01T10:23:09.707Z",
+				  "__v": 0
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "154"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"9a-Pft03ijrzorRx7TOQqZV6NFSPg4\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 10:23:10 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/profiles": {
+		"get": {
+		  "summary": "List Profiles",
+		  "tags": [
+			"Profiles"
+		  ],
+		  "operationId": "ListProfiles",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/profiles/5efcba83f2363e13581c854a": {
+		"get": {
+		  "summary": "Get Profile By Id",
+		  "tags": [
+			"Profiles"
+		  ],
+		  "operationId": "GetProfileById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"patch": {
+		  "summary": "Update Profile",
+		  "tags": [
+			"Profiles"
+		  ],
+		  "operationId": "UpdateProfile",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateProfileRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateProfile"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "tags": [
+					"5efc5f1fbb6b8c79069ee581",
+					"5efc5f1fbb6b8c79069ee581",
+					"5efc5f31bb6b8c79069ee583"
+				  ],
+				  "answers": [],
+				  "comments": [],
+				  "replies": [],
+				  "_id": "5efcba83f2363e13581c854a",
+				  "username": "demopass",
+				  "thumbnail": "https://www.aalforum.eu/wp-content/uploads/2016/04/profile-placeholder.png",
+				  "email": "demopass@examplemail.com",
+				  "scores": [],
+				  "created_at": "2020-07-01T16:32:08.223Z",
+				  "updated_at": "2020-07-01T16:54:48.813Z",
+				  "__v": 2,
+				  "city_state": "Dar es Salaam",
+				  "fullname": "Elirehema Paul",
+				  "phone": "0716 087522"
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "489"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"1e9-Bf2HBLlTV253JezbaQtclmMyLio\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 16:54:49 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/classes": {
+		"get": {
+		  "summary": "List Classes",
+		  "tags": [
+			"Classes"
+		  ],
+		  "operationId": "ListClasses",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/ListClass"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"_id": "5efcc4dfbe44fb427f833114",
+					"name": "class one",
+					"code": "C1",
+					"created_at": "2020-07-01T17:16:15.759Z",
+					"updated_at": "2020-07-01T17:16:15.759Z",
+					"__v": 0
+				  },
+				  {
+					"_id": "5efcc70973adc24bc96688b7",
+					"name": "class two",
+					"code": "C2",
+					"created_at": "2020-07-01T17:25:29.307Z",
+					"updated_at": "2020-07-01T17:25:29.307Z",
+					"__v": 0
+				  },
+				  {
+					"_id": "5efcc71273adc24bc96688b8",
+					"name": "class three",
+					"code": "C3",
+					"created_at": "2020-07-01T17:25:38.22Z",
+					"updated_at": "2020-07-01T17:25:38.22Z",
+					"__v": 0
+				  }
+				]
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "465"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"1d1-QoskxVNiZnwTI2C4xitAaUsCKrM\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 17:27:36 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		},
+		"post": {
+		  "summary": "Create Class",
+		  "tags": [
+			"Classes"
+		  ],
+		  "operationId": "CreateClass",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreateClassRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreateClass"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "_id": "5efcc71273adc24bc96688b8",
+				  "name": "class three",
+				  "code": "C3",
+				  "created_at": "2020-07-01T17:25:38.22Z",
+				  "updated_at": "2020-07-01T17:25:38.22Z",
+				  "__v": 0
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "155"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"9b-8Txk89GRSFxkxVFrh7+fSIcnPBk\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 17:25:38 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/subjects": {
+		"get": {
+		  "summary": "List Subjects",
+		  "tags": [
+			"Subjects"
+		  ],
+		  "operationId": "ListSubjects",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/ListSubject"
+				}
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": [
+				  {
+					"topics": [],
+					"valid": true,
+					"_id": "5efcd266097f667bfd3b439d",
+					"name": "Biology",
+					"code": "BS",
+					"created_at": "2020-07-01T18:13:58.97Z",
+					"updated_at": "2020-07-01T18:13:58.97Z",
+					"__v": 0
+				  },
+				  {
+					"topics": [],
+					"valid": true,
+					"_id": "5efcd27f097f667bfd3b439f",
+					"name": "Phisycs",
+					"code": "PS",
+					"created_at": "2020-07-01T18:14:23.616Z",
+					"updated_at": "2020-07-01T18:14:23.616Z",
+					"__v": 0
+				  }
+				]
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "355"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"163-yWeAnMYonmu/chp4pyHe7hoabUQ\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 18:14:30 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		},
+		"post": {
+		  "summary": "Create New Subject",
+		  "tags": [
+			"Subjects"
+		  ],
+		  "operationId": "CreateNewSubject",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreateNewSubjectRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreateNewSubject"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "topics": [],
+				  "valid": true,
+				  "_id": "5efcd27f097f667bfd3b439f",
+				  "name": "Phisycs",
+				  "code": "PS",
+				  "created_at": "2020-07-01T18:14:23.616Z",
+				  "updated_at": "2020-07-01T18:14:23.616Z",
+				  "__v": 0
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "176"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"b0-TdIeLZxOmQmVBDjPnwzNi9akozI\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 18:14:27 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/subjects/5efcd266097f667bfd3b439d": {
+		"get": {
+		  "summary": "Get Subject By Id",
+		  "tags": [
+			"Subjects"
+		  ],
+		  "operationId": "GetSubjectById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"put": {
+		  "description": "Update Subject",
+		  "summary": "Update Subject",
+		  "tags": [
+			"Subjects"
+		  ],
+		  "operationId": "UpdateSubject",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateSubjectRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/UpdateSubject"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "topics": [],
+				  "valid": false,
+				  "_id": "5efcd266097f667bfd3b439d",
+				  "name": "Biology",
+				  "code": "BS",
+				  "created_at": "2020-07-01T18:13:58.97Z",
+				  "updated_at": "2020-07-01T18:24:55.571Z",
+				  "__v": 0
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "177"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"b1-jyBHh2f6AXvMUYR/YM7i3eFDPDE\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Wed, 01 Jul 2020 18:24:55 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  },
+	  "/topics": {
+		"get": {
+		  "summary": "List Topics",
+		  "tags": [
+			"Topics"
+		  ],
+		  "operationId": "ListTopics",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"post": {
+		  "description": "Create new Topic item",
+		  "summary": "Create new Topic",
+		  "tags": [
+			"Topics"
+		  ],
+		  "operationId": "CreatenewTopic",
+		  "deprecated": false,
+		  "produces": [
+			"application/json; charset=utf-8"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreatenewTopicRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/CreatenewTopic"
+			  },
+			  "examples": {
+				"application/json; charset=utf-8": {
+				  "subjects": [
+					"5efcd266097f667bfd3b439d",
+					"5efcd27f097f667bfd3b439f"
+				  ],
+				  "resources": [],
+				  "questions": [
+					"5ef59c0010b2572e3f3f44ca",
+					"5ef59c3910b2572e3f3f44cc"
+				  ],
+				  "valid": true,
+				  "_id": "5f022cf357cb695ecf50277a",
+				  "name": "matrix",
+				  "code": "ST",
+				  "created_at": "2020-07-05T19:41:39.993Z",
+				  "updated_at": "2020-07-05T19:41:39.993Z",
+				  "__v": 0
+				}
+			  },
+			  "headers": {
+				"X-DNS-Prefetch-Control": {
+				  "type": "string",
+				  "default": "off"
+				},
+				"X-Frame-Options": {
+				  "type": "string",
+				  "default": "SAMEORIGIN"
+				},
+				"Strict-Transport-Security": {
+				  "type": "string",
+				  "default": "max-age=15552000; includeSubDomains"
+				},
+				"X-Download-Options": {
+				  "type": "string",
+				  "default": "noopen"
+				},
+				"X-Content-Type-Options": {
+				  "type": "string",
+				  "default": "nosniff"
+				},
+				"X-XSS-Protection": {
+				  "type": "string",
+				  "default": "1; mode=block"
+				},
+				"Access-Control-Allow-Origin": {
+				  "type": "string",
+				  "default": "*"
+				},
+				"Content-Length": {
+				  "type": "string",
+				  "default": "313"
+				},
+				"ETag": {
+				  "type": "string",
+				  "default": "W/\"139-vY1723D+PVFvNesfY879OwnDDSw\""
+				},
+				"Date": {
+				  "type": "string",
+				  "default": "Sun, 05 Jul 2020 19:41:44 GMT"
+				},
+				"Connection": {
+				  "type": "string",
+				  "default": "keep-alive"
+				}
+			  }
+			}
+		  }
+		}
+	  }
+	},
+	"definitions": {
+	  "SignIn": {
+		"title": "SignIn",
+		"example": {
+		  "auth": true,
+		  "status": 200,
+		  "session": {
+			"cookie": {
+			  "originalMaxAge": 3600000,
+			  "expires": "2020-07-01T17:22:23.326Z",
+			  "secure": true,
+			  "httpOnly": false,
+			  "path": "/"
+			}
+		  },
+		  "message": "Login Success",
+		  "user": {
+			"id": "5efc4f92d44a3a324e9f3c9d",
+			"email": "email@example.com"
+		  },
+		  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWZjNGY5MmQ0NGEzYTMyNGU5ZjNjOWQiLCJpYXQiOjE1OTM2MjA1NDMsImV4cCI6MTU5MzcwNjk0M30.gREE4fc0Sc42qKMJk45POYdMa8XfD7Uk8zVFYse7HCI"
+		},
+		"type": "object",
+		"properties": {
+		  "auth": {
+			"type": "boolean"
+		  },
+		  "status": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "session": {
+			"$ref": "#/definitions/Session"
+		  },
+		  "message": {
+			"type": "string"
+		  },
+		  "user": {
+			"$ref": "#/definitions/User"
+		  },
+		  "accessToken": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "auth",
+		  "status",
+		  "session",
+		  "message",
+		  "user",
+		  "accessToken"
+		]
+	  },
+	  "Session": {
+		"title": "Session",
+		"example": {
+		  "cookie": {
+			"originalMaxAge": 3600000,
+			"expires": "2020-07-01T17:22:23.326Z",
+			"secure": true,
+			"httpOnly": false,
+			"path": "/"
+		  }
+		},
+		"type": "object",
+		"properties": {
+		  "cookie": {
+			"$ref": "#/definitions/Cookie"
+		  }
+		},
+		"required": [
+		  "cookie"
+		]
+	  },
+	  "Cookie": {
+		"title": "Cookie",
+		"example": {
+		  "originalMaxAge": 3600000,
+		  "expires": "2020-07-01T17:22:23.326Z",
+		  "secure": true,
+		  "httpOnly": false,
+		  "path": "/"
+		},
+		"type": "object",
+		"properties": {
+		  "originalMaxAge": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "expires": {
+			"type": "string"
+		  },
+		  "secure": {
+			"type": "boolean"
+		  },
+		  "httpOnly": {
+			"type": "boolean"
+		  },
+		  "path": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "originalMaxAge",
+		  "expires",
+		  "secure",
+		  "httpOnly",
+		  "path"
+		]
+	  },
+	  "User": {
+		"title": "User",
+		"example": {
+		  "id": "5efc4f92d44a3a324e9f3c9d",
+		  "email": "email@example.com"
+		},
+		"type": "object",
+		"properties": {
+		  "id": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "id",
+		  "email"
+		]
+	  },
+	  "SignUpRequest": {
+		"title": "SignUpRequest",
+		"example": {
+		  "username": "usernamee",
+		  "password": "password",
+		  "email": "usernamee@examplemail.com"
+		},
+		"type": "object",
+		"properties": {
+		  "username": {
+			"type": "string"
+		  },
+		  "password": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "username",
+		  "password",
+		  "email"
+		]
+	  },
+	  "SignUp": {
+		"title": "SignUp",
+		"example": {
+		  "status": 200,
+		  "session": {
+			"cookie": {
+			  "originalMaxAge": 3600000,
+			  "expires": "2020-07-01T17:23:42.044Z",
+			  "secure": true,
+			  "httpOnly": false,
+			  "path": "/"
+			}
+		  },
+		  "message": "Registration Success",
+		  "data": {
+			"id": "5efcb88ba340a10951d669d0",
+			"email": "demopasxa@examplemail.com"
+		  },
+		  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWZjYjg4YmEzNDBhMTA5NTFkNjY5ZDAiLCJpYXQiOjE1OTM2MjA2MjIsImV4cCI6MTU5MzcwNzAyMn0.mFxzKuItMbwo2aOH0RoFLKWadp3E58PoUQQAX960Oyo"
+		},
+		"type": "object",
+		"properties": {
+		  "status": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "session": {
+			"$ref": "#/definitions/Session"
+		  },
+		  "message": {
+			"type": "string"
+		  },
+		  "data": {
+			"$ref": "#/definitions/Data"
+		  },
+		  "accessToken": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "status",
+		  "session",
+		  "message",
+		  "data",
+		  "accessToken"
+		]
+	  },
+	  "Data": {
+		"title": "Data",
+		"example": {
+		  "id": "5efcb88ba340a10951d669d0",
+		  "email": "demopasxa@examplemail.com"
+		},
+		"type": "object",
+		"properties": {
+		  "id": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "id",
+		  "email"
+		]
+	  },
+	  "AnsweraQuestionRequest": {
+		"title": "AnsweraQuestionRequest",
+		"example": {
+		  "message": "Message Reply answers in this "
+		},
+		"type": "object",
+		"properties": {
+		  "message": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "message"
+		]
+	  },
+	  "AsknewQuestionRequest": {
+		"title": "AsknewQuestionRequest",
+		"example": {
+		  "question": "What are you currently worried about?",
+		  "description": "You cannot use the $out or the $merge stage in conjunction with read concern linearizable. That is, if you specify linearizable read concern for db.collection.aggregate(), you cannot include either stages in the pipeline. The following operation on a replica s specifies a Read Concern of majority to read the most recent copy of the data confirmed as having been written to a majority of the nodes."
+		},
+		"type": "object",
+		"properties": {
+		  "question": {
+			"type": "string"
+		  },
+		  "description": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "question",
+		  "description"
+		]
+	  },
+	  "ReplytoquestionRequest": {
+		"title": "ReplytoquestionRequest",
+		"example": {
+		  "message": "For example, 'regex' validator no longer exists and has been replaced with 'matches"
+		},
+		"type": "object",
+		"properties": {
+		  "message": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "message"
+		]
+	  },
+	  "UpdateQuestionRequest": {
+		"title": "UpdateQuestionRequest",
+		"example": {
+		  "description": "You cannot use the $out or the $merge stage in conjunction with read concern linearizable. That is, if you specify linearizable read concern for db.collection.aggregate(), you cannot include either stages in the pipeline. The following operation on a replica s specifies a Read Concern of majority to read the most recent copy of the data confirmed as having been written to a majority of the nodes."
+		},
+		"type": "object",
+		"properties": {
+		  "description": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "description"
+		]
+	  },
+	  "Getquestionanswerbyanswerid": {
+		"title": "Getquestionanswerbyanswerid",
+		"example": {
+		  "data": {
+			"upvotes": [],
+			"downvotes": [],
+			"comments": [
+			  "5efb8605434050251931ad79",
+			  "5efb8605434050251931ad79",
+			  "5efb864d434050251931ad7a",
+			  "5efb864d434050251931ad7a",
+			  "5efb86635d321826418b8499",
+			  "5efb86635d321826418b8499",
+			  "5efb86685d321826418b849a",
+			  "5efb86685d321826418b849a",
+			  "5efb8679a14e80272b0d39a4",
+			  "5efb8679a14e80272b0d39a4",
+			  "5efb8682a14e80272b0d39a5",
+			  "5efb8682a14e80272b0d39a5",
+			  "5efb885e6916062ec5b6c093",
+			  "5efb885e6916062ec5b6c093",
+			  "5efb88e82a0fce31efad0059",
+			  "5efb88e82a0fce31efad0059"
+			],
+			"_id": "5ef59c3910b2572e3f3f44cc",
+			"date": "2020-06-26T06:56:57.516Z",
+			"message": "Message Reply answers in this "
+		  }
+		},
+		"type": "object",
+		"properties": {
+		  "data": {
+			"$ref": "#/definitions/Data1"
+		  }
+		},
+		"required": [
+		  "data"
+		]
+	  },
+	  "Data1": {
+		"title": "Data1",
+		"example": {
+		  "upvotes": [],
+		  "downvotes": [],
+		  "comments": [
+			"5efb8605434050251931ad79",
+			"5efb8605434050251931ad79",
+			"5efb864d434050251931ad7a",
+			"5efb864d434050251931ad7a",
+			"5efb86635d321826418b8499",
+			"5efb86635d321826418b8499",
+			"5efb86685d321826418b849a",
+			"5efb86685d321826418b849a",
+			"5efb8679a14e80272b0d39a4",
+			"5efb8679a14e80272b0d39a4",
+			"5efb8682a14e80272b0d39a5",
+			"5efb8682a14e80272b0d39a5",
+			"5efb885e6916062ec5b6c093",
+			"5efb885e6916062ec5b6c093",
+			"5efb88e82a0fce31efad0059",
+			"5efb88e82a0fce31efad0059"
+		  ],
+		  "_id": "5ef59c3910b2572e3f3f44cc",
+		  "date": "2020-06-26T06:56:57.516Z",
+		  "message": "Message Reply answers in this "
+		},
+		"type": "object",
+		"properties": {
+		  "upvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "downvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "comments": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "date": {
+			"type": "string"
+		  },
+		  "message": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "upvotes",
+		  "downvotes",
+		  "comments",
+		  "_id",
+		  "date",
+		  "message"
+		]
+	  },
+	  "ListAnswer": {
+		"title": "ListAnswer",
+		"example": {
+		  "upvotes": [],
+		  "downvotes": [],
+		  "comments": [
+			"5efb8605434050251931ad79",
+			"5efb8605434050251931ad79",
+			"5efb864d434050251931ad7a",
+			"5efb864d434050251931ad7a",
+			"5efb86635d321826418b8499",
+			"5efb86635d321826418b8499",
+			"5efb86685d321826418b849a",
+			"5efb86685d321826418b849a",
+			"5efb8679a14e80272b0d39a4",
+			"5efb8679a14e80272b0d39a4",
+			"5efb8682a14e80272b0d39a5",
+			"5efb8682a14e80272b0d39a5",
+			"5efb885e6916062ec5b6c093",
+			"5efb885e6916062ec5b6c093",
+			"5efb88e82a0fce31efad0059",
+			"5efb88e82a0fce31efad0059"
+		  ],
+		  "_id": "5ef59c3910b2572e3f3f44cc",
+		  "date": "2020-06-26T06:56:57.516Z",
+		  "message": "Message Reply answers in this ",
+		  "questionId": "5ef59c0010b2572e3f3f44ca",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "upvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "downvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "comments": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "date": {
+			"type": "string"
+		  },
+		  "message": {
+			"type": "string"
+		  },
+		  "questionId": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "upvotes",
+		  "downvotes",
+		  "comments",
+		  "_id",
+		  "date",
+		  "message",
+		  "questionId",
+		  "__v"
+		]
+	  },
+	  "Getanswerreplybyid": {
+		"title": "Getanswerreplybyid",
+		"example": {
+		  "data": {
+			"upvotes": [],
+			"downvotes": [],
+			"_id": "5efb638d00b63001cf0d31fe",
+			"date": "2020-06-30T16:08:45.771Z",
+			"message": "For example, 'regex' validator no longer exists and has been replaced with 'matches"
+		  }
+		},
+		"type": "object",
+		"properties": {
+		  "data": {
+			"$ref": "#/definitions/Data2"
+		  }
+		},
+		"required": [
+		  "data"
+		]
+	  },
+	  "Data2": {
+		"title": "Data2",
+		"example": {
+		  "upvotes": [],
+		  "downvotes": [],
+		  "_id": "5efb638d00b63001cf0d31fe",
+		  "date": "2020-06-30T16:08:45.771Z",
+		  "message": "For example, 'regex' validator no longer exists and has been replaced with 'matches"
+		},
+		"type": "object",
+		"properties": {
+		  "upvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "downvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "date": {
+			"type": "string"
+		  },
+		  "message": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "upvotes",
+		  "downvotes",
+		  "_id",
+		  "date",
+		  "message"
+		]
+	  },
+	  "Getanswevote": {
+		"title": "Getanswevote",
+		"example": {
+		  "_id": "5ef59c3910b2572e3f3f44cc",
+		  "upvotes": 0,
+		  "downvotes": 0
+		},
+		"type": "object",
+		"properties": {
+		  "_id": {
+			"type": "string"
+		  },
+		  "upvotes": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "downvotes": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "_id",
+		  "upvotes",
+		  "downvotes"
+		]
+	  },
+	  "Getanswerscomments": {
+		"title": "Getanswerscomments",
+		"example": {
+		  "comments": [
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8605434050251931ad79",
+			  "date": "2020-06-30T18:35:49.779Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8605434050251931ad79",
+			  "date": "2020-06-30T18:35:49.779Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb864d434050251931ad7a",
+			  "date": "2020-06-30T18:37:01.784Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb864d434050251931ad7a",
+			  "date": "2020-06-30T18:37:01.784Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb86635d321826418b8499",
+			  "date": "2020-06-30T18:37:23.402Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb86635d321826418b8499",
+			  "date": "2020-06-30T18:37:23.402Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8679a14e80272b0d39a4",
+			  "date": "2020-06-30T18:37:45.464Z",
+			  "message": "Message  validation failed: message: Comment should",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8679a14e80272b0d39a4",
+			  "date": "2020-06-30T18:37:45.464Z",
+			  "message": "Message  validation failed: message: Comment should",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8682a14e80272b0d39a5",
+			  "date": "2020-06-30T18:37:54.833Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8682a14e80272b0d39a5",
+			  "date": "2020-06-30T18:37:54.833Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb885e6916062ec5b6c093",
+			  "date": "2020-06-30T18:45:50.895Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb885e6916062ec5b6c093",
+			  "date": "2020-06-30T18:45:50.895Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb88e82a0fce31efad0059",
+			  "date": "2020-06-30T18:48:08.851Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb88e82a0fce31efad0059",
+			  "date": "2020-06-30T18:48:08.851Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			}
+		  ],
+		  "_id": "5ef59c3910b2572e3f3f44cc"
+		},
+		"type": "object",
+		"properties": {
+		  "comments": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/definitions/Comment"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "comments",
+		  "_id"
+		]
+	  },
+	  "Comment": {
+		"title": "Comment",
+		"example": {
+		  "upvotes": [],
+		  "downvotes": [],
+		  "_id": "5efb8605434050251931ad79",
+		  "date": "2020-06-30T18:35:49.779Z",
+		  "message": "Message  validation failed: message:",
+		  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+		  "answerId": "5ef59c3910b2572e3f3f44cc",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "upvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "downvotes": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "date": {
+			"type": "string"
+		  },
+		  "message": {
+			"type": "string"
+		  },
+		  "comment_by": {
+			"type": "string"
+		  },
+		  "answerId": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "by": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "upvotes",
+		  "downvotes",
+		  "_id",
+		  "date",
+		  "message",
+		  "answerId",
+		  "__v"
+		]
+	  },
+	  "CommentonAnswerRequest": {
+		"title": "CommentonAnswerRequest",
+		"example": {
+		  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+		  "userId": "5ef59bbd10b2572e3f3f44c8"
+		},
+		"type": "object",
+		"properties": {
+		  "message": {
+			"type": "string"
+		  },
+		  "userId": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "message",
+		  "userId"
+		]
+	  },
+	  "CommentonAnswer": {
+		"title": "CommentonAnswer",
+		"example": {
+		  "comments": [
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8605434050251931ad79",
+			  "date": "2020-06-30T18:35:49.779Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8605434050251931ad79",
+			  "date": "2020-06-30T18:35:49.779Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb864d434050251931ad7a",
+			  "date": "2020-06-30T18:37:01.784Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb864d434050251931ad7a",
+			  "date": "2020-06-30T18:37:01.784Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb86635d321826418b8499",
+			  "date": "2020-06-30T18:37:23.402Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb86635d321826418b8499",
+			  "date": "2020-06-30T18:37:23.402Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8679a14e80272b0d39a4",
+			  "date": "2020-06-30T18:37:45.464Z",
+			  "message": "Message  validation failed: message: Comment should",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8679a14e80272b0d39a4",
+			  "date": "2020-06-30T18:37:45.464Z",
+			  "message": "Message  validation failed: message: Comment should",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8682a14e80272b0d39a5",
+			  "date": "2020-06-30T18:37:54.833Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb8682a14e80272b0d39a5",
+			  "date": "2020-06-30T18:37:54.833Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb885e6916062ec5b6c093",
+			  "date": "2020-06-30T18:45:50.895Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb885e6916062ec5b6c093",
+			  "date": "2020-06-30T18:45:50.895Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb88e82a0fce31efad0059",
+			  "date": "2020-06-30T18:48:08.851Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "upvotes": [],
+			  "downvotes": [],
+			  "_id": "5efb88e82a0fce31efad0059",
+			  "date": "2020-06-30T18:48:08.851Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			}
+		  ],
+		  "_id": "5ef59c3910b2572e3f3f44cc"
+		},
+		"type": "object",
+		"properties": {
+		  "comments": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/definitions/Comment"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "comments",
+		  "_id"
+		]
+	  },
+	  "Getanswersbyanswerid": {
+		"title": "Getanswersbyanswerid",
+		"example": {
+		  "_id": "5ef59c3910b2572e3f3f44cc",
+		  "total_comments": 16,
+		  "upvotes": 0,
+		  "downvotes": 0,
+		  "message": "Message Reply answers in this ",
+		  "date": "2020-06-26T06:56:57.516Z",
+		  "questionid": "5ef59c0010b2572e3f3f44ca",
+		  "comments": [
+			{
+			  "_id": "5efb851e368ad81fee9071de",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:31:58.722Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb85ad1fa05f234d4ba19e",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:34:21.115Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb8605434050251931ad79",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:35:49.779Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb864d434050251931ad7a",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:37:01.784Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb86635d321826418b8499",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:37:23.402Z",
+			  "message": "Message  validation failed: message:",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb8679a14e80272b0d39a4",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:37:45.464Z",
+			  "message": "Message  validation failed: message: Comment should",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb8682a14e80272b0d39a5",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:37:54.833Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "comment_by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb885e6916062ec5b6c093",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:45:50.895Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			},
+			{
+			  "_id": "5efb88e82a0fce31efad0059",
+			  "upvotes": [],
+			  "downvotes": [],
+			  "date": "2020-06-30T18:48:08.851Z",
+			  "message": "Message  validation failed: message: Comment should be between 30 and 50 characters",
+			  "by": "5ef59bbd10b2572e3f3f44c8",
+			  "answerId": "5ef59c3910b2572e3f3f44cc",
+			  "__v": 0
+			}
+		  ]
+		},
+		"type": "object",
+		"properties": {
+		  "_id": {
+			"type": "string"
+		  },
+		  "total_comments": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "upvotes": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "downvotes": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "message": {
+			"type": "string"
+		  },
+		  "date": {
+			"type": "string"
+		  },
+		  "questionid": {
+			"type": "string"
+		  },
+		  "comments": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/definitions/Comment"
+			}
+		  }
+		},
+		"required": [
+		  "_id",
+		  "total_comments",
+		  "upvotes",
+		  "downvotes",
+		  "message",
+		  "date",
+		  "questionid",
+		  "comments"
+		]
+	  },
+	  "ListTag": {
+		"title": "ListTag",
+		"example": {
+		  "valid": false,
+		  "_id": "5efc5f1fbb6b8c79069ee581",
+		  "name": "physics",
+		  "created_at": "2020-07-01T10:02:07.188Z",
+		  "updated_at": "2020-07-01T10:02:07.188Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "valid",
+		  "_id",
+		  "name",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "CreatenewTAGRequest": {
+		"title": "CreatenewTAGRequest",
+		"example": {
+		  "name": "chemist"
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name"
+		]
+	  },
+	  "CreatenewTAG": {
+		"title": "CreatenewTAG",
+		"example": {
+		  "valid": false,
+		  "_id": "5efc5f1fbb6b8c79069ee581",
+		  "name": "physics",
+		  "created_at": "2020-07-01T10:02:07.188Z",
+		  "updated_at": "2020-07-01T10:02:07.188Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "valid",
+		  "_id",
+		  "name",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "UpdateTagRequest": {
+		"title": "UpdateTagRequest",
+		"example": {
+		  "name": "Geography",
+		  "valid": true
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "valid": {
+			"type": "boolean"
+		  }
+		},
+		"required": [
+		  "name",
+		  "valid"
+		]
+	  },
+	  "UpdateTag": {
+		"title": "UpdateTag",
+		"example": {
+		  "valid": true,
+		  "_id": "5efc624025acf90727ee20bc",
+		  "name": "geography",
+		  "created_at": "2020-07-01T10:15:28.706Z",
+		  "updated_at": "2020-07-01T10:23:09.707Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "valid",
+		  "_id",
+		  "name",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "UpdateProfileRequest": {
+		"title": "UpdateProfileRequest",
+		"example": {
+		  "city": "Dar es Salaam",
+		  "phone": "0716 087522",
+		  "fullname": "Elirehema Paul",
+		  "tags": [
+			"5efc5f1fbb6b8c79069ee581",
+			"5efc5f1fbb6b8c79069ee581",
+			"5efc5f31bb6b8c79069ee583"
+		  ]
+		},
+		"type": "object",
+		"properties": {
+		  "city": {
+			"type": "string"
+		  },
+		  "phone": {
+			"type": "string"
+		  },
+		  "fullname": {
+			"type": "string"
+		  },
+		  "tags": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  }
+		},
+		"required": [
+		  "city",
+		  "phone",
+		  "fullname",
+		  "tags"
+		]
+	  },
+	  "UpdateProfile": {
+		"title": "UpdateProfile",
+		"example": {
+		  "tags": [
+			"5efc5f1fbb6b8c79069ee581",
+			"5efc5f1fbb6b8c79069ee581",
+			"5efc5f31bb6b8c79069ee583"
+		  ],
+		  "answers": [],
+		  "comments": [],
+		  "replies": [],
+		  "_id": "5efcba83f2363e13581c854a",
+		  "username": "demopass",
+		  "thumbnail": "https://www.aalforum.eu/wp-content/uploads/2016/04/profile-placeholder.png",
+		  "email": "demopass@examplemail.com",
+		  "scores": [],
+		  "created_at": "2020-07-01T16:32:08.223Z",
+		  "updated_at": "2020-07-01T16:54:48.813Z",
+		  "__v": 2,
+		  "city_state": "Dar es Salaam",
+		  "fullname": "Elirehema Paul",
+		  "phone": "0716 087522"
+		},
+		"type": "object",
+		"properties": {
+		  "tags": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "answers": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "comments": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "replies": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "username": {
+			"type": "string"
+		  },
+		  "thumbnail": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  },
+		  "scores": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "city_state": {
+			"type": "string"
+		  },
+		  "fullname": {
+			"type": "string"
+		  },
+		  "phone": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "tags",
+		  "answers",
+		  "comments",
+		  "replies",
+		  "_id",
+		  "username",
+		  "thumbnail",
+		  "email",
+		  "scores",
+		  "created_at",
+		  "updated_at",
+		  "__v",
+		  "city_state",
+		  "fullname",
+		  "phone"
+		]
+	  },
+	  "ListClass": {
+		"title": "ListClass",
+		"example": {
+		  "_id": "5efcc4dfbe44fb427f833114",
+		  "name": "class one",
+		  "code": "C1",
+		  "created_at": "2020-07-01T17:16:15.759Z",
+		  "updated_at": "2020-07-01T17:16:15.759Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "_id",
+		  "name",
+		  "code",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "CreateClassRequest": {
+		"title": "CreateClassRequest",
+		"example": {
+		  "name": "Class Three",
+		  "code": "C3"
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name",
+		  "code"
+		]
+	  },
+	  "CreateClass": {
+		"title": "CreateClass",
+		"example": {
+		  "_id": "5efcc71273adc24bc96688b8",
+		  "name": "class three",
+		  "code": "C3",
+		  "created_at": "2020-07-01T17:25:38.22Z",
+		  "updated_at": "2020-07-01T17:25:38.22Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "_id",
+		  "name",
+		  "code",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "ListSubject": {
+		"title": "ListSubject",
+		"example": {
+		  "topics": [],
+		  "valid": true,
+		  "_id": "5efcd266097f667bfd3b439d",
+		  "name": "Biology",
+		  "code": "BS",
+		  "created_at": "2020-07-01T18:13:58.97Z",
+		  "updated_at": "2020-07-01T18:13:58.97Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "topics": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "topics",
+		  "valid",
+		  "_id",
+		  "name",
+		  "code",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "CreateNewSubjectRequest": {
+		"title": "CreateNewSubjectRequest",
+		"example": {
+		  "name": "History",
+		  "code": "HS"
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name",
+		  "code"
+		]
+	  },
+	  "CreateNewSubject": {
+		"title": "CreateNewSubject",
+		"example": {
+		  "topics": [],
+		  "valid": true,
+		  "_id": "5efcd27f097f667bfd3b439f",
+		  "name": "Phisycs",
+		  "code": "PS",
+		  "created_at": "2020-07-01T18:14:23.616Z",
+		  "updated_at": "2020-07-01T18:14:23.616Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "topics": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "topics",
+		  "valid",
+		  "_id",
+		  "name",
+		  "code",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "UpdateSubjectRequest": {
+		"title": "UpdateSubjectRequest",
+		"example": {
+		  "name": "Biology",
+		  "valid": "false"
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "valid": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name",
+		  "valid"
+		]
+	  },
+	  "UpdateSubject": {
+		"title": "UpdateSubject",
+		"example": {
+		  "topics": [],
+		  "valid": false,
+		  "_id": "5efcd266097f667bfd3b439d",
+		  "name": "Biology",
+		  "code": "BS",
+		  "created_at": "2020-07-01T18:13:58.97Z",
+		  "updated_at": "2020-07-01T18:24:55.571Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "topics": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "topics",
+		  "valid",
+		  "_id",
+		  "name",
+		  "code",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  },
+	  "CreatenewTopicRequest": {
+		"title": "CreatenewTopicRequest",
+		"example": {
+		  "name": "Matrix",
+		  "code": "ST",
+		  "subjects": [
+			"5efcd266097f667bfd3b439d",
+			"5efcd27f097f667bfd3b439f"
+		  ],
+		  "questions": [
+			"5ef59c0010b2572e3f3f44ca",
+			"5ef59c3910b2572e3f3f44cc"
+		  ]
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "subjects": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "questions": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  }
+		},
+		"required": [
+		  "name",
+		  "code",
+		  "subjects",
+		  "questions"
+		]
+	  },
+	  "CreatenewTopic": {
+		"title": "CreatenewTopic",
+		"example": {
+		  "subjects": [
+			"5efcd266097f667bfd3b439d",
+			"5efcd27f097f667bfd3b439f"
+		  ],
+		  "resources": [],
+		  "questions": [
+			"5ef59c0010b2572e3f3f44ca",
+			"5ef59c3910b2572e3f3f44cc"
+		  ],
+		  "valid": true,
+		  "_id": "5f022cf357cb695ecf50277a",
+		  "name": "matrix",
+		  "code": "ST",
+		  "created_at": "2020-07-05T19:41:39.993Z",
+		  "updated_at": "2020-07-05T19:41:39.993Z",
+		  "__v": 0
+		},
+		"type": "object",
+		"properties": {
+		  "subjects": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "resources": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "questions": {
+			"type": "array",
+			"items": {
+			  "type": "string"
+			}
+		  },
+		  "valid": {
+			"type": "boolean"
+		  },
+		  "_id": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "code": {
+			"type": "string"
+		  },
+		  "created_at": {
+			"type": "string"
+		  },
+		  "updated_at": {
+			"type": "string"
+		  },
+		  "__v": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "subjects",
+		  "resources",
+		  "questions",
+		  "valid",
+		  "_id",
+		  "name",
+		  "code",
+		  "created_at",
+		  "updated_at",
+		  "__v"
+		]
+	  }
+	},
+	"tags": [
+	  {
+		"name": "Authentication"
+	  },
+	  {
+		"name": "Questions"
+	  },
+	  {
+		"name": "Answers"
+	  },
+	  {
+		"name": "Tags"
+	  },
+	  {
+		"name": "Profiles"
+	  },
+	  {
+		"name": "Classes"
+	  },
+	  {
+		"name": "Subjects"
+	  },
+	  {
+		"name": "Topics",
+		"description": "Manage topics crud operations, ADD, UPDATE, DELETE etc"
+	  }
+	]
+  }
