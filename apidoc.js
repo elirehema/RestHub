@@ -3,8 +3,8 @@ const swagger_options = {
     swaggerOptions:{
       urls:[
         {
-            url: '/api/doc/auth.json',
-            name: 'Authentication'
+            url: '/api/doc/postman_collection.json',
+            name: 'Api Documentations'
         },
         {
             url: '/api/doc/user.json',
