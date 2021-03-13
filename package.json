@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "electron-rebuild": "^2.3.5",
-    "mocha": "^8.0.1",
+    "mocha": "^8.3.2",
     "mochawesome": "^6.2.2"
   }
 }
