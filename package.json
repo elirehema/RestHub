@@ -52,7 +52,7 @@
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
-    "electron-rebuild": "^1.11.0",
+    "electron-rebuild": "^2.3.5",
     "mocha": "^8.0.1",
     "mochawesome": "^6.1.1"
   }
